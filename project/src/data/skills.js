@@ -5,20 +5,19 @@ const skills = [
       "HTML5",
       "CSS3",
       "JavaScript (ES6+)",
-      "React",
-      "Tailwind CSS",
+      "Vue.js",
       "Responsive Design",
+      "Tailwind CSS",
+      "UI/UX Principles",
     ],
   },
   {
     category: "Backend",
     items: [
-      "Node.js",
-      "Express",
+      "Java",
+      "Spring Boot",
       "Python",
       "Django",
-      "PHP",
-      "GraphQL",
       "RESTful APIs",
       "Authentication & Authorization",
     ],
@@ -28,20 +27,19 @@ const skills = [
     items: ["MySQL"],
   },
   {
-    category: "DevOps & Tools",
-    items: ["Git", "GitHub", "Vite"],
-  },
-  {
-    category: "Design",
+    category: "Machine Learning & AI",
     items: [
-      "Figma",
-      "Adobe XD",
-      "UI/UX Principles",
-      "Responsive Design",
-      "Accessibility",
-      "Design Systems",
+      "Machine Learning",
+      "Deep Learning",
+      "PyTorch",
+      "Data Preprocessing",
+      "Model Deployment",
     ],
   },
+  {
+    category: "DevOps & Tools",
+    items: ["Git", "GitHub"],
+  }
 ];
 
 export default skills;

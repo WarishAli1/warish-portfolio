@@ -1,202 +1,102 @@
 import { motion } from "framer-motion";
 import { FiDownload } from "react-icons/fi";
-import SectionTitle from "../components/SectionTitle";
-import skills from "../data/skills";
-
-const About = () => {
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
-    },
-  };
-
+import NeonLinesBackground from "../context/NeonLinesBackground";
+export default function About() {
   return (
-    <div className="page-transition">
-      <section className="pt-32 pb-20 bg-gradient-to-br from-white to-gray-100 dark:from-gray-900 dark:to-gray-800">
-        <div className="container-custom">
-          <SectionTitle
-            title="About Me"
-            subtitle="Learn more about my background, skills, and what drives me as a developer."
-          />
+    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-black to-gray-900 text-white relative overflow-hidden">
+      <NeonLinesBackground />
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 left-32 w-72 h-72 bg-purple-600/30 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-600/30 rounded-full blur-3xl animate-pulse"></div>
+      </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
+      <section className="relative z-10 max-w-6xl mx-auto px-6 py-24">
+        <motion.h1
+          className="text-5xl font-extrabold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          About Me
+        </motion.h1>
+
+        <p className="text-center text-gray-400 text-lg mb-16">
+          Get to know who I am beyond just the code.
+        </p>
+
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl p-10 flex flex-col items-center text-center"
+          >
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              className="lg:col-span-2"
-            >
-              <h2 className="text-2xl font-bold mb-4">My Journey</h2>
-              <div className="space-y-4 text-gray-700 dark:text-gray-300">
-                <p>
-                  Hello! I'm a passionate full-stack developer with a strong
-                  focus on creating intuitive and performant web applications.
-                  My journey in web development began over 1 year ago when I
-                  built my first website using HTML and CSS.
-                </p>
-                <p>
-                  Since then, I've expanded my skills to include modern
-                  JavaScript frameworks like React and Vue.js, backend
-                  technologies such as Node.js and Python, and database systems
-                  including MongoDB and PostgreSQL.
-                </p>
-                <p>
-                  I believe in writing clean, maintainable code and staying
-                  up-to-date with the latest industry trends and best practices.
-                  My approach to development is centered around solving real
-                  problems and creating exceptional user experiences.
-                </p>
-                <p>
-                  When I'm not coding, you can find me hiking in the mountains,
-                  reading tech blogs, or experimenting with new technologies on
-                  side projects.
-                </p>
-              </div>
-
-              <div className="mt-8">
-                <a href="#" className="inline-flex items-center btn-primary">
-                  <FiDownload className="mr-2" /> Download Resume
-                </a>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6"
-            >
-              <img
-                src="ashimsilwal.jpg"
-                alt="Profile"
-                className="w-full h-auto rounded-lg mb-6"
-              />
-
-              <h3 className="text-xl font-bold mb-2">Quick Info</h3>
-
-              <div className="space-y-3">
-                <div>
-                  <span className="font-semibold text-gray-700 dark:text-gray-300">
-                    Name:
-                  </span>
-                  <span className="ml-2 text-gray-600 dark:text-gray-400">
-                    Ashim Silwal
-                  </span>
-                </div>
-                <div>
-                  <span className="font-semibold text-gray-700 dark:text-gray-300">
-                    Location:
-                  </span>
-                  <span className="ml-2 text-gray-600 dark:text-gray-400">
-                    Lalitpur, Nepal
-                  </span>
-                </div>
-                <div>
-                  <span className="font-semibold text-gray-700 dark:text-gray-300">
-                    Email:
-                  </span>
-                  <span className="ml-2 text-gray-600 dark:text-gray-400">
-                    ashimslw@gmail.com
-                  </span>
-                </div>
-                <div>
-                  <span className="font-semibold text-gray-700 dark:text-gray-300">
-                    Experience:
-                  </span>
-                  <span className="ml-2 text-gray-600 dark:text-gray-400">
-                    1 Year
-                  </span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-
-          <div className="mb-16">
-            <h2 className="text-2xl font-bold mb-6 text-center">
-              Education & Experience
-            </h2>
-
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              className="space-y-8"
+              className="relative w-52 h-52 md:w-60 md:h-60 rounded-2xl overflow-hidden shadow-lg"
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 0 35px rgba(99,102,241,0.5)",
+              }}
+              transition={{ type: "spring", stiffness: 200, damping: 15 }}
             >
               <motion.div
-                variants={itemVariants}
-                className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6"
-              >
-                <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                  <div>
-                    <h3 className="text-xl font-bold">
-                      BSc hons. Computer Science with AI
-                    </h3>
-                    <p className="text-primary-600 dark:text-primary-400">
-                      Sunway College, Kathmandu
-                    </p>
-                  </div>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    2024 - Present
-                  </p>
-                </div>
-                <p className="text-gray-700 dark:text-gray-300">
-                  Learning Coursework included web development, algorithms, data
-                  structures, and software engineering principles.
-                </p>
-              </motion.div>
+                className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-blue-600/30 blur-2xl opacity-50"
+                animate={{
+                  rotate: [0, 360],
+                }}
+                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+              />
+              <img
+                src="/warish.HEIC"
+                alt="Warish Ali"
+                className="object-cover w-full h-full rounded-2xl relative z-10"
+              />
             </motion.div>
-          </div>
 
-          <div>
-            <h2 className="text-2xl font-bold mb-6 text-center">My Skills</h2>
+            <h2 className="mt-6 text-3xl font-bold text-white">Warish Ali</h2>
+            <p className="text-sm font-medium text-purple-400 mt-1 uppercase tracking-wide">
+              Software Engineer
+            </p>
+            <p className="mt-2 text-gray-400">
+              Kathmandu, Nepal · ✉️ warishkhan384@gmail.com
+            </p>
 
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            <motion.a
+              href="/resume.pdf"
+              download="Warish_Ali_Resume.pdf"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
+              className="mt-8 inline-flex items-center px-6 py-3 rounded-lg font-semibold bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 transition-all duration-300 shadow-lg"
             >
-              {skills.map((skillGroup, index) => (
-                <motion.div
-                  key={index}
-                  variants={itemVariants}
-                  className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md"
-                >
-                  <h3 className="text-xl font-bold mb-4 text-primary-600 dark:text-primary-400">
-                    {skillGroup.category}
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {skillGroup.items.map((skill, skillIndex) => (
-                      <span
-                        key={skillIndex}
-                        className="px-3 py-1 text-sm bg-gray-50 dark:bg-gray-700 rounded-full text-gray-800 dark:text-gray-200 shadow-sm"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
+              <FiDownload className="mr-2" /> Download Resume
+            </motion.a>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl p-10 text-gray-300 leading-relaxed text-lg"
+          >
+            <p className="mb-6">
+              I’m a developer who enjoys building applications that work well
+              and actually solve problems. I’ve worked with{" "}
+              <span className="font-semibold text-purple-400">Java, Vue.js, and Spring Boot</span>{" "}
+              — not my main focus, but tools I like using to connect ideas from
+              front to back.
+            </p>
+            <p>
+              Lately, I’ve been exploring{" "}
+              <span className="font-semibold text-blue-400">machine learning with PyTorch</span>,
+              diving into CNNs, neural networks, and computer vision. For me,
+              it’s less about sticking to one stack and more about learning,
+              experimenting, and turning concepts into real, impactful software.
+            </p>
+          </motion.div>
         </div>
       </section>
     </div>
   );
-};
-
-export default About;
+}
