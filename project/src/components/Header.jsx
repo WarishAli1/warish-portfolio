@@ -10,9 +10,7 @@ const Header = () => {
   const { isDarkMode, toggleTheme } = useTheme();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -31,9 +29,7 @@ const Header = () => {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-black/70 backdrop-blur-md shadow-lg'
-          : 'bg-transparent'
+        isScrolled ? 'bg-black/70 backdrop-blur-md shadow-lg' : 'bg-transparent'
       }`}
     >
       {/* Floating Glow Blobs */}
@@ -66,7 +62,17 @@ const Header = () => {
             </NavLink>
           ))}
 
+          {/* Theme toggle button for desktop */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-full bg-gray-800/50 text-gray-200 hover:bg-gray-700/70 transition-colors duration-300"
+            aria-label="Toggle theme"
+          >
+            {isDarkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
+          </button>
         </nav>
+
+        {/* Mobile buttons */}
         <div className="flex items-center md:hidden gap-2">
           <button
             onClick={toggleTheme}

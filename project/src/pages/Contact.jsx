@@ -1,20 +1,52 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { FiMail, FiPhone, FiMapPin, FiSend, FiGithub, FiLinkedin, FiTwitter } from "react-icons/fi";
+import emailjs from "@emailjs/browser";
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
   const [status, setStatus] = useState({ isSubmitting: false, isSubmitted: false, message: "" });
 
-  const handleChange = (e) => setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  const handleChange = (e) => setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setStatus({ isSubmitting: true, isSubmitted: false, message: "" });
-    setTimeout(() => {
-      setStatus({ isSubmitting: false, isSubmitted: true, message: "Message sent successfully! 🚀" });
-      setFormData({ name: "", email: "", subject: "", message: "" });
-    }, 1500);
+    
+    const currentTime = new Date();
+    const formattedTime = currentTime.toLocaleString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    const emailParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      subject: formData.subject,
+      message: formData.message,
+      time: formattedTime,
+    };
+
+    const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    emailjs
+      .send(SERVICE_ID, TEMPLATE_ID, emailParams, PUBLIC_KEY)
+      .then(() => {
+        setStatus({ isSubmitting: false, isSubmitted: true, message: "Message sent successfully! 🚀" });
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      })
+      .catch(() => {
+        setStatus({
+          isSubmitting: false,
+          isSubmitted: false,
+          message: "Failed to send message. Please try again.",
+        });
+      });
   };
 
   return (
@@ -36,8 +68,7 @@ export default function Contact() {
       </motion.h1>
 
       <div className="max-w-4xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
-
-        {/* Left Side: Contact Info Inline */}
+        {/* Left Side */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -61,13 +92,19 @@ export default function Contact() {
           </div>
 
           <div className="flex gap-5 mt-6">
-            <motion.a whileHover={{ scale: 1.3 }} href="https://github.com/warishali1" target="_blank" rel="noopener noreferrer"><FiGithub size={28} /></motion.a>
-            <motion.a whileHover={{ scale: 1.3 }} href="https://linkedin.com/in/warish-ali-885923363" target="_blank" rel="noopener noreferrer"><FiLinkedin size={28} /></motion.a>
-            <motion.a whileHover={{ scale: 1.3 }} href="https://x.com/myself_warish" target="_blank" rel="noopener noreferrer"><FiTwitter size={28} /></motion.a>
+            <motion.a whileHover={{ scale: 1.3 }} href="https://github.com/warishali1" target="_blank" rel="noopener noreferrer">
+              <FiGithub size={28} />
+            </motion.a>
+            <motion.a whileHover={{ scale: 1.3 }} href="https://linkedin.com/in/warish-ali-885923363" target="_blank" rel="noopener noreferrer">
+              <FiLinkedin size={28} />
+            </motion.a>
+            <motion.a whileHover={{ scale: 1.3 }} href="https://x.com/myself_warish" target="_blank" rel="noopener noreferrer">
+              <FiTwitter size={28} />
+            </motion.a>
           </div>
         </motion.div>
 
-        {/* Right Side: Modern Floating Form */}
+        {/* Right Side Form */}
         <motion.form
           onSubmit={handleSubmit}
           initial={{ opacity: 0, x: 50 }}
@@ -76,40 +113,37 @@ export default function Contact() {
           className="relative flex flex-col gap-6 bg-black/20 p-10 rounded-2xl border border-white/20 backdrop-blur-md shadow-[0_0_60px_rgba(128,0,255,0.3)]"
         >
           {status.isSubmitted && (
-            <div className="mb-4 p-3 bg-green-600/20 text-green-300 text-center rounded-lg">{status.message}</div>
+            <div className="mb-4 p-3 bg-green-600/20 text-green-300 text-center rounded-lg">
+              {status.message}
+            </div>
           )}
 
           {["name", "email", "subject"].map((field) => (
-            <div key={field} className="relative">
-              <input
-                type={field === "email" ? "email" : "text"}
-                name={field}
-                value={formData[field]}
-                onChange={handleChange}
-                required
-                placeholder=" "
-                className="w-full px-5 py-4 text-gray-200 bg-black/20 border border-gray-600 rounded-xl backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-1 focus:ring-offset-black transition-all peer shadow-lg hover:shadow-purple-500/20"
-              />
-              <label className="absolute left-5 top-4 text-gray-400 text-sm peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-purple-400 peer-focus:text-sm transition-all">
-                {field}
-              </label>
-            </div>
-          ))}
-
-          <div className="relative">
-            <textarea
-              name="message"
-              value={formData.message}
+            <input
+              key={field}
+              type={field === "email" ? "email" : "text"}
+              name={field}
+              value={formData[field]}
               onChange={handleChange}
               required
-              rows="5"
-              placeholder=" "
-              className="w-full px-5 py-4 text-gray-200 bg-black/20 border border-gray-600 rounded-xl backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-1 focus:ring-offset-black transition-all peer resize-none shadow-lg hover:shadow-blue-500/20"
+              placeholder={`${field}`}
+              className="w-full px-5 py-4 text-gray-200 bg-black/20 border border-gray-600 rounded-xl backdrop-blur-md 
+              focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-1 focus:ring-offset-black 
+              transition-all shadow-lg hover:shadow-purple-500/20 placeholder-gray-400"
             />
-            <label className="absolute left-5 top-4 text-gray-400 text-sm peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-purple-400 peer-focus:text-sm transition-all">
-              Message
-            </label>
-          </div>
+          ))}
+
+          <textarea
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            required
+            rows="5"
+            placeholder="Write your message..."
+            className="w-full px-5 py-4 text-gray-200 bg-black/20 border border-gray-600 rounded-xl backdrop-blur-md 
+            focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-1 focus:ring-offset-black 
+            transition-all resize-none shadow-lg hover:shadow-blue-500/20 placeholder-gray-400"
+          ></textarea>
 
           <motion.button
             type="submit"
