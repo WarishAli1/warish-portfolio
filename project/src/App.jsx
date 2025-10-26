@@ -10,6 +10,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import ScrollToTop from './components/ScrollToTop';
 import GlowFollower from './context/GlowFollower';
+import AllProject from './pages/AllProject';
 function App() {
   const location = useLocation();
 
@@ -27,6 +28,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/education" element={<Education />} />
+            <Route path="/all-projects" element={<AllProject />} />
           </Routes>
         </AnimatePresence>
       </main>

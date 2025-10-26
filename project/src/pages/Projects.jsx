@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FiExternalLink, FiGithub } from "react-icons/fi";
@@ -12,6 +13,12 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 const Projects = () => {
+  const [tappedSlide, setTappedSlide] = useState(null);
+
+  const handleSlideClick = (id) => {
+    setTappedSlide((prev) => (prev === id ? null : id));
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-950 via-black to-gray-900 text-white relative overflow-hidden">
       <NeonLinesBackground />
@@ -26,7 +33,6 @@ const Projects = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-20"
         >
-
           <h2 className="text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500 inline-block pb-2">
             My Projects
           </h2>
@@ -43,13 +49,13 @@ const Projects = () => {
           slidesPerView={3}
           loop={false}
           navigation={true}
-          pagination={{ clickable: true }}
+          pagination={{ clickable: true, bulletClass: "swiper-pagination-bullet !bg-white", bulletActiveClass: "swiper-pagination-bullet-active !bg-blue-500" }}
+          spaceBetween={60}
           autoplay={{
-            delay: 3000,      
+            delay: 3000,
             disableOnInteraction: false,
             pauseOnMouseEnter: true, 
           }}
-          spaceBetween={60}
           coverflowEffect={{
             rotate: 50,
             stretch: 0,
@@ -67,9 +73,10 @@ const Projects = () => {
           {projects.map((project) => (
             <SwiperSlide key={project.id}>
               <motion.div
-                whileHover={{ scale: 1.08 }}
+                onClick={() => handleSlideClick(project.id)}
+                whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                className="relative group rounded-3xl overflow-hidden backdrop-blur-xl border border-white/10 shadow-2xl bg-white/5 hover:bg-white/10 transition-all duration-300 cursor-pointer"
+                className="relative group rounded-3xl overflow-hidden backdrop-blur-xl border border-white/10 shadow-2xl bg-white/5 hover:bg-white/10 transition-all duration-300 cursor-pointer w-full"
               >
                 <div className="relative w-full h-96 overflow-hidden rounded-3xl">
                   <motion.img
@@ -78,10 +85,11 @@ const Projects = () => {
                     className="w-full h-full object-cover rounded-3xl transition-transform duration-700 group-hover:scale-110"
                   />
 
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
-                    className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent flex flex-col justify-end p-6 text-left transition-opacity duration-300 sm:opacity-0 sm:hover:opacity-100 opacity-100"
+                  <div
+                    className={`
+                      absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent flex flex-col justify-end p-6 text-left transition-opacity duration-300
+                      ${tappedSlide === project.id ? "opacity-100" : "opacity-0 sm:group-hover:opacity-100"}
+                    `}
                   >
                     <h3 className="text-white font-bold text-2xl mb-2">{project.title}</h3>
                     <p className="text-gray-300 text-sm line-clamp-2">{project.description}</p>
@@ -115,12 +123,22 @@ const Projects = () => {
                         )}
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
+
                 </div>
               </motion.div>
             </SwiperSlide>
           ))}
         </Swiper>
+
+        <div className="text-center mt-12">
+          <Link
+            to="/all-projects"
+            className="inline-block px-8 py-2 font-semibold text-white border border-white rounded-full hover:border-blue-500 hover:text-blue-400 transition-all duration-300"
+          >
+            View All Projects
+          </Link>
+        </div>
       </section>
     </div>
   );
