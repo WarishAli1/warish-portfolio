@@ -51,13 +51,12 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-950 via-black to-gray-900 text-white relative overflow-hidden px-6 py-24">
-      {/* Diagonal Neon Lines Background */}
+
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-0 w-[200%] h-[2px] bg-purple-500/30 rotate-45 animate-pulse" />
         <div className="absolute bottom-0 right-0 w-[200%] h-[2px] bg-blue-500/30 -rotate-45 animate-pulse" />
       </div>
 
-      {/* Page Heading */}
       <motion.h1
         className="text-5xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500"
         initial={{ opacity: 0, y: 50 }}
@@ -68,7 +67,7 @@ export default function Contact() {
       </motion.h1>
 
       <div className="max-w-4xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
-        {/* Left Side */}
+ 
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -104,7 +103,6 @@ export default function Contact() {
           </div>
         </motion.div>
 
-        {/* Right Side Form */}
         <motion.form
           onSubmit={handleSubmit}
           initial={{ opacity: 0, x: 50 }}
