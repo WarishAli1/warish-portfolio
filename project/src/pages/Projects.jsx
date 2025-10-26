@@ -81,7 +81,7 @@ const Projects = () => {
                   <motion.div
                     initial={{ opacity: 0 }}
                     whileHover={{ opacity: 1 }}
-                    className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent flex flex-col justify-end p-6 text-left transition-opacity duration-300"
+                    className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent flex flex-col justify-end p-6 text-left transition-opacity duration-300 sm:opacity-0 sm:hover:opacity-100 opacity-100"
                   >
                     <h3 className="text-white font-bold text-2xl mb-2">{project.title}</h3>
                     <p className="text-gray-300 text-sm line-clamp-2">{project.description}</p>
