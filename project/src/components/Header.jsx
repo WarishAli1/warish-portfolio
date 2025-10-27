@@ -26,35 +26,66 @@ const Header = () => {
     { path: '/contact', label: 'Contact' },
   ];
 
+  const linkHoverColor = isDarkMode
+    ? "text-purple-400 drop-shadow-[0_0_10px_rgba(128,0,255,0.7)]"
+    : "text-black drop-shadow-[0_0_5px_rgba(0,0,0,0.3)]";
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-black/70 backdrop-blur-md shadow-lg' : 'bg-transparent'
+        isScrolled
+          ? isDarkMode
+            ? 'bg-black/70 backdrop-blur-md shadow-lg'
+            : 'bg-white/80 backdrop-blur-md shadow-md'
+          : 'bg-transparent'
       }`}
     >
-      {/* Floating Glow Blobs */}
-      <div className="absolute top-0 left-1/4 w-40 h-40 bg-purple-500/30 rounded-full blur-3xl animate-pulse mix-blend-screen"></div>
-      <div className="absolute bottom-0 right-1/4 w-52 h-52 bg-blue-500/30 rounded-full blur-3xl animate-pulse mix-blend-screen"></div>
+      {!isDarkMode && (
+        <svg
+          className="absolute bottom-0 w-full h-32"
+          viewBox="0 0 1440 320"
+          preserveAspectRatio="none"
+        >
+          <path
+            fill="black"
+            fillOpacity="0.05"
+            d="M0,192 C360,320 1080,64 1440,192 L1440,320 L0,320 Z"
+          ></path>
+          <path
+            fill="black"
+            fillOpacity="0.03"
+            d="M0,224 C360,128 1080,288 1440,224 L1440,320 L0,320 Z"
+          ></path>
+        </svg>
+      )}
+
+      {isDarkMode && (
+        <>
+          <div className="absolute top-0 left-1/4 w-40 h-40 rounded-full blur-3xl animate-pulse mix-blend-screen bg-purple-500/30"></div>
+          <div className="absolute bottom-0 right-1/4 w-52 h-52 rounded-full blur-3xl animate-pulse mix-blend-screen bg-blue-500/30"></div>
+        </>
+      )}
 
       <div className="relative container-custom py-4 flex items-center justify-between">
         <Link
           to="/"
-          className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400 drop-shadow-[0_0_10px_rgba(0,0,255,0.6)]"
+          className={`text-2xl font-bold text-transparent bg-clip-text ${
+            isDarkMode
+              ? "bg-gradient-to-r from-purple-400 to-blue-400 drop-shadow-[0_0_10px_rgba(0,0,255,0.6)]"
+              : "bg-black"
+          }`}
         >
           Portfolio
         </Link>
 
-        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
           {navLinks.map((link) => (
             <NavLink
               key={link.path}
               to={link.path}
               className={({ isActive }) =>
-                `font-medium text-gray-300 transition-all duration-300 hover:text-purple-400 hover:drop-shadow-[0_0_10px_rgba(128,0,255,0.7)] ${
-                  isActive
-                    ? 'text-purple-400 drop-shadow-[0_0_10px_rgba(128,0,255,0.7)]'
-                    : ''
+                `font-medium transition-all duration-300 hover:${linkHoverColor} ${
+                  isActive ? linkHoverColor : isDarkMode ? 'text-gray-300' : 'text-gray-800'
                 }`
               }
             >
@@ -62,7 +93,6 @@ const Header = () => {
             </NavLink>
           ))}
 
-          {/* Theme toggle button for desktop */}
           <button
             onClick={toggleTheme}
             className="p-2 rounded-full bg-gray-800/50 text-gray-200 hover:bg-gray-700/70 transition-colors duration-300"
@@ -72,7 +102,6 @@ const Header = () => {
           </button>
         </nav>
 
-        {/* Mobile buttons */}
         <div className="flex items-center md:hidden gap-2">
           <button
             onClick={toggleTheme}
@@ -99,7 +128,7 @@ const Header = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-black/80 backdrop-blur-md shadow-lg"
+            className={`md:hidden ${isDarkMode ? 'bg-black/80 backdrop-blur-md shadow-lg' : 'bg-white/80 backdrop-blur-md shadow-md'}`}
           >
             <div className="container-custom py-4 flex flex-col space-y-4">
               {navLinks.map((link) => (
@@ -108,10 +137,8 @@ const Header = () => {
                   to={link.path}
                   onClick={closeMobileMenu}
                   className={({ isActive }) =>
-                    `py-2 font-medium text-gray-300 transition-all duration-300 hover:text-purple-400 hover:drop-shadow-[0_0_10px_rgba(128,0,255,0.7)] ${
-                      isActive
-                        ? 'text-purple-400 drop-shadow-[0_0_10px_rgba(128,0,255,0.7)]'
-                        : ''
+                    `py-2 font-medium transition-all duration-300 hover:${linkHoverColor} ${
+                      isActive ? linkHoverColor : isDarkMode ? 'text-gray-300' : 'text-gray-800'
                     }`
                   }
                 >
