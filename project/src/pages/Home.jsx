@@ -33,7 +33,11 @@ const Home = () => {
           >
             <h1 className={`text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight ${textColor}`}>
               Hi, I’m{" "}
-              <span className={`bg-clip-text text-transparent ${isDarkMode ? "bg-gradient-to-r from-purple-400 via-blue-400 to-indigo-400" : "font-bold text-black"}`}>
+              <span className={`text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight ${
+            isDarkMode
+              ? "from-purple-400 to-blue-400 drop-shadow-[0_0_10px_rgba(0,0,255,0.6)]"
+              : "text-black"
+          }`}>
                 Warish Ali
               </span>
             </h1>
