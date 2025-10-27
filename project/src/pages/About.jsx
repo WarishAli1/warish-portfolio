@@ -11,7 +11,7 @@ export default function About() {
       
       <section className="relative z-10 max-w-6xl mx-auto px-6 py-24">
         <motion.h1
-          className={`text-5xl font-extrabold text-center mb-4 bg-clip-text text-transparent ${isDarkMode ? "bg-gradient-to-r from-purple-400 to-blue-500" : "text-black"}`}
+          className={`text-5xl font-extrabold text-center mb-4 ${isDarkMode ? "drop-shadow-[0_0_10px_rgba(0,0,255,0.6)]" : "text-black"}`}
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
         >

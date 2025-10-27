@@ -31,10 +31,10 @@ const Footer = () => {
         <p className={`text-center md:text-left ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
           &copy; {currentYear}{" "}
           <span
-            className={`font-semibold bg-clip-text text-transparent ${
+            className={`font-semibold ${
               isDarkMode
-                ? "bg-gradient-to-r from-purple-400 to-blue-400 drop-shadow-[0_0_10px_rgba(0,0,255,0.5)]"
-                : "bg-gradient-to-r text-black"
+                ? "drop-shadow-[0_0_10px_rgba(0,0,255,0.5)]"
+                : "text-black"
             }`}
           >
             Warish Ali

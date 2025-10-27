@@ -54,7 +54,7 @@ const AllProjects = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-         <h2 className={`text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r ${isDarkMode ? "from-purple-400 to-blue-500" : "text-black"} inline-block pb-2`}>
+         <h2 className={`text-5xl font-extrabold ${isDarkMode ? "drop-shadow-[0_0_10px_rgba(0,0,255,0.6)]" : "text-black"} inline-block pb-2`}>
             All Projects
           </h2>
           <p className={`mt-4 max-w-2xl mx-auto text-lg ${isDarkMode ? "text-gray-400" : "text-gray-700"}`}>
