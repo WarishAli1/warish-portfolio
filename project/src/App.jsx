@@ -11,6 +11,8 @@ import Contact from './pages/Contact';
 import ScrollToTop from './components/ScrollToTop';
 import GlowFollower from './context/GlowFollower';
 import AllProject from './pages/AllProject';
+import Blog from './pages/Blog';
+import BlogDetails from './pages/BlogDetails';
 function App() {
   const location = useLocation();
 
@@ -29,6 +31,8 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/education" element={<Education />} />
             <Route path="/all-projects" element={<AllProject />} />
+            <Route path="/blogs" element={<Blog />} />
+            <Route path="/blogs/:id" element={<BlogDetails />} />
           </Routes>
         </AnimatePresence>
       </main>
