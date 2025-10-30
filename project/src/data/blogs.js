@@ -2,14 +2,14 @@ const blogs = [
   {
     id: "ml-classification",
     title: "Neural Network Classification",
-    date: "2025-10-29",
+    date: "2025-10-31",
     description: "See how neural networks transform raw data into accurate classifications.",
     content: `
 # Introduction
 
 When I first started learning Machine Learning (ML) and Deep Learning, one of the first things I explored was classification models.
 
-Classification is about teaching a model to categorize things — for example, identifying whether an image shows a dog or cat, or deciding whether an email is spam or not spam.
+Classification is about teaching a model to categorize things — for example, identifying whether an image shows a dog or cat, or deciding whether an email is spam or not spam. It is a form of **supervised learning**, where the model learns from labeled data, meaning each input comes with a known output, and the model learns the mapping between inputs and outputs.
 
 I quickly learned that there are two main types of classification:
 
