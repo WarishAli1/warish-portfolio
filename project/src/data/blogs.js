@@ -3,6 +3,7 @@ const blogs = [
     id: "ml-classification",
     title: "Neural Network Classification",
     date: "2025-10-31",
+    images: ["/classification1.png", "/classification2.png"],
     description: "See how neural networks transform raw data into accurate classifications.",
     content: `
 # Introduction
@@ -86,8 +87,6 @@ for epoch in range(epochs):
         print(f"Epoch {epoch}: Loss = {loss.item():.4f}")
 \`\`\`
 
-
-
 The **sigmoid activation** is applied in the final layer because it squashes the output logits to a range between **0 and 1**, which represents the probability of belonging to the positive class (e.g., 1 = "dog").  
 
 This makes it ideal for **binary classification**, where the output represents a single probability value.
@@ -95,6 +94,22 @@ This makes it ideal for **binary classification**, where the output represents a
 Here, **loss.backward()** computes the gradients for all model parameters, and **optimizer.step()** updates them in the direction that **reduces the loss**. We can think of it as being at the top of a hill, where the slope represents the gradient, and we take small steps downward to reach the lowest point (minimum loss).
 
 We use **optimizer.zero_grad()** before each backward pass to **reset gradients** from the previous iteration — otherwise, they would **accumulate**, leading to incorrect parameter updates.
+
+### Visualizing the Decision Boundary
+
+After training, I visualized whether our model successfully distinguished or classified the data correctly on both training and testing sets:
+
+\`\`\`python
+plt.figure(figsize=(12,6))
+plt.subplot(1,2,1)
+plt.title("Train")
+plot_decision_boundary(model_0, X_train, y_train)
+plt.subplot(1,2,2)
+plt.title("Test")
+plot_decision_boundary(model_0, X_test, y_test)
+\`\`\`
+
+![Binary Classification Visualization](/classification1.png)
 
 ---
 
@@ -175,6 +190,22 @@ The **softmax** function converts these logits into a **probability distribution
 We don’t apply softmax manually because **nn.CrossEntropyLoss()** already applies it internally for efficiency and numerical stability.
 
 Just like before, **loss.backward()** computes the gradients for all model parameters, and **optimizer.step()** updates them in the direction that **reduces the loss**.
+
+### Visualizing the Decision Boundary
+
+After training, I again visualized how well our model classified the data across multiple classes:
+
+\`\`\`python
+plt.figure(figsize=(12,6))
+plt.subplot(1,2,1)
+plt.title("Train")
+plot_decision_boundary(model_blob, X_blob_train, y_blob_train)
+plt.subplot(1,2,2)
+plt.title("Test")
+plot_decision_boundary(model_blob, X_blob_test, y_blob_test)
+\`\`\`
+
+![Multi-Class Classification Visualization](/classification2.png)
 
 ---
 
