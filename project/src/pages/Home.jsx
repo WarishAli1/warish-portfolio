@@ -5,71 +5,79 @@ import skills from "../data/skills";
 import { useTheme } from "../context/ThemeContext";
 
 const skillColorsLight = [
-  { bg: "bg-gray-100", border: "border-gray-300", text: "font-bold text-black", line: "bg-gray-400" },
-  { bg: "bg-gray-200", border: "border-gray-400", text: "font-bold text-black", line: "bg-gray-500" },
-  { bg: "bg-gray-100", border: "border-gray-300", text: "font-bold text-black", line: "bg-gray-400" },
-  { bg: "bg-gray-200", border: "border-gray-400", text: "font-bold text-black", line: "bg-gray-500" },
-  { bg: "bg-gray-100", border: "border-gray-300", text: "font-bold text-black", line: "bg-gray-400" },
+  { bg: "bg-white/30", border: "border-white/40", text: "font-bold text-black", line: "bg-[#0e2373]" },
+  { bg: "bg-white/30", border: "border-white/40", text: "font-bold text-black", line: "bg-[#0e2373]" },
+  { bg: "bg-white/30", border: "border-white/40", text: "font-bold text-black", line: "bg-[#0e2373]" },
+  { bg: "bg-white/30", border: "border-white/40", text: "font-bold text-black", line: "bg-[#0e2373]" },
+  { bg: "bg-white/30", border: "border-white/40", text: "font-bold text-black", line: "bg-[#0e2373]" },
 ];
+
 
 const Home = () => {
   const { isDarkMode } = useTheme();
 
   const textColor = isDarkMode ? "text-white" : "text-black";
   const secondaryTextColor = isDarkMode ? "text-gray-300" : "text-gray-700";
-  const bgGradient = isDarkMode
-    ? "bg-gradient-to-b from-[#0a0a1f] via-[#101035] to-[#1a1a4a]"
-    : "bg-gray-100";
 
   return (
-    <div className={`relative min-h-screen overflow-hidden ${bgGradient}`}>
-      <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 z-10">
-        <div className="container-custom">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="max-w-3xl mx-auto text-center"
-          >
-            <h1 className={`text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight ${textColor}`}>
-              Hi, I’m{" "}
-              <span className={`text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight ${
-            isDarkMode
-              ? "from-purple-400 to-blue-400 drop-shadow-[0_0_10px_rgba(0,0,255,0.6)]"
-              : "text-black"
-          }`}>
-                Warish Ali
-              </span>
-            </h1>
-            <p className={`text-xl md:text-2xl mb-8 ${secondaryTextColor}`}>
-              A passionate full-stack developer creating beautiful, functional, user-centered digital experiences.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Link
-                to="/projects"
-                className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${isDarkMode
-                  ? "bg-white/10 border border-white/20 shadow-lg hover:shadow-fuchsia-400/30 hover:bg-white/20"
-                  : "bg-gray-200 border border-gray-400 shadow-md hover:shadow-gray-400 text-black font-bold"
-                }`}
+    <div className="relative min-h-screen overflow-hidden">
+      <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+      <div
+        className={`absolute inset-0 -z-10 pointer-events-none hero-gradient ${
+          isDarkMode ? "hero-dark" : "hero-light"
+        }`}
+      />
+
+      <div className="container-custom relative z-10">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="max-w-3xl mx-auto text-center"
               >
-                View My Work
-              </Link>
-              <Link
-                to="/contact"
-                className={`px-6 py-3 rounded-xl font-semibold border transition-all duration-300 ${isDarkMode
-                  ? "border-fuchsia-500 text-fuchsia-400 hover:bg-fuchsia-500 hover:text-white"
-                  : "border-black text-black bg-white/20 backdrop-blur-md shadow-md hover:bg-white/30 font-bold"
-                }`}
-                style={!isDarkMode ? { backdropFilter: "blur(12px)" } : {}}
-              >
-                Get In Touch
-              </Link>
-            </div>
-          </motion.div>
+                <h1 className={`text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight ${textColor}`}>
+                  Hi, I’m{" "}
+                  <span className={`text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight ${
+                isDarkMode
+                  ? "from-purple-400 to-blue-400 drop-shadow-[0_0_10px_rgba(0,0,255,0.6)]"
+                  : "text-black"
+              }`}>
+                    Warish Ali
+                  </span>
+                </h1>
+                <p className={`text-xl md:text-2xl mb-8 ${secondaryTextColor}`}>
+                  A passionate full-stack developer creating beautiful digital experiences and sharing insights through blogs and projects.
+                </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <Link to="/projects" className="btn-lift">
+            <span className="relative z-10">View My Work</span>
+            <span className={`base-bg ${isDarkMode ? "bg-white" : "bg-black"}`}></span>
+            <span
+              className={`bg-lift ${isDarkMode ? "bg-[#BB2AC3]" : "bg-[#e9d9be]"}`}
+            ></span>
+          </Link>
+
+          <Link to="/blogs" className="btn-lift">
+            <span className="relative z-10">Read My Blogs</span>
+            <span className={`base-bg ${isDarkMode ? "bg-white" : "bg-black"}`}></span>
+            <span
+              className={`bg-lift ${isDarkMode ? "bg-[#BB2AC3]" : "bg-[#e9d9be]"}`}
+            ></span>
+          </Link>
+
+          <Link to="/contact" className="btn-lift">
+            <span className="relative z-10">Get In Touch</span>
+            <span className={`base-bg ${isDarkMode ? "bg-white" : "bg-black"}`}></span>
+            <span
+              className={`bg-lift ${isDarkMode ? "bg-[#BB2AC3]" : "bg-[#e9d9be]"}`}
+            ></span>
+          </Link>
         </div>
+        </motion.div>
+       </div>
       </section>
 
-      <section className="relative z-10 py-20">
+      <section className={`relative z-10 py-20 ${isDarkMode ? "hero-dark" : "hero-light"} bg-opacity-90`}>
         <div className="container-custom mx-auto relative">
           <h2 className={`text-3xl md:text-4xl font-bold mb-12 text-center ${isDarkMode ? "text-indigo-400" : "text-black"}`}>
             My Skills
@@ -90,7 +98,7 @@ const Home = () => {
                       className="mb-10 ml-8 relative"
                     >
                       <div
-                        className={`absolute w-4 h-4 rounded-full -left-6 top-1/2 -translate-y-1/2 border-2 ${isDarkMode ? "border-indigo-200 bg-indigo-400" : "border-gray-500 bg-gray-500"}`}
+                        className={`absolute w-4 h-4 rounded-full -left-6 top-1/2 -translate-y-1/2 border-2 ${isDarkMode ? "border-indigo-200 bg-indigo-400" : "bg-[#3D3D3D]"}`}
                       ></div>
                       <div
                         className={`p-4 md:p-5 rounded-tl-xl rounded-br-xl shadow-md transition-transform duration-300 ${color.bg} ${color.border}`}
@@ -108,9 +116,8 @@ const Home = () => {
           </div>
         </div>
       </section>
-
       <section className="relative z-10 py-20 overflow-hidden">
-        <div className={`absolute inset-0 transform -skew-y-2 opacity-40 ${isDarkMode ? "bg-gradient-to-tr from-fuchsia-700 via-purple-600 to-indigo-500" : "bg-gray-900"}`}></div>
+        <div className={`absolute inset-0 transform -top-20 -bottom-20 -left-10 -right-10 -skew-y-2 opacity-40 ${isDarkMode ? "bg-gradient-to-tr from-fuchsia-700 via-purple-600 to-indigo-500" : "bg-[#287BBA]"}`}></div>
         <div className="relative container-custom text-center py-16">
           <h2 className={`text-3xl md:text-4xl font-extrabold mb-6 ${isDarkMode ? "text-white" : "text-black"}`}>
             Ready to Start Your Project?

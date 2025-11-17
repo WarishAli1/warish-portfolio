@@ -8,7 +8,10 @@
   }
   
   body {
-    @apply font-sans text-gray-800 dark:text-gray-200;
+    @apply font-sans text-gray-800 dark:text-gray-200
+           bg-gradient-to-b from-gray-50 via-sky-100 to-blue-50
+           dark:bg-gradient-to-b dark:from-[#0a0a1f] dark:via-[#101035] dark:to-[#1a1a4a]
+           transition-colors duration-300;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -19,6 +22,60 @@
 @layer components {
   .container-custom {
     @apply container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
+  }
+.btn-lift {
+    @apply relative overflow-hidden px-6 py-3 rounded-lg font-semibold text-sm md:text-base border transition-all duration-200;
+  }
+
+.btn-lift .base-bg {
+  @apply absolute inset-0 rounded-lg;
+    z-index: -2;
+}
+
+.btn-lift span.bg-lift {
+  z-index: -1;
+}
+
+  .btn-lift span.bg-lift {
+    @apply absolute inset-0 rounded-lg transition-transform duration-200;
+    transform: translate(8px, 8px);
+    z-index: -1;
+  }
+
+  .btn-lift:hover span.bg-lift {
+    transform: translate(0, 0);
+  }
+  .button-56 span.slide-bg {
+    background-color: #111;
+    border-radius: 8px;
+    height: 48px;
+    width: 100%;
+    position: absolute;
+    top: -2px;
+    left: 0;
+    transform: translate(8px, 8px);
+    transition: transform 0.2s ease-out;
+    z-index: -1;
+  }
+
+  .button-56:hover span.slide-bg {
+    transform: translate(0, 0);
+  }
+
+  .hero-gradient {
+    background-size: 200% 200%;
+    animation: gradient-move 10s ease infinite;
+  }
+
+  .hero-light {
+    background: linear-gradient(
+      135deg,
+      #9EC2FF 0%,
+      #9EC2FF 70%,
+      #9EC2FF 100%
+    );
+    background-size: 200% 200%;
+    animation: gradient-move 10s ease infinite;
   }
   
   .btn {
@@ -44,6 +101,11 @@
   .input {
     @apply w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
   }
+}
+@keyframes gradient-move {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .page-transition {

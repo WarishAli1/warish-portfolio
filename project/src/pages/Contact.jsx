@@ -53,19 +53,8 @@ export default function Contact() {
   
   const bgGradient = isDarkMode
     ? "bg-gradient-to-br from-gray-950 via-black to-gray-900 text-white"
-    : "bg-gray-100 text-black";
+    : "hero-light";
 
-  const formBoxClass = isDarkMode
-    ? "bg-black/20 border border-white/20 shadow-[0_0_40px_rgba(168,85,247,0.4)]" // purple glow
-    : "bg-gray-300 border border-gray-400 shadow-[0_0_40px_rgba(59,130,246,0.4)]"; // blue glow
-
-  const fieldClass = isDarkMode
-    ? "bg-black/20 border border-gray-600 shadow-[0_0_20px_rgba(168,85,247,0.4)] focus:ring-purple-500 focus:ring-offset-black"
-    : "bg-gray-200 border border-gray-400 shadow-[0_0_15px_rgba(59,130,246,0.5)] focus:ring-blue-500 focus:ring-offset-gray-100";
-
-  const buttonClass = isDarkMode
-    ? "bg-gradient-to-r from-purple-500 to-blue-600 text-white font-bold shadow-lg"
-    : "bg-white/20 backdrop-blur-xl border border-white/20 text-black font-semibold hover:bg-white/30 shadow-[0_0_20px_rgba(59,130,246,0.4)]";
 
   return (
     <div className={`min-h-screen relative overflow-hidden px-6 py-24 ${bgGradient}`}>
@@ -84,7 +73,6 @@ export default function Contact() {
       </motion.h1>
 
       <div className="max-w-4xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
-        {/* Left Info */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -96,14 +84,15 @@ export default function Contact() {
           </p>
 
           <div className={`flex flex-col gap-5 ${isDarkMode ? "text-gray-300" : "text-black"}`}>
-            <div className={`flex items-center gap-3 ${isDarkMode ? "hover:text-purple-400 transition" : "hover:text-blue-400 transition"}`}>
-              <FiMail className={`${isDarkMode ? "text-purple-400" : "text-blue-400"}`} /> warishkhan384@gmail.com
+           <div className={`flex items-center gap-3 transition-transform duration-200 hover:scale-105`}>
+              <FiMail className={`${isDarkMode ? "text-purple-400" : "text-blue"}`} />
+              warishkhan384@gmail.com
             </div>
-            <div className={`flex items-center gap-3 ${isDarkMode ? "hover:text-purple-400 transition" : "hover:text-blue-400 transition"}`}>
-              <FiPhone className={`${isDarkMode ? "text-purple-400" : "text-blue-400"}`} /> +977-9867779824
+            <div className={`flex items-center gap-3 transition-transform duration-200 hover:scale-105`}>
+              <FiPhone className={`${isDarkMode ? "text-purple-400" : "text-blue"}`} /> +977-9867779824
             </div>
-            <div className={`flex items-center gap-3 ${isDarkMode ? "hover:text-purple-400 transition" : "hover:text-blue-400 transition"}`}>
-              <FiMapPin className={`${isDarkMode ? "text-purple-400" : "text-blue-400"}`} /> Kathmandu, Nepal
+            <div className={`flex items-center gap-3 transition-transform duration-200 hover:scale-105`}>
+              <FiMapPin className={`${isDarkMode ? "text-purple-400" : "text-blue"}`} /> Kathmandu, Nepal
             </div>
           </div>
 

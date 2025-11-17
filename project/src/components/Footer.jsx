@@ -10,7 +10,7 @@ const Footer = () => {
       className={`relative overflow-hidden py-12 transition-all duration-500 ${
         isDarkMode
           ? "bg-gradient-to-t from-gray-950 via-black to-gray-900 text-white"
-          : "bg-gradient-to-t from-gray-100 via-gray-50 to-gray-200 text-gray-900"
+          : "hero-light"
       }`}
     >
       <div className="absolute inset-0 -z-10 overflow-hidden">

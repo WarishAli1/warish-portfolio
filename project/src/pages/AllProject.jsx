@@ -20,7 +20,7 @@ const AllProjects = () => {
       className={`relative min-h-screen overflow-hidden transition-all duration-500 ${
         isDarkMode
           ? "bg-gradient-to-br from-gray-950 via-black to-gray-900 text-white"
-          : "bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 text-gray-900"
+          : "hero-light"
       }`}
     >
       <div className="absolute inset-0 -z-10 overflow-hidden">
@@ -43,7 +43,7 @@ const AllProjects = () => {
           className={`flex items-center gap-2 mb-8 text-sm font-semibold border rounded-full px-4 py-2 transition-all duration-300 ${
             isDarkMode
               ? "text-white border-white hover:border-purple-500 hover:text-purple-400"
-              : "text-gray-900 border-gray-400 hover:border-blue-500 hover:text-blue-600"
+              : "text-gray-900 border-gray-400 hover:border-purple-500 hover:text-purple-600"
           }`}
         >
           <FiArrowLeft size={18} /> Back
@@ -72,7 +72,7 @@ const AllProjects = () => {
               className={`relative group rounded-2xl overflow-hidden border transition-all duration-300 cursor-pointer ${
                 isDarkMode
                   ? "bg-white/5 border-white/10 shadow-2xl hover:bg-white/10 hover:shadow-fuchsia-400/20"
-                  : "bg-white/80 border border-gray-300 shadow-md hover:bg-gray-100 hover:shadow-gray-400"
+                  : "bg-white/10 border border-gray-300 shadow-md hover:bg-gray-100 hover:shadow-gray-400"
               }`}
             >
               <div className="relative w-full h-60 sm:h-72 overflow-hidden rounded-2xl">
@@ -87,8 +87,8 @@ const AllProjects = () => {
                     activeTap === project.id ? "opacity-100" : "opacity-0 sm:group-hover:opacity-100"
                   }`}
                 >
-                  <h3 className={`${isDarkMode ? "text-white font-bold" : "text-gray-800"} text-1xl mb-2`}>{project.title}</h3>
-                  <p className={`${isDarkMode ? "text-gray-300" : "text-gray-800"} text-sm line-clamp-2`}>{project.description}</p>
+                  <h3 className={`${isDarkMode ? "text-white font-bold" : "text-white"} text-1xl mb-2`}>{project.title}</h3>
+                  <p className={`${isDarkMode ? "text-gray-300" : "text-white"} text-sm line-clamp-2`}>{project.description}</p>
                   <div className="mt-3 flex justify-between items-center">
                     <Link
                       to={`/projects/${project.id}`}

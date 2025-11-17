@@ -37,7 +37,7 @@ const Header = () => {
         isScrolled
           ? isDarkMode
             ? 'bg-black/70 backdrop-blur-md shadow-lg'
-            : 'bg-white/80 backdrop-blur-md shadow-md'
+            : 'hero-light'
           : 'bg-transparent'
       }`}
     >

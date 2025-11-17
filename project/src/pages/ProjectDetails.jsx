@@ -49,7 +49,7 @@ const ProjectDetails = () => {
       className={`relative overflow-hidden min-h-screen transition-all duration-500 ${
         isDarkMode
           ? "bg-gradient-to-b from-[#0a0a1f] via-[#101035] to-[#1a1a4a] text-white"
-          : "bg-gradient-to-b from-gray-100 via-gray-50 to-white text-black"
+          : "hero-light"
       }`}
     >
       {isDarkMode && (
@@ -106,7 +106,7 @@ const ProjectDetails = () => {
                 className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
                   isDarkMode
                     ? "bg-white/10 border border-white/20 shadow-lg hover:shadow-fuchsia-400/30 hover:bg-white/20"
-                    : "bg-gray-200 border border-gray-400 shadow-md hover:shadow-gray-400 text-black font-bold"
+                    : "bg-white/30 border border-gray-400 shadow-md hover:shadow-gray-400 text-black font-bold"
                 }`}
               >
                 <FiExternalLink className="inline mr-2" /> Live Demo
@@ -144,7 +144,7 @@ const ProjectDetails = () => {
               className={`p-8 rounded-3xl shadow-lg transition ${
                 isDarkMode
                   ? "bg-white/10 backdrop-blur-xl border border-white/20"
-                  : "bg-gray-100 border border-black/20 shadow-md"
+                  : "bg-white/30 border border-black/20 shadow-md"
               }`}
             >
               <h2
@@ -161,7 +161,7 @@ const ProjectDetails = () => {
                     className={`flex items-start gap-3 p-4 rounded-xl transition ${
                       isDarkMode
                         ? "bg-white/5 border border-white/10 hover:bg-white/10"
-                        : "bg-white border border-gray-300 hover:bg-gray-100"
+                        : "bg-white/30 border border-gray-300 hover:bg-gray-100"
                     }`}
                   >
                     <FiCheckCircle
@@ -186,7 +186,7 @@ const ProjectDetails = () => {
               className={`p-8 rounded-3xl shadow-lg transition ${
                 isDarkMode
                   ? "bg-white/10 backdrop-blur-xl border border-white/20"
-                  : "bg-gray-100 border border-black/20 shadow-md"
+                  : "bg-white/30 border border-black/20 shadow-md"
               }`}
             >
               <h2
@@ -217,7 +217,7 @@ const ProjectDetails = () => {
               className={`rounded-3xl overflow-hidden shadow-xl transition ${
                 isDarkMode
                   ? "bg-white/10 backdrop-blur-lg border border-white/20"
-                  : "bg-gray-100 border border-black/20"
+                  : "bg-white/30 border border-black/20"
               }`}
             >
               <img
@@ -234,7 +234,7 @@ const ProjectDetails = () => {
                     alt={`thumb ${i}`}
                     onClick={() => openLightbox(i)}
                     className={`h-20 w-28 object-cover rounded-xl border hover:scale-105 transition cursor-pointer ${
-                      isDarkMode ? "border-white/10" : "border-gray-400"
+                      isDarkMode ? "border-white/10" : "bg-white/30"
                     }`}
                   />
                 ))}
@@ -245,7 +245,7 @@ const ProjectDetails = () => {
               className={`rounded-3xl p-6 shadow-lg transition ${
                 isDarkMode
                   ? "bg-white/10 backdrop-blur-lg border border-white/20"
-                  : "bg-gray-100 border border-black/20"
+                  : "bg-white/30 border border-black/20"
               }`}
             >
               <h3
@@ -262,7 +262,7 @@ const ProjectDetails = () => {
                     className={`px-4 py-2 text-sm font-medium rounded-full transition ${
                       isDarkMode
                         ? "bg-gradient-to-r from-fuchsia-500 to-indigo-500 text-white shadow-md"
-                        : "bg-gray-300 text-black shadow-sm"
+                        : "bg-white/30 text-black shadow-sm"
                     }`}
                   >
                     {tech}
@@ -278,7 +278,7 @@ const ProjectDetails = () => {
         className={`relative z-10 py-20 ${
           isDarkMode
             ? "bg-gradient-to-b from-[#0b0b1e] via-[#111132] to-[#0a0a1f]"
-            : "bg-gradient-to-b from-gray-200 via-gray-100 to-gray-200"
+            : "bg-[#9BB2E9]"
         }`}
       >
         {isDarkMode ? (
@@ -313,7 +313,7 @@ const ProjectDetails = () => {
                   className={`flex-shrink-0 w-72 rounded-2xl overflow-hidden border transition-all duration-300 hover:scale-105 ${
                     isDarkMode
                       ? "bg-white/10 backdrop-blur-xl border-white/10 shadow-md hover:shadow-fuchsia-400/20 hover:bg-white/20"
-                      : "bg-gray-100/80 border border-gray-400 shadow-sm hover:shadow-gray-400 hover:bg-gray-200"
+                      : "bg-gray-100/80 bg-white/30 border border-gray-400 shadow-sm hover:shadow-gray-400 hover:bg-gray-200"
                   }`}
                 >
                   <img

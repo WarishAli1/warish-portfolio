@@ -19,7 +19,7 @@ const Projects = () => {
     setTappedSlide((prev) => (prev === id ? null : id));
   };
   return (
-    <div className={`${isDarkMode ? "bg-gradient-to-br from-gray-950 via-black to-gray-900 text-white" : "bg-gray-50 text-black"} min-h-screen relative overflow-hidden`}>
+    <div className={`${isDarkMode ? "bg-gradient-to-br from-gray-950 via-black to-gray-900 text-white" : "hero-light text-black"} min-h-screen relative overflow-hidden`}>
      {isDarkMode && <NeonLinesBackground />}
      
       <div className="absolute inset-0 overflow-hidden">
@@ -84,8 +84,8 @@ const Projects = () => {
                       } ${tappedSlide === project.id ? "opacity-100" : "opacity-0 sm:group-hover:opacity-100"}
                     `}
                   >
-                    <h3 className={`${isDarkMode ? "text-white font-bold" : "text-gray-800"} text-1xl mb-2`}>{project.title}</h3>
-                    <p className={`${isDarkMode ? "text-gray-300" : "text-gray-800"} text-sm line-clamp-2`}>{project.description}</p>
+                    <h3 className={`${isDarkMode ? "text-white font-bold" : "text-black"} text-1xl mb-2`}>{project.title}</h3>
+                    <p className={`${isDarkMode ? "text-gray-300" : "text-black"} text-sm line-clamp-2`}>{project.description}</p>
                     <div className="mt-4 flex justify-between items-center">
                       <Link
                         to={`/projects/${project.id}`}
@@ -136,7 +136,7 @@ const Projects = () => {
           <Link
             to="/all-projects"
             className={`inline-block px-8 py-2 font-semibold rounded-full transition-all duration-300 border ${
-              isDarkMode ? "border-white text-white hover:border-blue-500 hover:text-blue-400" : "border-gray-300 text-black hover:border-blue-500 hover:text-blue-600 bg-white/30 backdrop-blur-md"
+              isDarkMode ? "border-white text-white hover:border-blue-500 hover:text-blue-400" : "border-gray-300 text-black hover:border-purple-500 hover:text-purple-600 bg-white/30 backdrop-blur-md"
             }`}
             style={!isDarkMode ? { backdropFilter: "blur(12px)" } : {}}
           >

@@ -6,7 +6,6 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark, vs } from "react-syntax-highlighter/dist/esm/styles/prism";
 import blogs from "../data/blogs";
 import { ArrowLeft } from "lucide-react";
-
 export default function BlogDetail() {
   const { isDarkMode } = useTheme();
   const { id } = useParams();
@@ -16,11 +15,10 @@ export default function BlogDetail() {
 
   const themeStyles = isDarkMode
     ? "bg-black text-gray-200"
-    : "bg-white text-gray-900";
+    : "hero-light";
 
   return (
     <div className={`min-h-screen py-24 px-6 sm:px-12 font-sans transition-colors duration-700 ${themeStyles}`}>
-      {/* Header */}
       <motion.header
         className="max-w-3xl mx-auto mb-20 text-center"
         initial={{ opacity: 0, y: 30 }}
@@ -43,7 +41,6 @@ export default function BlogDetail() {
         </p>
       </motion.header>
 
-      {/* Content */}
       <motion.article
         className={`max-w-3xl mx-auto text-lg leading-relaxed tracking-wide ${
           isDarkMode ? "text-gray-300" : "text-gray-700"
@@ -65,6 +62,16 @@ export default function BlogDetail() {
             ),
             p: ({ node, ...props }) => <p className="my-6 leading-relaxed" {...props} />,
             li: ({ node, ...props }) => <li className="ml-6 list-disc my-2" {...props} />,
+            a: ({ node, ...props }) => (
+              <a
+                {...props}
+                className={`underline font-medium ${
+                  isDarkMode ? "text-blue-400 hover:text-blue-300" : "text-purple-600 hover:text-purple-500"
+                }`}
+                target="_blank"
+                rel="noopener noreferrer"
+              />
+            ),
             code({ node, inline, className, children, ...props }) {
               const match = /language-(\w+)/.exec(className || "");
               return !inline ? (
@@ -73,11 +80,16 @@ export default function BlogDetail() {
                   language={match ? match[1] : "text"}
                   PreTag="div"
                   className="rounded-xl my-6"
+                  customStyle={
+                    !isDarkMode
+                      ? { background: "rgba(255,255,255,0.3)", padding: "1rem", borderRadius: "0.75rem" }
+                      : {}
+                  }
                 >
                   {String(children).replace(/\n$/, "")}
                 </SyntaxHighlighter>
               ) : (
-                <code className="bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded text-sm font-mono">
+                <code className="bg-gray-200 dark:bg-gray-800 px-2 py-1 rounded text-sm font-mono" {...props}>
                   {children}
                 </code>
               );
@@ -85,10 +97,9 @@ export default function BlogDetail() {
           }}
         >
           {blog.content}
-        </ReactMarkdown>
-      </motion.article>
+      </ReactMarkdown>
 
-      {/* Back Button */}
+      </motion.article>
       <motion.div
         className="flex justify-center mt-20"
         initial={{ opacity: 0 }}
@@ -97,10 +108,10 @@ export default function BlogDetail() {
       >
         <Link
           to="/blogs"
-          className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium text-lg transition-all duration-300 ${
+          className={`flex items-center gap-2 mb-8 text-sm font-semibold border rounded-full px-4 py-2 transition-all duration-300 ${
             isDarkMode
-              ? "bg-gray-900 hover:bg-gray-800 text-white shadow-md"
-              : "bg-gray-100 hover:bg-gray-200 text-gray-800 shadow-sm"
+              ? "text-white border-white hover:border-blue-500 hover:text-blue-400"
+              : "text-gray-900 border-black hover:border-purple-500 hover:text-purple-600"
           }`}
         >
           <ArrowLeft size={18} /> Back

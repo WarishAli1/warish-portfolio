@@ -10,6 +10,7 @@ export default {
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
       },
+      
       colors: {
         primary: {
           50: '#f5f3ff',
@@ -83,18 +84,27 @@ export default {
         'slide-up': 'slideUp 0.6s ease-out',
         'bounce-soft': 'bounceSoft 2s infinite',
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'gradient-x': 'gradient-x 3s ease infinite',
       },
       keyframes: {
         fadeIn: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
         slideUp: { '0%': { opacity: '0', transform: 'translateY(50px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
         bounceSoft: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+        'gradient-x': {
+          '0%': { 'background-position': '0% 50%' },
+          '50%': { 'background-position': '100% 50%' },
+          '100%': { 'background-position': '0% 50%' },
+        },
+        
       },
       boxShadow: {
         'glow': '0 0 20px rgba(168, 85, 247, 0.2)',
         'glow-pink': '0 0 20px rgba(236, 72, 153, 0.2)',
         'inner-glow': 'inset 0 0 20px rgba(168, 85, 247, 0.1)',
       },
+      
     },
   },
+  
   plugins: [],
 }

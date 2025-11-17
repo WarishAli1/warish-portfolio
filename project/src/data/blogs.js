@@ -3,6 +3,8 @@ const blogs = [
     id: "ml-classification",
     title: "Neural Network Classification",
     date: "2025-10-31",
+    mainCategory: "Machine Learning",
+    subCategory: "Classification",
     images: ["/classification1.png", "/classification2.png"],
     description: "See how neural networks transform raw data into accurate classifications.",
     content: `
@@ -224,6 +226,356 @@ plot_decision_boundary(model_blob, X_blob_test, y_blob_test)
 ## Conclusion
 
 Classification is a fundamental task in machine learning that enables models to categorize data into classes. Understanding the differences between binary and multi-class classification helps in selecting the right approach and architecture. Neural networks, combined with activation functions like ReLU, sigmoid, and softmax, provide powerful tools for tackling complex classification problems. Applying the right loss functions and optimization techniques contributes significantly to building effective models. Continuous experimentation and learning are key to mastering classification tasks in ML and Deep Learning.
+`
+  },
+  {
+    id: "cnn-fashionmnist",
+    title: "Computer Vision",
+    date: "2025-11-17",
+    mainCategory: "Machine Learning",
+    subCategory: "Computer Vision",
+    images: [],
+    description: "See how machines learn to “see” the world.",
+    content: `
+
+## INTRODUCTION
+
+After learning about classification models, I became really curious about computer vision — how computers can actually "see" and understand images like humans do. Exploring this area has been super exciting, and it's motivating me to dive deeper into neural networks and image recognition.
+
+One of the most fascinating concepts I discovered is the Convolutional Neural Network (CNN). CNNs are a type of deep learning model specifically designed to process image data. They can automatically learn features like edges, textures, and shapes from images, which makes them incredibly powerful for tasks like object detection, image classification, and more.
+
+In this blog, I'll share my journey of building a CNN using PyTorch and torchvision, step by step, while exploring the FashionMNIST dataset. You'll see how I prepare data, design the network, train it, and evaluate its performance — all while learning how CNNs really work.
+
+## Import Required Libraries
+
+Before we start coding, we need to import the required libraries:
+
+\`\`\`python
+# PyTorch
+import torch
+from torch import nn
+
+# Torchvision
+import torchvision
+from torchvision import datasets, transforms
+from torchvision.transforms import ToTensor
+
+# Matplotlib for visualization
+import matplotlib.pyplot as plt
+\`\`\`
+
+These libraries allow us to handle datasets, build neural networks, apply transforms, and visualize results.
+
+##  Load the FashionMNIST Dataset
+
+We will use the FashionMNIST dataset, which contains 70,000 grayscale images, each representing clothing items.
+
+\`\`\`python
+train_data = datasets.FashionMNIST(
+    root="data",
+    train=True, 
+    transform=ToTensor(), 
+    download=True
+)
+
+test_data = datasets.FashionMNIST(
+    root="data",
+    train=False,
+    transform=ToTensor(),
+    download=True
+)
+\`\`\`
+
+**Explanation:**
+
+- **root="data"**: Dataset will be stored in a folder named data. If it doesn't exist, it will be created automatically.
+- **train=True**: Loads 60,000 images for training.
+- **train=False**: Loads 10,000 images for testing.
+- **transform=ToTensor()**: Converts images to tensors and normalizes pixel values from 0–255 to 0–1 floats.
+- **target_transform=None**: Labels are not transformed.
+
+## Visualizing the Dataset
+Showing 16 random samples from the FashionMNIST dataset helps us quickly understand the type of images and labels we will be working with.
+
+\`\`\`python
+torch.manual_seed(42)
+fig = plt.figure(figsize=(9,9))
+rows , cols = 4,4
+for i in range(1,rows*cols+1):
+  random_idx = torch.randint(0,len(train_data),size=[1]).item()
+  img , label = train_data[random_idx]
+  fig.add_subplot(rows,cols,i)
+  plt.imshow(img.squeeze(),cmap="gray")
+  plt.axis(False)
+  plt.title(class_names[label])
+\`\`\`
+
+![FashionMNIST Visualization](/cnn3.png)
+
+## Prepare DataLoader
+
+PyTorch datasets are convenient, but to efficiently train our model, we convert datasets into batches using DataLoader:
+
+\`\`\`python
+from torch.utils.data import DataLoader
+
+BATCH_SIZE = 32
+
+train_dataloader = DataLoader(dataset=train_data, batch_size=BATCH_SIZE, shuffle=True)
+test_dataloader = DataLoader(dataset=test_data, batch_size=BATCH_SIZE, shuffle=False)
+\`\`\`
+
+**Why use DataLoader?**
+
+1. Converts datasets into iterables so we can loop through batches.
+2. Batching is computationally efficient — instead of loading all 60,000 images at once, we load 32 images at a time.
+3. Shuffling the training data helps the model learn more features rather than memorizing order.
+4. Shuffling test data is not necessary.
+
+## Understand CNN Input Features and Shapes
+
+Before building the CNN, it is important to understand input features, channels, and batch shapes:
+
+- Since FashionMNIST is grayscale, the input features = 1 channel.
+- If it were a color image (RGB), input features = 3 channels.
+- PyTorch uses "channel-first" format: \`[batch, channels, height, width]\`
+
+For example, after batching, our data shape will be:
+
+\`\`\`
+[32, 1, 28, 28]
+\`\`\`
+
+- **32** → Batch size (32 images per batch)
+- **1** → Number of color channels (grayscale)
+- **28** → Image height
+- **28** → Image width
+
+**Note:** TensorFlow/Keras uses channel-last format: \`[batch, height, width, channels]\`
+
+**Why channels are considered input features:**
+
+1. Each channel contains independent information about the image.
+2. Convolutional layers slide filters/kernels over the input.
+3. Each kernel looks at all channels simultaneously.
+4. If the input has 3 channels, the kernel also has depth = 3, meaning one weight per channel per position.
+
+## Define the CNN Model
+
+Now we define the CNN model for image recognition:
+
+\`\`\`python
+class FashionMNISTModelV2(nn.Module):
+    def __init__(self, input_features:int, output_features:int, hidden_units:int):
+        super().__init__()
+        self.conv_block_1 = nn.Sequential(
+            nn.Conv2d(input_features, hidden_units, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.Conv2d(hidden_units, hidden_units, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2)
+        )
+        self.conv_block_2 = nn.Sequential(
+            nn.Conv2d(hidden_units, hidden_units, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.Conv2d(hidden_units, hidden_units, kernel_size=3, stride=1, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2)
+        )
+        self.classifier = nn.Sequential(
+            nn.Flatten(),
+            nn.Linear(hidden_units*7*7, output_features)
+        )
+
+    def forward(self, x):
+        x = self.conv_block_1(x)
+        x = self.conv_block_2(x)
+        x = self.classifier(x)
+        return x
+\`\`\`
+
+## Explanation of Layers
+
+### 1. Convolutional Layers (Conv2D)
+
+- **Definition:**  
+  A **convolutional layer** is a fundamental component of a CNN that uses small filters (kernels) to scan an image and detect important features. As the filter slides over the image, it takes dot products at each position to form a feature map, helping identify edges, corners, textures, and other patterns.
+
+- **Parameters:**
+  - **Kernel / Filter:**  
+    Small matrices that start with random values. During training, the network updates these values to learn useful features. 
+
+  - **Padding:**  
+    Extra pixels (usually zeros) added around the image to keep output size the same and preserve border information.
+
+  - **Stride:**  
+    Controls how many pixels the filter moves at each step.  
+    Higher stride → smaller output but may skip details.
+
+### 2. MaxPooling Layers (MaxPool2D)
+
+- **Definition:**  
+  Max pooling is a pooling operation that picks the **maximum value** from a small region of the feature map (output of the image after convolution). It uses a sliding window (like 2×2) and from each window, it selects the highest value. This creates a smaller feature map that keeps only the **most important or strongest features** from the previous layer. It does **not learn** anything — it simply picks values.
+
+- **Parameters:**
+  - **Kernel / Window Size:**  
+    A small window (e.g., 2×2 or 3×3) that slides over the feature map.  
+    Inside each window, max pooling **selects only the maximum value**.
+  
+  - **Stride:**  
+    Controls how far the window moves each time.  
+    - Stride = 2 is common (non-overlapping windows).  
+    - Larger stride → more reduction in size.
+
+  - **Padding (optional):**  
+    Usually not used in pooling, but if added, it can adjust output size by adding extra pixels around the feature map. 
+
+### 3. ReLU Layer (Rectified Linear Unit) 
+   - **Definition:**  
+     ReLU is an activation function that introduces non-linearity to the model. It transforms input values by setting all negative values to zero and keeping positive values unchanged. This helps the network learn complex patterns in the data.
+
+   - **Function:** ReLU(x) = \max(0, x)
+
+### 4. Flatten Layer
+   - **Definition:**  
+     It Converts multi-dimensional feature maps into a **single-dimensional vector** so it can be passed to the fully connected layer. It does not have weights or biases — just reshapes the data.  
+
+ For visual explanations of CNNs, see [CNN Explainer](https://poloclub.github.io/cnn-explainer/).
+
+## Loss, and Optimizer
+
+Since this is a multi-class classification problem:
+
+\`\`\`python
+loss_fn = nn.CrossEntropyLoss()
+optimizer = torch.optim.SGD(params=model_0.parameters(), lr=0.1)
+\`\`\`
+
+- **Loss function**: Cross-entropy loss
+- **Optimizer**: Stochastic Gradient Descent (SGD)
+
+## Training and Evaluation
+
+\`\`\`python
+from tqdm.auto import tqdm
+from timeit import default_timer as timer
+
+torch.manual_seed(42)
+start_timer = timer()
+
+epochs = 3
+for epoch in tqdm(range(epochs)):
+    print(f"Epoch: {epoch}\\n---------")
+    
+    train_loss = 0
+    for batch, (X, y) in enumerate(train_dataloader):
+        model_0.train()  # Training mode
+        y_pred = model_0(X)
+        loss = loss_fn(y_pred, y)
+        train_loss += loss
+        
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+        
+        if batch % 400 == 0:
+            print(f"Looked at {batch*len(X)}/{len(train_dataloader.dataset)} samples")
+    
+    train_loss /= len(train_dataloader)
+
+    # Testing
+    test_loss, test_acc = 0, 0
+    model_0.eval()  # Evaluation mode
+    with torch.inference_mode():
+        for X_test, y_test in test_dataloader:
+            test_pred = model_0(X_test)
+            test_loss += loss_fn(test_pred, y_test)
+            test_acc += accuracy_fn(y_true=y_test, y_pred=test_pred.argmax(dim=1))
+    
+    test_loss /= len(test_dataloader)
+    test_acc /= len(test_dataloader)
+    
+    print(f"Train loss: {train_loss:.4f} | Test loss: {test_loss:.4f} | Test acc: {test_acc:.2f}")
+
+end_timer = timer()
+total_time_model_0 = print_train_time(start=start_timer, end=end_timer)
+\`\`\`
+
+**Key Notes:**
+
+- **model_0.train()**: Activates training mode. Layers like Dropout behave differently.
+- **model_0.eval()**: Activates evaluation mode. Dropout is disabled, and BatchNorm uses running statistics.
+
+![Training and Testing Visualization](/cnn2.png)
+
+## **Optional Layers: Dropout & Batch Normalization**
+
+### **Dropout**
+Dropout is a technique used to reduce **overfitting**. During training, it **randomly turns off some fraction of neurons** in a layer. This prevents the network from relying too much on specific neurons or learning unwanted patterns from the training data.
+
+Because different neurons are dropped each time, it’s like training **many smaller networks** instead of one large one. Each smaller network makes different mistakes, and together they give more stable and general predictions.
+
+During testing, **no neurons are dropped**, so the full network is used.
+
+### **Batch Normalization**
+Batch Normalization (BatchNorm) helps make training **faster and more stable**.
+
+For each mini-batch, BatchNorm:
+1. **Normalizes** the activations using that batch’s mean and standard deviation.  
+2. **Rescales** the values using two trainable parameters.
+
+This keeps the inputs to each layer on a consistent scale, which:
+- Helps the model train in fewer epochs  
+- Reduces sensitivity to initialization  
+- Prevents training from getting “stuck”
+
+BatchNorm is mainly used to **improve optimization**, but it can also improve accuracy in some cases.
+
+## Evaluating with Confusion Matrix
+
+Finally, we can use a confusion matrix to check how well the model predicts each class:
+
+\`\`\`python
+from torchmetrics import ConfusionMatrix
+from mlxtend.plotting import plot_confusion_matrix
+
+confmat = ConfusionMatrix(num_classes=len(class_names), task="multiclass")
+confmat_tensor = confmat(preds=y_preds_tensor, target=test_data.targets)
+
+fig, ax = plot_confusion_matrix(
+    conf_mat=confmat_tensor.numpy(),
+    figsize=(10,7),
+    class_names=class_names
+)
+\`\`\`
+
+- Visualizes which classes are correctly predicted and which are confused.
+
+![Confusion Matrix Visualization](/Cnn1.png)
+
+## Key Concepts I Learned
+
+1. **Using the inbuilt FashionMNIST dataset**  
+   FashionMNIST is a simple grayscale dataset (1 input channel), making it perfect for learning and experimenting with CNNs.  
+   Typical input shape: *[batch, 1, 28, 28]*.
+
+2. **Understanding the main CNN layers**  
+   - **Conv2D layers** extract spatial features like edges, textures, and shapes.  
+   - **MaxPooling** reduces the size of feature maps and helps the model focus on important features.  
+   Together, these layers form the core building blocks of most computer vision models.
+
+3. **Model evaluation**  
+   - **Accuracy** helps measure overall performance.  
+   - A **confusion matrix** gives a deeper understanding of which classes the model predicts well and where it makes mistakes.
+
+## Conclusion
+
+Working on this project was a great experience that helped me dive deeper into how CNNs and machine learning actually work. It was a meaningful learning journey — understanding everything from datasets to layers, training steps, and evaluation made me even more curious to explore more advanced concepts in the future.
+
+This project also introduced me to the world of **computer vision**, a field of AI that allows machines to understand and interpret images. Computer vision powers many real-life applications such as image classification, face detection, medical imaging, and self-driving cars. Learning the basics of CNNs is an important foundation because these models form the core of most computer vision systems.
+
+Overall, this experience strengthened my understanding and motivated me to continue exploring more powerful models and techniques in deep learning.
+
 `
   }
 ];

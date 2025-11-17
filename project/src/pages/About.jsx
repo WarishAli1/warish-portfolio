@@ -6,7 +6,7 @@ export default function About() {
   const { isDarkMode } = useTheme();
 
   return (
-    <div className={`min-h-screen relative overflow-hidden ${isDarkMode ? "bg-gradient-to-br from-gray-950 via-black to-gray-900 text-white" : "bg-gray-100 text-black"}`}>
+    <div className={`min-h-screen relative overflow-hidden ${isDarkMode ? "bg-gradient-to-br from-gray-950 via-black to-gray-900 text-white" : "hero-light"}`}>
       {isDarkMode && <NeonLinesBackground />}
       
       <section className="relative z-10 max-w-6xl mx-auto px-6 py-24">
@@ -29,7 +29,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className={`p-10 flex flex-col items-center text-center rounded-2xl shadow-lg ${isDarkMode ? "bg-white/5 backdrop-blur-xl border border-white/10" : "bg-gray-200 border border-gray-300 shadow-md backdrop-blur-md"}`}
+            className={`p-10 flex flex-col items-center text-center rounded-2xl shadow-lg ${isDarkMode ? "bg-white/5 backdrop-blur-xl border border-white/10" : "bg-white/30 border border-gray-300 shadow-md backdrop-blur-md"}`}
             style={!isDarkMode ? { backdropFilter: "blur(15px)" } : {}}
           >
             <motion.div
@@ -60,7 +60,7 @@ export default function About() {
               className={`mt-8 inline-flex items-center px-6 py-3 rounded-xl font-bold transition-all duration-300 ${
                 isDarkMode
                   ? "bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 shadow-lg"
-                  : "bg-white/40 text-black border border-white/30 backdrop-blur-xl hover:shadow-blue-400/40 hover:bg-white/50 shadow-md"
+                  : "bg-white/40 text-black border border-white/30 backdrop-blur-xl hover:shadow-purple-400/40 hover:bg-white/50 shadow-md"
               }`}
               style={!isDarkMode ? { backdropFilter: "blur(20px)" } : {}}
             >
@@ -73,7 +73,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className={`p-10 leading-relaxed text-lg rounded-2xl shadow-lg ${isDarkMode ? "bg-white/5 backdrop-blur-xl border border-white/10 text-gray-300" : "bg-gray-200 border border-gray-300 shadow-md text-gray-800 backdrop-blur-md"}`}
+            className={`p-10 leading-relaxed text-lg rounded-2xl shadow-lg ${isDarkMode ? "bg-white/5 backdrop-blur-xl border border-white/10 text-gray-300" : "bg-white/30 border border-gray-300 shadow-md text-gray-800 backdrop-blur-md"}`}
             style={!isDarkMode ? { backdropFilter: "blur(12px)" } : {}}
           >
             <p className="mb-6">
