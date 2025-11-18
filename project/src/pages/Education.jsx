@@ -5,7 +5,7 @@ const Education = () => {
 
   return (
     <div className={`relative min-h-screen overflow-hidden flex items-center justify-center ${isDarkMode ? "bg-gradient-to-br from-[#05010a] via-[#0a0020] to-[#0d002d] text-white" : "hero-light text-black"}`}>
-      {isDarkMode && <NeonLinesBackground />}
+      <NeonLinesBackground />
       {!isDarkMode && (
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[1200px] h-[600px] bg-gradient-to-t from-blue-200 via-purple-200 to-transparent rounded-t-full opacity-40 shadow-lg"></div>
       )}

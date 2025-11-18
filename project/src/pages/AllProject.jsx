@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
+import NeonLinesBackground from "../context/NeonLinesBackground";
 import { FiExternalLink, FiGithub, FiArrowLeft } from "react-icons/fi";
 import projects from "../data/projects";
 import { useTheme } from "../context/ThemeContext";
@@ -23,6 +24,7 @@ const AllProjects = () => {
           : "hero-light"
       }`}
     >
+      <NeonLinesBackground />
       <div className="absolute inset-0 -z-10 overflow-hidden">
         {isDarkMode ? (
           <>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import NeonLinesBackground from "../context/NeonLinesBackground";
 import { useTheme } from "../context/ThemeContext";
 import {
   FiArrowLeft,
@@ -52,13 +53,14 @@ const ProjectDetails = () => {
           : "hero-light"
       }`}
     >
+      <NeonLinesBackground />
       {isDarkMode && (
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-40 left-20 w-72 h-72 bg-fuchsia-600/30 blur-[120px] rounded-full animate-pulse" />
           <div className="absolute bottom-40 right-20 w-96 h-96 bg-indigo-600/20 blur-[150px] rounded-full animate-pulse delay-2000" />
         </div>
       )}
-
+      <NeonLinesBackground />
       <section className="relative pt-40 pb-24 text-center z-10">
         <motion.div
           initial={{ opacity: 0, y: 40 }}

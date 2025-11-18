@@ -6,6 +6,7 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark, vs } from "react-syntax-highlighter/dist/esm/styles/prism";
 import blogs from "../data/blogs";
 import { ArrowLeft } from "lucide-react";
+import NeonLinesBackground from "../context/NeonLinesBackground";
 export default function BlogDetail() {
   const { isDarkMode } = useTheme();
   const { id } = useParams();
@@ -19,6 +20,7 @@ export default function BlogDetail() {
 
   return (
     <div className={`min-h-screen py-24 px-6 sm:px-12 font-sans transition-colors duration-700 ${themeStyles}`}>
+      <NeonLinesBackground />
       <motion.header
         className="max-w-3xl mx-auto mb-20 text-center"
         initial={{ opacity: 0, y: 30 }}
@@ -40,7 +42,6 @@ export default function BlogDetail() {
           })}
         </p>
       </motion.header>
-
       <motion.article
         className={`max-w-3xl mx-auto text-lg leading-relaxed tracking-wide ${
           isDarkMode ? "text-gray-300" : "text-gray-700"
@@ -97,6 +98,7 @@ export default function BlogDetail() {
           }}
         >
           {blog.content}
+         
       </ReactMarkdown>
 
       </motion.article>

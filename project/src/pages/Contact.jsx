@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { FiMail, FiPhone, FiMapPin, FiSend, FiGithub, FiLinkedin, FiTwitter } from "react-icons/fi";
 import emailjs from "@emailjs/browser";
 import { useTheme } from "../context/ThemeContext";
-
+import NeonLinesBackground from "../context/NeonLinesBackground";
 export default function Contact() {
   const { isDarkMode } = useTheme();
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
@@ -58,6 +58,7 @@ export default function Contact() {
 
   return (
     <div className={`min-h-screen relative overflow-hidden px-6 py-24 ${bgGradient}`}>
+      <NeonLinesBackground />
       <div className="absolute inset-0 pointer-events-none">
         <div className={`${isDarkMode ? "w-[200%] h-[2px] bg-purple-500/30 rotate-45 animate-pulse" : "w-full h-[1px] bg-blue-300/30"} absolute top-0 left-0`} />
         <div className={`${isDarkMode ? "w-[200%] h-[2px] bg-blue-500/30 -rotate-45 animate-pulse" : "w-full h-[1px] bg-blue-300/30"} absolute bottom-0 right-0`} />

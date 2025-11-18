@@ -20,8 +20,7 @@ const Projects = () => {
   };
   return (
     <div className={`${isDarkMode ? "bg-gradient-to-br from-gray-950 via-black to-gray-900 text-white" : "hero-light text-black"} min-h-screen relative overflow-hidden`}>
-     {isDarkMode && <NeonLinesBackground />}
-     
+    <NeonLinesBackground /> 
       <div className="absolute inset-0 overflow-hidden">
         <div className={`${isDarkMode ? "bg-purple-600/30" : "bg-blue-300/20"} absolute top-20 left-24 w-72 h-72 rounded-full blur-3xl animate-pulse`}></div>
         <div className={`${isDarkMode ? "bg-blue-600/30" : "bg-blue-300/20"} absolute bottom-24 right-20 w-96 h-96 rounded-full blur-3xl animate-pulse`}></div>

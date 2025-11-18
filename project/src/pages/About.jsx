@@ -7,7 +7,7 @@ export default function About() {
 
   return (
     <div className={`min-h-screen relative overflow-hidden ${isDarkMode ? "bg-gradient-to-br from-gray-950 via-black to-gray-900 text-white" : "hero-light"}`}>
-      {isDarkMode && <NeonLinesBackground />}
+    <NeonLinesBackground />
       
       <section className="relative z-10 max-w-6xl mx-auto px-6 py-24">
         <motion.h1

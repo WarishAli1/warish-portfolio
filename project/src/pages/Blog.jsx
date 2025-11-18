@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import blogs from "../data/blogs";
 import { useState } from "react";
-
 export default function Blog() {
   const { isDarkMode } = useTheme();
 
