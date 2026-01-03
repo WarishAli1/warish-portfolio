@@ -1,149 +1,198 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import { FiExternalLink, FiGithub } from "react-icons/fi";
-import NeonLinesBackground from "../context/NeonLinesBackground";
-import projects from "../data/projects";
 import { useTheme } from "../context/ThemeContext";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, EffectCoverflow, Pagination, Autoplay } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/effect-coverflow";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import projects from "../data/projects";
+import ProjectDrawer from "./ProjectDrawer";
 
 const Projects = () => {
   const { isDarkMode } = useTheme();
-  const [tappedSlide, setTappedSlide] = useState(null);
-  const handleSlideClick = (id) => {
-    setTappedSlide((prev) => (prev === id ? null : id));
-  };
-  return (
-    <div className={`${isDarkMode ? "bg-gradient-to-br from-gray-950 via-black to-gray-900 text-white" : "hero-light text-black"} min-h-screen relative overflow-hidden`}>
-    <NeonLinesBackground /> 
-      <div className="absolute inset-0 overflow-hidden">
-        <div className={`${isDarkMode ? "bg-purple-600/30" : "bg-blue-300/20"} absolute top-20 left-24 w-72 h-72 rounded-full blur-3xl animate-pulse`}></div>
-        <div className={`${isDarkMode ? "bg-blue-600/30" : "bg-blue-300/20"} absolute bottom-24 right-20 w-96 h-96 rounded-full blur-3xl animate-pulse`}></div>
-      </div>
+  const [activeProject, setActiveProject] = useState(null);
+  const [hoveredId, setHoveredId] = useState(null);
 
-      <section className="relative z-10 max-w-7xl mx-auto px-6 py-24">
+  return (
+    <main
+      className={`min-h-screen grid-bg ${
+        isDarkMode ? "dark-grid bg-ink text-gray-200" : "light-grid bg-paper text-ink"
+      }`}
+    >
+     <div className="absolute left-0 bottom-0 w-full pointer-events-none px-6 pb-4">
+  <span
+    className={`font-black select-none ${
+      isDarkMode ? "text-gray-200" : "text-ink"
+    }`}
+    style={{
+      fontSize: "120px", // bigger size
+      lineHeight: "1",
+      whiteSpace: "nowrap",
+      opacity: 0.08, // more transparent
+    }}
+  >
+    PROJECTS.
+  </span>
+</div>
+
+
+
+
+
+      <section className="relative z-10 max-w-6xl mx-auto px-8 py-24">
+        {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-20"
+          className="mb-16"
         >
-          <h2 className={`text-5xl font-extrabold ${isDarkMode ? "drop-shadow-[0_0_10px_rgba(0,0,255,0.6)]" : "text-black"} inline-block pb-2`}>
-            My Projects
-          </h2>
-          <p className={`${isDarkMode ? "text-gray-400" : "text-gray-600"} mt-4 max-w-2xl mx-auto text-lg`}>
-            Projects that combine creativity and technology to solve real-world problems.
+          <h1 className={`text-6xl font-black mb-4 ${isDarkMode ? "text-white" : "text-black"}`}>
+            Projects.
+          </h1>
+          <p
+            className={`max-w-2xl text-base ${
+              isDarkMode ? "text-gray-400" : "text-gray-600"
+            }`}
+          >
+            Selected engineering and machine learning projects focused on
+            problem-solving, system design, and practical implementation.
           </p>
         </motion.div>
 
-        <Swiper
-          modules={[Navigation, EffectCoverflow, Pagination, Autoplay]}
-          effect="coverflow"
-          grabCursor={true}
-          centeredSlides={true}
-          slidesPerView={3}
-          loop={false}
-          navigation={true}
-          pagination={{
-            clickable: true,
-            bulletClass: "swiper-pagination-bullet",
-            bulletActiveClass: isDarkMode ? "swiper-pagination-bullet-active !bg-blue-500" : "swiper-pagination-bullet-active !bg-blue-600",
-          }}
-          spaceBetween={60}
-          autoplay={{ delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true }}
-          coverflowEffect={{ rotate: 50, stretch: 0, depth: 300, modifier: 2.5, slideShadows: true }}
-          breakpoints={{ 320: { slidesPerView: 1, spaceBetween: 20 }, 640: { slidesPerView: 2, spaceBetween: 30 }, 1024: { slidesPerView: 3, spaceBetween: 60 } }}
-          className="max-w-6xl mx-auto py-12"
-        >
-          {projects.map((project) => (
-            <SwiperSlide key={project.id}>
-              <motion.div
-                onClick={() => handleSlideClick(project.id)}
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                className={`relative group rounded-3xl overflow-hidden backdrop-blur-xl border ${
-                  isDarkMode ? "border-white/10 bg-white/5 shadow-2xl" : "border-gray-200 bg-white/30 shadow-md hover:shadow-[0_0_20px_rgba(59,130,246,0.3)]"
-                } transition-all duration-300 cursor-pointer w-full`}
+        {/* Project List */}
+        <div className="space-y-3">
+          {projects.map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: index * 0.05 }}
+              onMouseEnter={() => setHoveredId(project.id)}
+              onMouseLeave={() => setHoveredId(null)}
+              onClick={() => setActiveProject(project)}
+              className="group relative cursor-pointer"
+            >
+              {/* Card */}
+              <div
+                className={`relative rounded-lg border transition-all duration-300 overflow-hidden ${
+                  isDarkMode
+                    ? "border-white/10 bg-white/[0.02]"
+                    : "border-black/10 bg-black/[0.02]"
+                }`}
+                style={{
+                  paddingTop: hoveredId === project.id ? "28px" : "20px",
+                  paddingBottom: hoveredId === project.id ? "28px" : "20px",
+                  paddingLeft: "24px",
+                  paddingRight: "24px",
+                }}
               >
-                <div className="relative w-full h-96 overflow-hidden rounded-3xl">
-                  <motion.img
-                    src={project.images[0]}
-                    alt={project.title}
-                    className="w-full h-full object-cover rounded-3xl transition-transform duration-700 group-hover:scale-110"
-                  />
+                {/* Content Wrapper */}
+                <div className="flex items-start justify-between gap-6">
+                  {/* Left Side - Title & Description */}
+                  <div className="flex-1 min-w-0">
+                    {/* Index Number */}
+                    <span
+                      className={`text-xs font-mono mb-2 block ${
+                        isDarkMode ? "text-gray-500" : "text-gray-500"
+                      }`}
+                    >
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
 
-                  <div
-                    className={`
-                      absolute inset-0 flex flex-col justify-end p-6 text-left transition-opacity duration-300 bg-gradient-to-t ${
-                        isDarkMode ? "from-black/70 via-black/40 to-transparent" : "from-gray-800/40 via-gray-100/20 to-transparent"
-                      } ${tappedSlide === project.id ? "opacity-100" : "opacity-0 sm:group-hover:opacity-100"}
-                    `}
-                  >
-                    <h3 className={`${isDarkMode ? "text-white font-bold" : "text-black"} text-1xl mb-2`}>{project.title}</h3>
-                    <p className={`${isDarkMode ? "text-gray-300" : "text-black"} text-sm line-clamp-2`}>{project.description}</p>
-                    <div className="mt-4 flex justify-between items-center">
-                      <Link
-                        to={`/projects/${project.id}`}
-                        className={`px-4 py-2 rounded-lg font-semibold ${
-                          isDarkMode
-                            ? "bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-white"
-                            : "bg-white/30 text-black backdrop-blur-xl border border-white/20 hover:bg-white/40"
-                        } transition-all text-sm`}
-                        style={!isDarkMode ? { backdropFilter: "blur(12px)" } : {}}
+                    {/* Title */}
+                    <h2
+                      className={`text-lg font-semibold mb-2 ${
+                        isDarkMode ? "text-white" : "text-black"
+                      }`}
+                    >
+                      {project.title}
+                    </h2>
+
+                    {/* Description - Expand on hover */}
+                    <motion.div
+                      initial={false}
+                      animate={{
+                        height: hoveredId === project.id ? "auto" : "0",
+                        opacity: hoveredId === project.id ? 1 : 0,
+                        marginTop: hoveredId === project.id ? "12px" : "0",
+                      }}
+                      transition={{ duration: 0.2 }}
+                      className="overflow-hidden"
+                    >
+                      <p
+                        className={`text-xs leading-relaxed ${
+                          isDarkMode ? "text-gray-400" : "text-gray-700"
+                        }`}
                       >
-                        View Details
-                      </Link>
-                      <div className="flex gap-3">
-                        {project.demoLink && (
-                          <a
-                            href={project.demoLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`p-2 rounded-full ${
-                              isDarkMode ? "bg-white/20 text-white hover:bg-white/30" : "bg-white/30 text-black hover:bg-white/40 backdrop-blur-md"
-                            } transition`}
-                          >
-                            <FiExternalLink size={18} />
-                          </a>
-                        )}
-                        {project.githubLink && (
-                          <a
-                            href={project.githubLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`p-2 rounded-full ${
-                              isDarkMode ? "bg-white/20 text-white hover:bg-white/30" : "bg-white/30 text-black hover:bg-white/40 backdrop-blur-md"
-                            } transition`}
-                          >
-                            <FiGithub size={18} />
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+                        {project.shortDescription || project.description}
+                      </p>
+                    </motion.div>
 
-        <div className="text-center mt-12">
-          <Link
-            to="/all-projects"
-            className={`inline-block px-8 py-2 font-semibold rounded-full transition-all duration-300 border ${
-              isDarkMode ? "border-white text-white hover:border-blue-500 hover:text-blue-400" : "border-gray-300 text-black hover:border-purple-500 hover:text-purple-600 bg-white/30 backdrop-blur-md"
-            }`}
-            style={!isDarkMode ? { backdropFilter: "blur(12px)" } : {}}
-          >
-            View All Projects
-          </Link>
+                    {/* Tech Stack - Expand on hover */}
+                    <motion.div
+                      initial={false}
+                      animate={{
+                        height: hoveredId === project.id ? "auto" : "0",
+                        opacity: hoveredId === project.id ? 1 : 0,
+                        marginTop: hoveredId === project.id ? "10px" : "0",
+                      }}
+                      transition={{ duration: 0.2 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="flex flex-wrap gap-1.5">
+                        {project.technologies?.slice(0, 5).map((tech, i) => (
+                          <span
+                            key={i}
+                            className={`text-xs px-2 py-0.5 rounded border ${
+                              isDarkMode
+                                ? "border-white/20 text-gray-300 bg-white/5"
+                                : "border-black/20 text-gray-700 bg-black/5"
+                            }`}
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </motion.div>
+                  </div>
+
+                  {/* Right Side - Thumbnail */}
+                  {project.images?.[0] && (
+                    <motion.img
+                      src={project.images[0]}
+                      alt="preview"
+                      className={`h-16 w-24 object-cover rounded border transition-all ${
+                        isDarkMode
+                          ? "border-white/10"
+                          : "border-black/10"
+                      }`}
+                      animate={{
+                        opacity:
+                          hoveredId === project.id ? 1 : 0.6,
+                      }}
+                      transition={{ duration: 0.2 }}
+                    />
+                  )}
+                </div>
+              </div>
+
+              {/* Subtle bottom line on hover */}
+              <motion.div
+                className={`absolute bottom-0 left-0 h-0.5 ${
+                  isDarkMode ? "bg-white" : "bg-black"
+                }`}
+                animate={{
+                  width: hoveredId === project.id ? "100%" : "0%",
+                }}
+                transition={{ duration: 0.3 }}
+              />
+            </motion.div>
+          ))}
         </div>
       </section>
-    </div>
+
+      {/* Side Drawer */}
+      <ProjectDrawer
+        project={activeProject}
+        onClose={() => setActiveProject(null)}
+      />
+    </main>
   );
 };
 

@@ -13,6 +13,7 @@ import GlowFollower from './context/GlowFollower';
 import AllProject from './pages/AllProject';
 import Blog from './pages/Blog';
 import BlogDetails from './pages/BlogDetails';
+import ProjectDrawer from './pages/ProjectDrawer';
 function App() {
   const location = useLocation();
 
@@ -33,6 +34,7 @@ function App() {
             <Route path="/all-projects" element={<AllProject />} />
             <Route path="/blogs" element={<Blog />} />
             <Route path="/blogs/:id" element={<BlogDetails />} />
+            <Route path="/project-drawer" element={<ProjectDrawer />} />
           </Routes>
         </AnimatePresence>
       </main>

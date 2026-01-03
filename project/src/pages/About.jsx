@@ -1,98 +1,111 @@
 import { motion } from "framer-motion";
 import { FiDownload } from "react-icons/fi";
 import { useTheme } from "../context/ThemeContext";
-import NeonLinesBackground from "../context/NeonLinesBackground";
+
 export default function About() {
   const { isDarkMode } = useTheme();
 
   return (
-    <div className={`min-h-screen relative overflow-hidden ${isDarkMode ? "bg-gradient-to-br from-gray-950 via-black to-gray-900 text-white" : "hero-light"}`}>
-    <NeonLinesBackground />
+    <main
+      className={`min-h-screen grid-bg ${
+        isDarkMode ? "dark-grid bg-ink text-gray-200" : "light-grid bg-paper text-ink"
+      }`}
+    >
       
-      <section className="relative z-10 max-w-6xl mx-auto px-6 py-24">
+      <section className="container-custom max-w-6xl py-32">
+        {/* Heading */}
         <motion.h1
-          className={`text-5xl font-extrabold text-center mb-4 ${isDarkMode ? "drop-shadow-[0_0_10px_rgba(0,0,255,0.6)]" : "text-black"}`}
-          initial={{ opacity: 0, y: 40 }}
+          className="text-4xl md:text-5xl font-extrabold text-center mb-4"
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
         >
           About Me
         </motion.h1>
 
-        <p className={`text-center mb-16 text-lg ${isDarkMode ? "text-gray-400" : "text-gray-700"}`}>
-          Get to know who I am beyond just the code.
+        <p className="text-center text-muted mb-20">
+          A little context about my background, interests, and direction.
         </p>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          
+        <div className="grid lg:grid-cols-2 gap-14 items-start">
+          {/* Profile Card */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className={`p-10 flex flex-col items-center text-center rounded-2xl shadow-lg ${isDarkMode ? "bg-white/5 backdrop-blur-xl border border-white/10" : "bg-white/30 border border-gray-300 shadow-md backdrop-blur-md"}`}
-            style={!isDarkMode ? { backdropFilter: "blur(15px)" } : {}}
+            className={`p-10 rounded-xl border ${
+              isDarkMode
+                ? "border-white/10 bg-black/30"
+                : "border-black/10 bg-white"
+            } shadow-soft`}
           >
-            <motion.div
-              className="relative w-52 h-52 md:w-60 md:h-60 rounded-2xl overflow-hidden shadow-lg"
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 200, damping: 15 }}
-            >
-              <img
-                src="/warish.HEIC"
-                alt="Warish Ali"
-                className="object-cover w-full h-full rounded-2xl relative z-10"
-              />
-            </motion.div>
+            <div className="flex flex-col items-center text-center">
+              <div className="w-56 h-56 rounded-xl overflow-hidden mb-6 border border-black/10 dark:border-white/10">
+                <img
+                  src="/warish.HEIC"
+                  alt="Warish Ali"
+                  className="w-full h-full object-cover"
+                />
+              </div>
 
-            <h2 className={`mt-6 text-3xl font-bold ${isDarkMode ? "text-white" : "text-black"}`}>Warish Ali</h2>
-            <p className={`text-sm font-bold mt-1 uppercase tracking-wide ${isDarkMode ? "text-purple-400" : "font-bold"}`}>
-              Software Engineer
-            </p>
-            <p className={`${isDarkMode ? "text-gray-400" : "text-gray-800"} mt-2`}>
-              Kathmandu, Nepal · ✉️ warishkhan384@gmail.com
-            </p>
+              <h2 className="text-2xl font-bold">Warish Ali</h2>
+              <p className="uppercase tracking-wide text-sm text-muted mt-1">
+                Engineering Student · Developer
+              </p>
 
-            <motion.a
-              href="/resume.pdf"
-              download="Warish_Ali_Resume.pdf"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.97 }}
-              className={`mt-8 inline-flex items-center px-6 py-3 rounded-xl font-bold transition-all duration-300 ${
-                isDarkMode
-                  ? "bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 shadow-lg"
-                  : "bg-white/40 text-black border border-white/30 backdrop-blur-xl hover:shadow-purple-400/40 hover:bg-white/50 shadow-md"
-              }`}
-              style={!isDarkMode ? { backdropFilter: "blur(20px)" } : {}}
-            >
-              <FiDownload className="mr-2" /> Download Resume
-            </motion.a>
+              <p className="mt-3 text-sm text-muted">
+                Kathmandu, Nepal · ✉️ warishkhan384@gmail.com
+              </p>
+
+              <a
+                href="/resume.pdf"
+                download="Warish_Ali_Resume.pdf"
+                className="mt-8 inline-flex items-center gap-2 px-6 py-3 border border-black dark:border-white rounded-md font-medium transition hover:-translate-y-0.5"
+              >
+                <FiDownload /> Download Resume
+              </a>
+            </div>
           </motion.div>
 
+          {/* About Text */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className={`p-10 leading-relaxed text-lg rounded-2xl shadow-lg ${isDarkMode ? "bg-white/5 backdrop-blur-xl border border-white/10 text-gray-300" : "bg-white/30 border border-gray-300 shadow-md text-gray-800 backdrop-blur-md"}`}
-            style={!isDarkMode ? { backdropFilter: "blur(12px)" } : {}}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className={`p-10 rounded-xl border leading-relaxed ${
+              isDarkMode
+                ? "border-white/10 bg-black/30"
+                : "border-black/10 bg-white"
+            } shadow-soft`}
           >
             <p className="mb-6">
-              I’m a developer who enjoys building applications that work well
-              and actually solve problems. I’ve worked with{" "}
-              <span className={`${isDarkMode ? "text-purple-400" : "font-bold"}`}>Java, Vue.js, and Spring Boot</span>{" "}
-              — not my main focus, but tools I like using to connect ideas from
-              front to back.
+              I’m an engineering student who enjoys understanding how systems
+              work — from low-level logic to high-level abstractions. I’m
+              naturally curious and always eager to explore new ideas,
+              technologies, and ways of solving problems more efficiently.
             </p>
+
+            <p className="mb-6">
+              I have hands-on experience as a{" "}
+              <span className="font-medium">Full-Stack Java Developer</span>,
+              where I’ve worked with backend systems, APIs, databases, and
+              frontend interfaces. This background helps me think about software
+              not just as code, but as complete, usable systems.
+            </p>
+
             <p>
-              Lately, I’ve been exploring{" "}
-              <span className={`${isDarkMode ? "text-blue-400" : "font-bold"}`}>machine learning with PyTorch</span>,
-              diving into CNNs, neural networks, and computer vision. For me,
-              it’s less about sticking to one stack and more about learning,
-              experimenting, and turning concepts into real, impactful software.
+              Currently, my main focus is on{" "}
+              <span className="font-medium">Machine Learning</span>. I’m actively
+              exploring modern ML concepts, architectures, and workflows —
+              learning how models reason, how data flows through them, and how
+              intelligent systems can be designed responsibly. I see ML as a
+              long-term journey of continuous learning, experimentation, and
+              refinement.
             </p>
           </motion.div>
         </div>
       </section>
-    </div>
+    </main>
   );
 }

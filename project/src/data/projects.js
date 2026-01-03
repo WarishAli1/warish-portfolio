@@ -49,7 +49,7 @@ const projects = [
     challenges:
       "Collaborating on an existing project setup while implementing new modules, integrating secure OTP authentication, and maintaining data consistency between Vue frontend and Spring Boot backend.",
     demoLink: "#", // Add when hosted
-    githubLink: "#", // Add your repo link
+    githubLink: "https://github.com/WarishAli1", // Add your repo link
   },
   {
     id: "Face Recognition App",

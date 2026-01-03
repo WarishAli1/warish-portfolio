@@ -3,119 +3,45 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-  
   body {
-    @apply font-sans text-gray-800 dark:text-gray-200
-           bg-gradient-to-b from-gray-50 via-sky-100 to-blue-50
-           dark:bg-gradient-to-b dark:from-[#0a0a1f] dark:via-[#101035] dark:to-[#1a1a4a]
-           transition-colors duration-300;
+    @apply font-sans transition-colors duration-300;
+    background-color: #fafaf8;
+    color: #0e1116;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-bold;
+
+  .dark body {
+    background-color: #0e1116;
+    color: #e5e7eb;
   }
 }
 
-@layer components {
-  .container-custom {
-    @apply container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
-  }
+/* Grid background like CodeWonders */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.light-grid {
+  --grid: rgba(0, 0, 0, 0.04);
+}
+
+.dark-grid {
+  --grid: rgba(255, 255, 255, 0.05);
+}
+
+/* Buttons */
 .btn-lift {
-    @apply relative overflow-hidden px-6 py-3 rounded-lg font-semibold text-sm md:text-base border transition-all duration-200;
-  }
-
-.btn-lift .base-bg {
-  @apply absolute inset-0 rounded-lg;
-    z-index: -2;
+  @apply relative px-6 py-3 rounded-md border font-medium transition-all;
+  background: transparent;
 }
 
-.btn-lift span.bg-lift {
-  z-index: -1;
+.btn-lift:hover {
+  transform: translate(-2px, -2px);
 }
 
-  .btn-lift span.bg-lift {
-    @apply absolute inset-0 rounded-lg transition-transform duration-200;
-    transform: translate(8px, 8px);
-    z-index: -1;
-  }
-
-  .btn-lift:hover span.bg-lift {
-    transform: translate(0, 0);
-  }
-  .button-56 span.slide-bg {
-    background-color: #111;
-    border-radius: 8px;
-    height: 48px;
-    width: 100%;
-    position: absolute;
-    top: -2px;
-    left: 0;
-    transform: translate(8px, 8px);
-    transition: transform 0.2s ease-out;
-    z-index: -1;
-  }
-
-  .button-56:hover span.slide-bg {
-    transform: translate(0, 0);
-  }
-
-  .hero-gradient {
-    background-size: 200% 200%;
-    animation: gradient-move 10s ease infinite;
-  }
-
-  .hero-light {
-    background: linear-gradient(
-      135deg,
-      #9EC2FF 0%,
-      #9EC2FF 70%,
-      #9EC2FF 100%
-    );
-    background-size: 200% 200%;
-    animation: gradient-move 10s ease infinite;
-  }
-  
-  .btn {
-    @apply px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-opacity-50;
-  }
-  
-  .btn-primary {
-    @apply btn bg-primary-600 hover:bg-primary-700 text-white focus:ring-primary-500;
-  }
-  
-  .btn-secondary {
-    @apply btn bg-gray-200 hover:bg-gray-300 text-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white focus:ring-gray-500;
-  }
-  
-  .section {
-    @apply py-16 md:py-24;
-  }
-  
-  .card {
-    @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl;
-  }
-  
-  .input {
-    @apply w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
-  }
+/* Container */
+.container-custom {
+  @apply max-w-7xl mx-auto px-4;
 }
-@keyframes gradient-move {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.page-transition {
-  @apply animate-fade-in;
-}
-.clip-slanted {
-  clip-path: polygon(
-    0% 0%, 100% 0%, 
-    100% 90%, 95% 100%, 
-    0% 100%
-  );
-}
-
