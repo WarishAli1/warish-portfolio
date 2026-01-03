@@ -17,9 +17,9 @@ const Home = () => {
 
         <p className="text-muted mb-8 leading-relaxed">
           An engineering student with a strong curiosity for technology and
-          problem-solving. I’m currently focusing deeply on
+          problem-solving. I’m currently focused on
           <span className="font-medium"> Machine Learning </span>
-          while continuously exploring new tools, ideas, and emerging
+          while actively exploring new tools, ideas, and emerging
           technologies.
         </p>
 

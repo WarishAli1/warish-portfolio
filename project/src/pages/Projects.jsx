@@ -45,14 +45,14 @@ const Projects = () => {
           <h1 className={`text-6xl font-black mb-4 ${isDarkMode ? "text-white" : "text-black"}`}>
             Projects.
           </h1>
-          <p
+          {/* <p
             className={`max-w-2xl text-base ${
               isDarkMode ? "text-gray-400" : "text-gray-600"
             }`}
           >
             Selected engineering and machine learning projects focused on
             problem-solving, system design, and practical implementation.
-          </p>
+          </p> */}
         </motion.div>
 
         {/* Project List */}

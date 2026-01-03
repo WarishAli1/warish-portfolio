@@ -20,11 +20,10 @@ export default function Blog() {
           className="mb-20"
         >
           <h1 className="text-5xl font-extrabold mb-4">
-            Writing
+            Writing.
           </h1>
           <p className="max-w-2xl text-lg opacity-80">
-            Notes, explanations, and insights from engineering, machine learning,
-            and system design experiments.
+            Insights, notes, and blog posts about what I learn, explore, and experiment with.
           </p>
         </motion.div>
 

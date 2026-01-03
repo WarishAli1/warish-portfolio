@@ -581,13 +581,13 @@ Overall, this experience strengthened my understanding and motivated me to conti
   {
   id: "transformer-from-scratch",
   title: "Training a Transformer From Scratch Taught Me Why ‘Attention Is All You Need’ Is Misleading",
-  date: "2026-01-01",
+  date: "2026-01-03",
   mainCategory: "Machine Learning",
   subCategory: "Natural Language Processing",
   images: [],
   description: "What really happens when you train a Transformer from scratch with limited data and compute.",
   content: `
-## Introduction
+## Introduction (incomplete)
 
 When I first read *“Attention Is All You Need”*, I thought:  
 “If I understand this architecture and implement it correctly, I should be able to build a good language model.”
