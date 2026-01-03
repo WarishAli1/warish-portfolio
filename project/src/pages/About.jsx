@@ -35,8 +35,8 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className={`p-10 rounded-xl border ${
               isDarkMode
-                ? "border-white/10 bg-black/30"
-                : "border-black/10 bg-white"
+                ? "border-white/10 bg-black/10"
+                : "border-black/10 bg-white/10"
             } shadow-soft`}
           >
             <div className="flex flex-col items-center text-center">
@@ -75,8 +75,8 @@ export default function About() {
             transition={{ duration: 0.6, delay: 0.15 }}
             className={`p-10 rounded-xl border leading-relaxed ${
               isDarkMode
-                ? "border-white/10 bg-black/30"
-                : "border-black/10 bg-white"
+                ? "border-white/10 bg-black/10"
+                : "border-black/10 bg-white/10"
             } shadow-soft`}
           >
             <p className="mb-6">

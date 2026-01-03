@@ -65,7 +65,7 @@ const Education = () => {
             <div
               className={`relative border rounded-xl p-8 ${
                 isDarkMode
-                  ? "bg-black/60 border-white/10"
+                  ? "bg-black/20 border-white/10"
                   : "bg-white/80 border-gray-200"
               }`}
             >
