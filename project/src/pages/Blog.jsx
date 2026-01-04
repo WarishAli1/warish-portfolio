@@ -13,7 +13,6 @@ export default function Blog() {
       }`}
     >
       <section className="max-w-6xl mx-auto px-6 py-32">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -27,9 +26,11 @@ export default function Blog() {
           </p>
         </motion.div>
 
-        {/* Blog List */}
         <div className="space-y-6">
-          {blogs.map((blog, index) => (
+          {blogs
+          .slice()
+          .sort((a, b) => new Date(b.date) - new Date(a.date))
+          .map((blog, index) => (
             <motion.div
               key={blog.id}
               whileHover={{ x: 6 }}
@@ -41,12 +42,11 @@ export default function Blog() {
               }`}
             >
               <Link to={`/blogs/${blog.id}`} className="flex gap-6 items-start">
-                {/* Index */}
+
                 <span className="text-sm font-mono opacity-50 pt-1">
                   {String(index + 1).padStart(2, "0")}
                 </span>
 
-                {/* Content */}
                 <div className="flex-1">
                   <h2 className="text-xl font-semibold mb-2">
                     {blog.title}
@@ -56,7 +56,6 @@ export default function Blog() {
                     {blog.description}
                   </p>
 
-                  {/* Meta */}
                   <div className="mt-3 flex flex-wrap items-center gap-3 text-xs opacity-70">
                     <span>{blog.mainCategory}</span>
                     {blog.subCategory && <span>• {blog.subCategory}</span>}

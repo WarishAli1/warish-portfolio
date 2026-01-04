@@ -8,47 +8,53 @@ const CursorFollower = () => {
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      const outerCircle = outerCircleRef.current;
-      const innerDot = innerDotRef.current;
+  const isTouch =
+    "ontouchstart" in window ||
+    navigator.maxTouchPoints > 0 ||
+    window.matchMedia("(pointer: coarse)").matches;
 
-      if (!outerCircle || !innerDot) return;
+  if (isTouch) return;
 
-      // Outer circle position
-      outerCircle.style.left = `${e.clientX}px`;
-      outerCircle.style.top = `${e.clientY}px`;
+  const handleMouseMove = (e) => {
+    const outerCircle = outerCircleRef.current;
+    const innerDot = innerDotRef.current;
 
-      // Inner dot position
-      innerDot.style.left = `${e.clientX}px`;
-      innerDot.style.top = `${e.clientY}px`;
+    if (!outerCircle || !innerDot) return;
 
-      // Check if hovering over interactive element
-      const element = document.elementFromPoint(e.clientX, e.clientY);
-      const isInteractive =
-        element &&
-        (element.tagName === "A" ||
-          element.tagName === "BUTTON" ||
-          element.tagName === "INPUT" ||
-          element.tagName === "TEXTAREA" ||
-          element.tagName === "SELECT" ||
-          element.getAttribute("role") === "button" ||
-          element.onclick ||
-          element.className.includes("cursor-pointer") ||
-          element.className.includes("hover:"));
+    outerCircle.style.left = `${e.clientX}px`;
+    outerCircle.style.top = `${e.clientY}px`;
 
-      setIsHovering(isInteractive);
-    };
+    innerDot.style.left = `${e.clientX}px`;
+    innerDot.style.top = `${e.clientY}px`;
 
-    window.addEventListener("mousemove", handleMouseMove);
+    const element = document.elementFromPoint(e.clientX, e.clientY)?.closest(
+      "button, a, .theme-toggle"
+    );
+    const isInteractive =
+      element &&
+      (element.tagName === "A" ||
+        element.tagName === "BUTTON" ||
+        element.tagName === "INPUT" ||
+        element.tagName === "TEXTAREA" ||
+        element.tagName === "SELECT" ||
+        element.getAttribute("role") === "button" ||
+        element.onclick ||
+        element.className.includes("cursor-pointer") ||
+        element.className.includes("hover:") ||
+        element.closest(".theme-toggle"));
 
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
+    setIsHovering(isInteractive);
+  };
+
+  window.addEventListener("mousemove", handleMouseMove);
+
+  return () => {
+    window.removeEventListener("mousemove", handleMouseMove);
+  };
+}, []);
 
   return (
     <>
-      {/* Outer Circle - Hidden on hover */}
       <div
         ref={outerCircleRef}
         className={`pointer-events-none fixed rounded-full transform -translate-x-1/2 -translate-y-1/2 z-40 transition-all duration-300 ease-out border-2 ${
@@ -58,7 +64,6 @@ const CursorFollower = () => {
         } ${isHovering ? "opacity-0 w-12 h-12" : "opacity-100 w-16 h-16"}`}
       />
 
-      {/* Inner Dot - Larger on hover */}
       <div
         ref={innerDotRef}
         className={`pointer-events-none fixed rounded-full transform -translate-x-1/2 -translate-y-1/2 z-40 transition-all duration-200 ease-out ${

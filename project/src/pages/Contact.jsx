@@ -188,21 +188,26 @@ export default function Contact() {
           </motion.form>
         </div>
       </section>
-      <div className="absolute left-0 bottom-0 w-full pointer-events-none px-6 pb-4">
-  <span
-    className={`font-black select-none ${
-      isDarkMode ? "text-gray-200" : "text-ink"
-    }`}
-    style={{
-      fontSize: "120px",
-      lineHeight: "1",
-      whiteSpace: "nowrap",
-      opacity: 0.08,
-    }}
-  >
-    CONTACT.
-  </span>
-</div>
+    <div className="relative inset-0 pointer-events-none flex items-end">
+      <div className="w-full px-6 pb-4">
+        <span
+          className={`font-black select-none ${
+            isDarkMode ? "text-gray-200" : "text-ink"
+          }`}
+          style={{
+            fontSize: window.innerWidth < 768 ? "60px" : "120px",
+            lineHeight: "1",
+            whiteSpace: "nowrap",
+            opacity: 0.08,
+            display: "block",
+            textAlign: "left",
+            transform: "translateX(-3%)"
+          }}
+        >
+          CONTACT.
+        </span>
+      </div>
+    </div>
     </main>
   );
 }

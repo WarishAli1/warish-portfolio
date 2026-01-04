@@ -13,7 +13,6 @@ export default function About() {
     >
       
       <section className="container-custom max-w-6xl py-32">
-        {/* Heading */}
         <motion.h1
           className="text-4xl md:text-5xl font-extrabold text-center mb-4"
           initial={{ opacity: 0, y: 30 }}
@@ -27,7 +26,6 @@ export default function About() {
         </p>
 
         <div className="grid lg:grid-cols-2 gap-14 items-start">
-          {/* Profile Card */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -66,8 +64,7 @@ export default function About() {
               </a>
             </div>
           </motion.div>
-
-          {/* About Text */}
+          
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

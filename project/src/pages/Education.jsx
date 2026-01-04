@@ -11,7 +11,6 @@ const Education = () => {
       }`}
     >
       <section className="max-w-5xl mx-auto px-6 pt-28 pb-32">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -34,23 +33,19 @@ const Education = () => {
           </p>
         </motion.div>
 
-        {/* Timeline */}
         <div className="relative">
-          {/* Center line */}
           <div
             className={`absolute left-1/2 top-0 h-full w-px transform -translate-x-1/2 ${
               isDarkMode ? "bg-white/10" : "bg-black/10"
             }`}
           />
 
-          {/* Timeline item */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="relative grid grid-cols-1 md:grid-cols-2 gap-12 mb-24"
           >
-            {/* Year */}
             <div className="md:text-right">
               <span
                 className={`inline-block text-sm tracking-wide ${
@@ -61,7 +56,6 @@ const Education = () => {
               </span>
             </div>
 
-            {/* Card */}
             <div
               className={`relative border rounded-xl p-8 ${
                 isDarkMode
@@ -69,7 +63,6 @@ const Education = () => {
                   : "bg-white/80 border-gray-200"
               }`}
             >
-              {/* Square marker */}
               <span
                 className={`absolute -left-3 top-8 w-3 h-3 ${
                   isDarkMode ? "bg-white" : "bg-black"
@@ -103,8 +96,6 @@ const Education = () => {
               </ul> */}
             </div>
           </motion.div>
-
-          {/* Future item placeholder (optional) */}
           
           <motion.div className="relative grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="md:text-right text-gray-400">2026</div>
@@ -114,21 +105,26 @@ const Education = () => {
           </motion.div>
         </div>
       </section>
-      <div className="absolute left-0 bottom-0 w-full pointer-events-none px-6 pb-4">
-  <span
-    className={`font-black select-none ${
-      isDarkMode ? "text-gray-200" : "text-ink"
-    }`}
-    style={{
-      fontSize: "120px", // bigger size
-      lineHeight: "1",
-      whiteSpace: "nowrap",
-      opacity: 0.08, // more transparent
-    }}
-  >
-    EDUCATION.
-  </span>
-</div>
+     <div className="relative inset-0 pointer-events-none flex items-end">
+      <div className="w-full px-6 pb-4">
+        <span
+          className={`font-black select-none ${
+            isDarkMode ? "text-gray-200" : "text-ink"
+          }`}
+          style={{
+            fontSize: window.innerWidth < 768 ? "60px" : "120px",
+            lineHeight: "1",
+            whiteSpace: "nowrap",
+            opacity: 0.08,
+            display: "block",
+            textAlign: "left",
+            transform: "translateX(-3%)"
+          }}
+        >
+          EDUCATION.
+        </span>
+      </div>
+    </div>
     </main>
   );
 };

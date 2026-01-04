@@ -36,7 +36,7 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center gap-3">
-          <button onClick={toggleTheme}>
+          <button onClick={toggleTheme} className="theme-toggle">
             {isDarkMode ? <FiSun /> : <FiMoon />}
           </button>
           <button className="md:hidden" onClick={() => setOpen(!open)}>
@@ -44,6 +44,31 @@ const Header = () => {
           </button>
         </div>
       </div>
+
+      {open && (
+  <div
+    className={`md:hidden px-6 py-4 space-y-4 ${
+      isDarkMode ? "bg-ink border-white/10" : "bg-paper border-black/10"
+    } border-t`}
+  >
+    {["/", "/about", "/education", "/projects", "/blogs", "/contact"].map(
+      (p, i) => (
+        <NavLink
+          key={i}
+          to={p}
+          onClick={() => setOpen(false)}
+          className={({ isActive }) =>
+            `block text-sm ${
+              isActive ? "font-semibold underline" : "opacity-80"
+            }`
+          }
+        >
+          {p === "/" ? "Home" : p.slice(1)}
+        </NavLink>
+      )
+    )}
+  </div>
+)}
     </header>
   );
 };

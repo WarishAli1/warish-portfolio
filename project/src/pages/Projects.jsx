@@ -15,28 +15,7 @@ const Projects = () => {
         isDarkMode ? "dark-grid bg-ink text-gray-200" : "light-grid bg-paper text-ink"
       }`}
     >
-     <div className="absolute left-0 bottom-0 w-full pointer-events-none px-6 pb-4">
-  <span
-    className={`font-black select-none ${
-      isDarkMode ? "text-gray-200" : "text-ink"
-    }`}
-    style={{
-      fontSize: "120px", // bigger size
-      lineHeight: "1",
-      whiteSpace: "nowrap",
-      opacity: 0.08, // more transparent
-    }}
-  >
-    PROJECTS.
-  </span>
-</div>
-
-
-
-
-
       <section className="relative z-10 max-w-6xl mx-auto px-8 py-24">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -55,7 +34,6 @@ const Projects = () => {
           </p> */}
         </motion.div>
 
-        {/* Project List */}
         <div className="space-y-3">
           {projects.map((project, index) => (
             <motion.div
@@ -68,7 +46,6 @@ const Projects = () => {
               onClick={() => setActiveProject(project)}
               className="group relative cursor-pointer"
             >
-              {/* Card */}
               <div
                 className={`relative rounded-lg border transition-all duration-300 overflow-hidden ${
                   isDarkMode
@@ -82,11 +59,8 @@ const Projects = () => {
                   paddingRight: "24px",
                 }}
               >
-                {/* Content Wrapper */}
                 <div className="flex items-start justify-between gap-6">
-                  {/* Left Side - Title & Description */}
                   <div className="flex-1 min-w-0">
-                    {/* Index Number */}
                     <span
                       className={`text-xs font-mono mb-2 block ${
                         isDarkMode ? "text-gray-500" : "text-gray-500"
@@ -94,8 +68,6 @@ const Projects = () => {
                     >
                       {String(index + 1).padStart(2, "0")}
                     </span>
-
-                    {/* Title */}
                     <h2
                       className={`text-lg font-semibold mb-2 ${
                         isDarkMode ? "text-white" : "text-black"
@@ -103,8 +75,6 @@ const Projects = () => {
                     >
                       {project.title}
                     </h2>
-
-                    {/* Description - Expand on hover */}
                     <motion.div
                       initial={false}
                       animate={{
@@ -124,7 +94,6 @@ const Projects = () => {
                       </p>
                     </motion.div>
 
-                    {/* Tech Stack - Expand on hover */}
                     <motion.div
                       initial={false}
                       animate={{
@@ -152,7 +121,6 @@ const Projects = () => {
                     </motion.div>
                   </div>
 
-                  {/* Right Side - Thumbnail */}
                   {project.images?.[0] && (
                     <motion.img
                       src={project.images[0]}
@@ -171,8 +139,6 @@ const Projects = () => {
                   )}
                 </div>
               </div>
-
-              {/* Subtle bottom line on hover */}
               <motion.div
                 className={`absolute bottom-0 left-0 h-0.5 ${
                   isDarkMode ? "bg-white" : "bg-black"
@@ -187,11 +153,11 @@ const Projects = () => {
         </div>
       </section>
 
-      {/* Side Drawer */}
       <ProjectDrawer
         project={activeProject}
         onClose={() => setActiveProject(null)}
       />
+    
     </main>
   );
 };
