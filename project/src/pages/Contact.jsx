@@ -45,7 +45,7 @@ export default function Contact() {
           isSubmitted: true,
           message: "Message sent successfully.",
         });
-        setFormData({ name: "", email: "", subject: "", message: "" });
+        setFormData({ from_name: "", from_email: "", subject: "", message: "" });
       })
       .catch(() => {
         setStatus({
