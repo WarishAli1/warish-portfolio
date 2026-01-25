@@ -780,9 +780,9 @@ Training a Transformer didn’t make me build a perfect chatbot, but it gave me 
 
 ## Resources
 
-- 📄 Transformer theory notes (Google Docs)
-- 💻 Training code (GitHub)
-- 🧪 Experiments and checkpoints
+- 📄 Transformer theory notes: https://docs.google.com/document/d/1ikOdLAeJLqGN6gtCLiAz2Z0_SuL_oY2sne6fMKnRVxQ/edit?usp=sharing
+- 💻 Training code: https://github.com/WarishAli1/transformer_building
+- 🧪 Experiments and checkpoints: soon...
 
 
 ## Final Thought
