@@ -78,7 +78,7 @@ export default function About() {
           >
             <p className="mb-6">
               I’m an engineering student who enjoys understanding how systems
-              work — from low-level logic to high-level abstractions. I’m
+              work from low-level logic to high-level abstractions. I’m
               naturally curious and always eager to explore new ideas,
               technologies, and ways of solving problems more efficiently.
             </p>
@@ -94,7 +94,7 @@ export default function About() {
             <p>
               Currently, my main focus is on{" "}
               <span className="font-medium">Machine Learning</span>. I’m actively
-              exploring modern ML concepts, architectures, and workflows —
+              exploring modern ML concepts, architectures, and workflows,
               learning how models reason, how data flows through them, and how
               intelligent systems can be designed responsibly. I see ML as a
               long-term journey of continuous learning, experimentation, and
