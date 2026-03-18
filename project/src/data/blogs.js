@@ -578,25 +578,27 @@ Overall, this experience strengthened my understanding and motivated me to conti
 
 `
   },
-  {
+ {
   id: "transformer-from-scratch",
   title: "‘Attention Is All You Need’ – Misleading?",
-  date: "2026-01-03",
+  date: "2026-03-18",
   mainCategory: "Machine Learning",
   subCategory: "Natural Language Processing",
-  images: [],
+  images: ["/transformer1.png", "/transformer2.png"],
   description: "What really happens when you train a Transformer from scratch with limited data and compute.",
   content: `
-## Introduction (draft)
 
-When I first read *“Attention Is All You Need”*, I thought:  
+## Introduction
+
+When I first read *“Attention Is All You Need”*, I thought:
+
 “If I understand this architecture and implement it correctly, I should be able to build a good language model.”
 
-I was wrong — and I’m glad I was.
+I was wrong and I’m glad I was.
 
-Over the last two months, I trained a Transformer **from scratch**, moving from very small datasets to a much larger conversational dataset. I implemented embeddings, multi-head attention, feed-forward networks, decoding strategies, schedulers, and evaluation methods myself.
+Over the last two months, I trained a Transformer from scratch, moving from very small datasets to a much larger conversational dataset. I implemented embeddings, multi-head attention, feed-forward networks, decoding strategies, schedulers, and evaluation methods myself.
 
-What I learned is not just *how Transformers work*, but **why building a fluent chatbot is much harder than the paper makes it look**.
+What I learned is not just how Transformers work, but why building a fluent chatbot is much harder than the paper makes it look.
 
 This blog is not about theory or code. It’s about what actually happens when you try to train a Transformer with limited data, limited compute, and real-world constraints.
 
@@ -607,195 +609,180 @@ There are thousands of tutorials showing how to fine-tune GPT-2 or load a pretra
 
 I wanted to understand how embeddings actually learn meaning, how token IDs connect directly to model weights, why models repeat themselves, and why loss goes down but outputs still feel wrong.
 
-To learn that, I needed to **feel the pain of training**, not just read about it.
+To learn that, I needed to feel the pain of training, not just read about it.
 
 
 ## The Datasets: Scaling Changed Everything
 
-I didn’t start with a big dataset. I grew step by step and that turned out to be one of the most important learning experiences.
+I didn’t start with a big dataset. I grew step by step, and that turned out to be one of the most important learning experiences.
 
 ### Dataset 1: Very Small (GitHub – ConvAI)
 
-My first dataset was very small. Conversations were limited, the vocabulary was tiny, and the model quickly overfitted. This was useful only to check whether training worked, whether the loss decreased, and whether the model generated *anything*.
+My first dataset was very small. Conversations were limited, the vocabulary was tiny, and the model quickly overfitted. This stage was useful only to check whether training worked, whether the loss decreased, and whether the model generated anything.
 
-The answers were yes but the outputs were extremely weak.
-
+The answers were yes, but the outputs were extremely weak.
 
 ### Dataset 2: Medium Size (Kaggle – Chatbot Dataset)
 
-Next, I used a larger Kaggle dataset. I used one dataset, split it into 90% training and 10% testing, and the vocabulary grew but was still manageable. Here I noticed better grammar, slightly longer responses, but still poor conversational flow.
+Next, I used a larger Kaggle dataset. I split it into 90 percent training and 10 percent testing. The vocabulary grew but was still manageable.
+
+Here I noticed better grammar and slightly longer responses, but still poor conversational flow.
 
 This was the stage where I realized:
-> “The model is learning language structure, but not conversation.”
 
+“The model is learning language structure, but not conversation.”
 
-### Dataset 3: Large Dataset (Kaggle -DailyDialog)
+### Dataset 3: Large Dataset (Kaggle – DailyDialog)
 
-Finally, I moved to a much larger and cleaner dataset:
-- Separate **train and validation sets**
-- No manual 90/10 split
-- More natural conversations
+Finally, I moved to a much larger and cleaner dataset with separate train and validation sets and more natural conversations.
 
-This caused a **huge jump**:
-- Vocabulary size went from ~1,900 tokens  
-- To **~25,000 tokens**
+This caused a huge jump.
 
-That single change taught me something critical:
+Vocabulary size went from around 1,900 tokens to about 25,000 tokens.
 
-> **Tokenizer size is not a small detail — it completely reshapes the model.**
+That single change taught me something critical.
+
+Tokenizer size is not a small detail. It completely reshapes the model.
 
 The embedding matrix, output layer, memory usage, and training stability all changed.
 
 
 ## The Reality of Training on Google Colab (Free GPU)
 
-I trained everything on **Google Colab free GPU**.
+![Training Setup](/transformer1.png)
 
-This helped a lot compared to CPU — but it came with hard limits:
-- Sessions disconnected after ~2–3 hours
-- Training often stopped mid-epoch
-- I had to resume the next day
-- No long uninterrupted runs
+I trained everything on Google Colab using the free GPU.
 
-Because of this:
-- I couldn’t train for very long continuous periods
-- I had to carefully save checkpoints
-- Hyperparameter tuning became slow
+This helped a lot compared to CPU, but it came with hard limits. Sessions disconnected after a few hours. Training often stopped in the middle of an epoch. I had to resume later, sometimes the next day.
 
-This made me understand something important:
+Because of this, I could not train for long continuous periods. I had to carefully save checkpoints, and hyperparameter tuning became slow and frustrating.
 
-> **Most impressive language models are not hard because of code — they’re hard because of time and compute.**
+This made me understand something important.
+
+Most impressive language models are not hard because of code. They are hard because of time and compute.
+
+Also, even after training for weeks on my own model, I did not achieve even a bare minimum level of conversational quality. When I kept increasing dataset size, the model behavior kept shifting. At one point it improved grammar, then suddenly outputs became random again. It felt like constant ups and downs.
+
+But I do not regret it at all.
+
+It may not look fruitful from the outside because the model did not perform well, but for me it was extremely valuable. I experienced the tension of training, the uncertainty, the trial and error. I experimented, tuned hyperparameters, failed, and tried again.
+
+That hands-on experience mattered more than the final result.
 
 
 ## Architecture Was Not the Hard Part
 
-Implementing:
-- Embeddings
-- Multi-Head Attention
-- Feed-Forward Networks
-- Residual connections
+Implementing embeddings, multi-head attention, feed-forward networks, and residual connections was honestly the easiest part once the theory was clear.
 
-was honestly the **easiest part** once the theory was clear. But what surprised me was this:
-> Even with a correct implementation, the model did not “become intelligent.”
+What surprised me was this.
 
-It could:
-- Form sentences
-- Follow grammar patterns
+Even with a correct implementation, the model did not become intelligent.
 
-But it could not:
-- Hold meaningful conversations
-- Respond logically most of the time
+It could form sentences and follow grammar patterns, but it could not hold meaningful conversations or respond logically most of the time.
 
+![Model Architecture](/transformer2.png)
 
 ## Why Accuracy Failed as an Evaluation Metric
 
-At first, I evaluated my model using **token-level accuracy**. On paper, the numbers looked fine. But in reality, the outputs didn’t.
+At first, I evaluated my model using token-level accuracy. On paper, the numbers looked fine, but in reality, the outputs did not.
 
-Then I realized the problem:
-- Language doesn’t have just one “correct” answer.
-- Accuracy rewards a single outcome and penalizes every other valid one.
+Then I realized the problem.
 
-That realization pushed me toward **perplexity** instead. 
+Language does not have just one correct answer. Accuracy rewards a single outcome and penalizes every other valid one.
 
-Perplexity helped me understand:
-- How uncertain the model was
-- Whether it was learning smoother distributions
-- Whether training actually improved language modeling
+That realization pushed me toward perplexity instead.
 
-More than a metric change, this was a mindset shift.
+Perplexity helped me understand how uncertain the model was, whether it was learning smoother distributions, and whether training was actually improving language modeling.
+
+This was more than a metric change. It was a mindset shift.
 
 
 ## Greedy Decoding Almost Ruined My Model
 
-Initially, I used **greedy decoding**. At every step, the model simply picked the token with the **maximum probability** as the next prediction.
+Initially, I used greedy decoding. At every step, the model picked the token with the highest probability.
 
-On paper, this sounded reasonable. But in practice, the results were terrible.
+It sounded reasonable, but the results were terrible.
 
-The model fell into repetition loops, reused the same tokens again and again, and produced boring, overly predictable responses.
+The model kept repeating itself, reused the same tokens again and again, and produced boring responses.
 
-While researching why this was happening, I learned about better decoding strategies:
-- **Top-k sampling**
-- **Top-p (nucleus) sampling**
-- **Temperature**
+While digging into this, I learned about better decoding strategies like top-k sampling, top-p sampling, and temperature.
 
-I decided to switch from greedy decoding to **Top-k sampling with temperature**.
+I switched to top-k sampling with temperature.
 
-With Top-k sampling, instead of choosing only the single most probable token, the model first selects the **top _k_ most probable tokens**.  
+Instead of always picking the top token, the model selects from the top k tokens and samples one. Temperature controls how confident or random the selection is.
 
-For example, if "k = 30", the model considers the top 30 tokens and **randomly samples** one from that set.
+This simple change made a huge difference.
 
-**Temperature** controls how confident the model is during sampling:  
-a **lower temperature** makes outputs more deterministic, while a **higher temperature** encourages diversity and creativity.
+The model reduced repetition, improved grammar, and produced responses that felt more natural.
 
-Simply replacing greedy decoding with **Top-k + temperature** made a massive difference.  
+A bad decoding strategy can make a decent model look terrible.
 
-The model immediately:
-- Reduced repetition  
-- Improved grammar  
-- Produced responses that felt far more human
-
-This taught me an important lesson:
-
-> **A bad decoding strategy can make a decent model look terrible.**
 
 ## Tokenizer and Model: You Can’t Separate Them
 
-Early on, I assumed the tokenizer was just a simple utility, something that converts text into token IDs and nothing more. But that assumption was wrong.
+At first, I thought the tokenizer was just a utility that converts text into token IDs.
 
-While training the model, I realized that the tokenizer plays a **crucial role** in how the model actually learns. Token IDs are directly tied to learned parameters like the **embedding layer** and the **final linear (output) layer**. These layers adjust their weights based entirely on how the tokenizer represents language.
+That assumption was wrong.
 
-Because of this tight coupling, a model is only truly usable with the **same tokenizer it was trained with**. Changing the tokenizer breaks the learned embeddings, misaligns token IDs, and effectively disconnects the model from what it has learned.
+The tokenizer directly shapes how the model learns. Token IDs are tied to embeddings and the output layer. The model adjusts its weights based on this representation.
 
-This became especially clear when my vocabulary jumped from **1.9K to 25K**. The model didn’t just need more data, it had to **relearn how language itself was represented**.
+Because of this, a model only works properly with the same tokenizer it was trained on. Changing the tokenizer breaks everything the model has learned.
+
+This became very clear when my vocabulary jumped from 1.9K to 25K. The model did not just need more data. It had to relearn how language itself was represented.
 
 
 ## Why “Attention Is All You Need” Is Misleading
 
-The paper is brilliant but the **interpretation often is**.
+The paper is brilliant, but the way people interpret it can be misleading.
 
-What the title hides:
-- Data scale requirements
-- Training instability
-- Evaluation complexity
-- Decoding strategy importance
-- Systems-level design
+What the title hides is everything around the model.
 
-A more honest title might be:
+Data scale, training instability, evaluation complexity, decoding strategies, and system-level challenges.
 
-> **“Attention Is All You Need, If You Already Have Massive Data and Compute.”**
+A more honest version would be:
+
+“Attention is all you need, if you already have massive data and compute.”
 
 
 ## What This Journey Changed for Me
 
 Before this project, I thought:
-> “If I understand CNNs and Transformers, I understand deep learning.”
+
+“If I understand CNNs and Transformers, I understand deep learning.”
 
 Now I see how incomplete that mindset was.
 
-What I’ve learned instead is:
-> **The more you learn, the more you realize how much you don’t know.**
+What I’ve learned instead is simple.
 
-Training a Transformer didn’t make me build a perfect chatbot, but it gave me **real understanding**, and that’s far more valuable.
+The more you learn, the more you realize how much you don’t know.
+
+Training a Transformer did not help me build a perfect chatbot, but it gave me real understanding. That is far more valuable.
 
 
 ## Resources
 
-- 📄 Transformer theory notes: [Google Doc](https://docs.google.com/document/d/1ikOdLAeJLqGN6gtCLiAz2Z0_SuL_oY2sne6fMKnRVxQ/edit?usp=sharing)
-- 💻 Training code: [GitHub repo](https://github.com/WarishAli1/transformer_building)
-- 🧪 Experiments and checkpoints: soon...
+- Transformer theory notes: [Google Doc](https://docs.google.com/document/d/1ikOdLAeJLqGN6gtCLiAz2Z0_SuL_oY2sne6fMKnRVxQ/edit?usp=sharing) 
+- Training code: [GitHub repo](https://github.com/WarishAli1/transformer_building) 
+- Experiments and checkpoints: soon... 
 
 
 ## Final Thought
 
-I started this project thinking that learning Transformers would be similar to learning CNNs. Since attention is the core idea behind modern LLMs, I believed it would be a straightforward next step.
+I started this project thinking that learning Transformers would be similar to learning CNNs. Since attention is the core idea behind modern language models, I believed it would be a straightforward next step.
 
 I was wrong.
 
-Understanding the theory was only the beginning. The real challenge started when I tried to build and evaluate my own model. Even making a chatbot that could handle basic conversations was difficult. I learned that simply reducing loss is not enough, you need good data, more time, enough compute, and a lot of patience.
+Understanding the theory was only the beginning. The real challenge started when I tried to build and evaluate my own model. Even making a chatbot that could handle basic conversations was difficult.
 
-I faced many problems during this journey, but they didn’t discourage me. Instead, they made me more curious about why things were failing and how they could be improved. I may not have built a perfect model, but the experience I gained was far more valuable.
+Reducing loss was not enough. Good data, time, compute, and patience mattered just as much.
 
-This project wasn’t about building ChatGPT. It was about understanding why building ChatGPT is hard and that alone made the journey worth it.
+I faced many problems during this journey, but they did not discourage me. They made me more curious.
+
+This project was not about building something perfect.
+
+It was about understanding why building something like ChatGPT is so difficult.
+
+And that alone made the journey worth it.
 
 `
 }
