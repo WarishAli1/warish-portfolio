@@ -74,6 +74,43 @@ const projects = [
     demoLink: "https://face-recognition-project-warish.streamlit.app/",
     githubLink: "https://github.com/WarishAli1/face-recognition-project",
   },
+  {
+  id: "AI-Powered Exam Guide System",
+  title: "AI-Powered Exam Guide System",
+  description:
+    "An intelligent study platform that analyzes study materials to highlight important topics, generate quizzes, and provide answers from user-uploaded content.",
+  longDescription:
+    "The AI-Powered Exam Guide System is designed to help students prepare efficiently for exams by focusing only on what matters most. Instead of manually going through lengthy notes and past papers, users can upload their study materials, and the system automatically analyzes them to identify high-priority chapters, key topics, and frequently asked questions.\n\nThe platform generates structured study guides with topic importance rankings, helping students prioritize their time effectively. It also includes a quiz generation feature that creates questions directly from the uploaded materials, along with an AI-powered answering system that ensures responses are grounded in the user's own content.\n\nAdditionally, the system provides insights such as repeated questions, marks distribution, and estimated study time, making exam preparation more strategic and data-driven. This project demonstrates the integration of AI concepts like NLP, document processing, and retrieval-based question answering into a real-world educational application.",
+  image: "/study_guide_1.png",
+  images: ["/study_guide_1.png", "/study_guide_2.png", "/study_guide_3.png", "/study_guide_4.png", "/study_guide_5.png", "/study_guide_6.png", "/study_guide_7.png"],
+  technologies: [
+  "TypeScript",
+  "Python",
+  "Next.js",
+  "React",
+  "Tailwind CSS",
+  "FastAPI",
+  "PyTorch",
+  "Natural Language Processing (NLP)",
+  "Retrieval-Augmented Generation (RAG)",
+  "Google OAuth",
+  "JWT Authentication"
+],
+  features: [
+    "Upload notes, syllabus, and past exam papers",
+    "Automatic chapter importance ranking based on analysis",
+    "Key topic extraction for focused studying",
+    "Frequently asked question detection with frequency tracking",
+    "AI-generated quizzes from uploaded materials",
+    "Answer generation strictly based on user's own documents (RAG-based)",
+    "Insights like marks distribution and estimated study time",
+    "Clean dashboard UI for structured exam preparation"
+  ],
+  challenges:
+    "Designing an effective pipeline to analyze multiple study materials, implementing retrieval-based answer generation to avoid hallucination, and balancing accuracy with performance for real-time quiz and answer generation.",
+  demoLink: "https://study-guide-system.vercel.app/",
+  githubLink: "https://github.com/WarishAli1/study_guide_system",
+},
 ];
 
 export default projects;
