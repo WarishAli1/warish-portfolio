@@ -76,7 +76,7 @@ const projects = [
   },
   {
   id: "AI-Powered Exam Guide System",
-  title: "AI-Powered Exam Guide System",
+  title: "Exam Guide System",
   description:
     "An intelligent study platform that analyzes study materials to highlight important topics, generate quizzes, and provide answers from user-uploaded content.",
   longDescription:

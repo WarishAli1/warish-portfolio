@@ -98,7 +98,7 @@ export default function Contact() {
             <div className="space-y-4">
               <div className="flex items-center gap-3 text-sm">
                 <FiMail />
-                <span>warishkhan384@gmail.com</span>
+                <span>warishali.contact@gmail.com</span>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <FiPhone />

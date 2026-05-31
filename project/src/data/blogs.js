@@ -1,7 +1,7 @@
 const blogs = [
   {
     id: "ml-classification",
-    title: "Neural Network Classification",
+    title: "Exploring ML: How I Learned Neural Network Classification",
     date: "2025-10-31",
     mainCategory: "Machine Learning",
     subCategory: "Classification",
@@ -230,7 +230,7 @@ Classification is a fundamental task in machine learning that enables models to 
   },
   {
     id: "cnn-fashionmnist",
-    title: "Computer Vision",
+    title: "How I Learned Computer Vision by Building a CNN From Scratch",
     date: "2025-11-17",
     mainCategory: "Machine Learning",
     subCategory: "Computer Vision",
@@ -580,7 +580,7 @@ Overall, this experience strengthened my understanding and motivated me to conti
   },
  {
   id: "transformer-from-scratch",
-  title: "‘Attention Is All You Need’ – Misleading?",
+  title: "Building a Transformer From Scratch: What Actually Matters",
   date: "2026-03-18",
   mainCategory: "Machine Learning",
   subCategory: "Natural Language Processing",

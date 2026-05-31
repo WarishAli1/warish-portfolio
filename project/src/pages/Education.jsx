@@ -74,7 +74,7 @@ const Education = () => {
                   isDarkMode ? "text-white" : "text-gray-900"
                 }`}
               >
-                Bachelor of Computer Engineering
+                Bachelor in Computer Engineering
               </h2>
 
               <p

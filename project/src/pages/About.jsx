@@ -40,7 +40,7 @@ export default function About() {
             <div className="flex flex-col items-center text-center">
               <div className="w-56 h-56 rounded-xl overflow-hidden mb-6 border border-black/10 dark:border-white/10">
                 <img
-                  src="/warish.HEIC"
+                src="/warish.JPEG"
                   alt="Warish Ali"
                   className="w-full h-full object-cover"
                 />
@@ -52,7 +52,7 @@ export default function About() {
               </p>
 
               <p className="mt-3 text-sm text-muted">
-                Kathmandu, Nepal · ✉️ warishkhan384@gmail.com
+                Kathmandu, Nepal · ✉️ warishali.contact@gmail.com
               </p>
 
               <a
@@ -76,30 +76,39 @@ export default function About() {
                 : "border-black/10 bg-white/10"
             } shadow-soft`}
           >
-            <p className="mb-6">
-              I’m an engineering student who enjoys understanding how systems
-              work from low-level logic to high-level abstractions. I’m
-              naturally curious and always eager to explore new ideas,
-              technologies, and ways of solving problems more efficiently.
-            </p>
+        
+          <p className="mb-6">
+            I am an undergraduate Computer Engineering student at Advance College of
+            Engineering and Management (ACEM), Kathmandu.
+          </p>
 
-            <p className="mb-6">
-              I have hands-on experience as a{" "}
-              <span className="font-medium">Full-Stack Java Developer</span>,
-              where I’ve worked with backend systems, APIs, databases, and
-              frontend interfaces. This background helps me think about software
-              not just as code, but as complete, usable systems.
-            </p>
+          <p className="mb-6">
+            I work as a{" "}
+            <span className="font-medium">Full-Stack Java Developer</span> with
+            experience in Java, Vue.js, backend systems, APIs, and databases. Through
+            practical projects, I have gained experience building software that is
+            functional, scalable, and user-focused.
+          </p>
 
-            <p>
-              Currently, my main focus is on{" "}
-              <span className="font-medium">Machine Learning</span>. I’m actively
-              exploring modern ML concepts, architectures, and workflows,
-              learning how models reason, how data flows through them, and how
-              intelligent systems can be designed responsibly. I see ML as a
-              long-term journey of continuous learning, experimentation, and
-              refinement.
-            </p>
+          <p className="mb-6">
+            Currently, I am exploring{" "}
+            <span className="font-medium">Machine Learning</span> and expanding my
+            understanding of how intelligent systems learn from data. I enjoy learning
+            new concepts, experimenting with different technologies, and applying them
+            through hands-on projects.
+          </p>
+
+          <p className="mb-6">
+            I am naturally curious about how systems work, from the underlying logic to
+            the complete solutions people interact with every day. For me, technology is
+            a continuous learning journey, and I am always looking for opportunities to
+            grow, build, and improve.
+          </p>
+
+          <p>
+            Outside of tech, I enjoy writing poems and songs, and I also enjoy singing.
+          </p>
+
           </motion.div>
         </div>
       </section>
