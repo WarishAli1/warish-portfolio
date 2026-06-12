@@ -12,7 +12,7 @@ const blogs = [
 
 When I first started learning Machine Learning (ML) and Deep Learning, one of the first things I explored was classification models.
 
-Classification is about teaching a model to categorize things — for example, identifying whether an image shows a dog or cat, or deciding whether an email is spam or not spam. It is a form of **supervised learning**, where the model learns from labeled data, meaning each input comes with a known output, and the model learns the mapping between inputs and outputs.
+Classification is about teaching a model to categorize things. For example, identifying whether an image shows a dog or cat, or deciding whether an email is spam or not spam. It is a form of **supervised learning**, where the model learns from labeled data, meaning each input comes with a known output, and the model learns the mapping between inputs and outputs.
 
 I quickly learned that there are two main types of classification:
 
@@ -29,7 +29,7 @@ Binary classification means the model predicts between two outcomes, like:
 
 ### Dataset for Binary Classification
 
-I used the **make_circles()** dataset, which creates two concentric circles making a non-linearly separable problem — perfect for learning classification.
+I used the **make_circles()** dataset, which creates two concentric circles making a non-linearly separable problem, perfect for learning classification.
 
 \`\`\`python
 from sklearn.datasets import make_circles
@@ -95,7 +95,7 @@ This makes it ideal for **binary classification**, where the output represents a
 
 Here, **loss.backward()** computes the gradients for all model parameters, and **optimizer.step()** updates them in the direction that **reduces the loss**. We can think of it as being at the top of a hill, where the slope represents the gradient, and we take small steps downward to reach the lowest point (minimum loss).
 
-We use **optimizer.zero_grad()** before each backward pass to **reset gradients** from the previous iteration — otherwise, they would **accumulate**, leading to incorrect parameter updates.
+We use **optimizer.zero_grad()** before each backward pass to **reset gradients** from the previous iteration. Otherwise, they would **accumulate**, leading to incorrect parameter updates.
 
 ### Visualizing the Decision Boundary
 
@@ -240,11 +240,11 @@ Classification is a fundamental task in machine learning that enables models to 
 
 ## INTRODUCTION
 
-After learning about classification models, I became really curious about computer vision — how computers can actually "see" and understand images like humans do. Exploring this area has been super exciting, and it's motivating me to dive deeper into neural networks and image recognition.
+After learning about classification models, I became really curious about computer vision, how computers can actually "see" and understand images like humans do. Exploring this area has been super exciting, and it's motivating me to dive deeper into neural networks and image recognition.
 
 One of the most fascinating concepts I discovered is the Convolutional Neural Network (CNN). CNNs are a type of deep learning model specifically designed to process image data. They can automatically learn features like edges, textures, and shapes from images, which makes them incredibly powerful for tasks like object detection, image classification, and more.
 
-In this blog, I'll share my journey of building a CNN using PyTorch and torchvision, step by step, while exploring the FashionMNIST dataset. You'll see how I prepare data, design the network, train it, and evaluate its performance — all while learning how CNNs really work.
+In this blog, I'll share my journey of building a CNN using PyTorch and torchvision, step by step, while exploring the FashionMNIST dataset. You'll see how I prepare data, design the network, train it, and evaluate its performance, all while learning how CNNs really work.
 
 ## Import Required Libraries
 
@@ -415,7 +415,7 @@ class FashionMNISTModelV2(nn.Module):
 ### 2. MaxPooling Layers (MaxPool2D)
 
 - **Definition:**  
-  Max pooling is a pooling operation that picks the **maximum value** from a small region of the feature map (output of the image after convolution). It uses a sliding window (like 2×2) and from each window, it selects the highest value. This creates a smaller feature map that keeps only the **most important or strongest features** from the previous layer. It does **not learn** anything — it simply picks values.
+  Max pooling is a pooling operation that picks the **maximum value** from a small region of the feature map (output of the image after convolution). It uses a sliding window (like 2×2) and from each window, it selects the highest value. This creates a smaller feature map that keeps only the **most important or strongest features** from the previous layer. It does **not learn** anything, it simply picks values.
 
 - **Parameters:**
   - **Kernel / Window Size:**  
@@ -438,7 +438,7 @@ class FashionMNISTModelV2(nn.Module):
 
 ### 4. Flatten Layer
    - **Definition:**  
-     It Converts multi-dimensional feature maps into a **single-dimensional vector** so it can be passed to the fully connected layer. It does not have weights or biases — just reshapes the data.  
+     It Converts multi-dimensional feature maps into a **single-dimensional vector** so it can be passed to the fully connected layer. It does not have weights or biases, just reshapes the data.  
 
  For visual explanations of CNNs, see [CNN Explainer](https://poloclub.github.io/cnn-explainer/).
 
@@ -465,7 +465,7 @@ start_timer = timer()
 
 epochs = 3
 for epoch in tqdm(range(epochs)):
-    print(f"Epoch: {epoch}\\n---------")
+    print(f"Epoch: {epoch}\\n")
     
     train_loss = 0
     for batch, (X, y) in enumerate(train_dataloader):
@@ -570,7 +570,7 @@ fig, ax = plot_confusion_matrix(
 
 ## Conclusion
 
-Working on this project was a great experience that helped me dive deeper into how CNNs and machine learning actually work. It was a meaningful learning journey — understanding everything from datasets to layers, training steps, and evaluation made me even more curious to explore more advanced concepts in the future.
+Working on this project was a great experience that helped me dive deeper into how CNNs and machine learning actually work. It was a meaningful learning journey, understanding everything from datasets to layers, training steps, and evaluation made me even more curious to explore more advanced concepts in the future.
 
 This project also introduced me to the world of **computer vision**, a field of AI that allows machines to understand and interpret images. Computer vision powers many real-life applications such as image classification, face detection, medical imaging, and self-driving cars. Learning the basics of CNNs is an important foundation because these models form the core of most computer vision systems.
 
@@ -578,38 +578,26 @@ Overall, this experience strengthened my understanding and motivated me to conti
 
 `
   },
- {
+{
   id: "transformer-from-scratch",
-  title: "Building a Transformer From Scratch: What Actually Matters",
+  title: "Building a Transformer Is Easier Than Building a Chatbot",
   date: "2026-03-18",
   mainCategory: "Machine Learning",
   subCategory: "Natural Language Processing",
   images: ["/transformer1.png", "/transformer2.png"],
-  description: "What really happens when you train a Transformer from scratch with limited data and compute.",
+  description: "What two months of training a Transformer from scratch taught me about building language models.",
   content: `
 
 ## Introduction
 
-When I first read *“Attention Is All You Need”*, I thought:
+When I first read *“Attention Is All You Need”*, I thought: “If I understand this architecture and implement it correctly, I should be able to build a good language model.” I was wrong, and I’m glad I was. 
 
-“If I understand this architecture and implement it correctly, I should be able to build a good language model.”
-
-I was wrong and I’m glad I was.
-
-Over the last two months, I trained a Transformer from scratch, moving from very small datasets to a much larger conversational dataset. I implemented embeddings, multi-head attention, feed-forward networks, decoding strategies, schedulers, and evaluation methods myself.
-
-What I learned is not just how Transformers work, but why building a fluent chatbot is much harder than the paper makes it look.
-
-This blog is not about theory or code. It’s about what actually happens when you try to train a Transformer with limited data, limited compute, and real-world constraints.
+Over the last two months, I trained a Transformer from scratch, moving from very small datasets to a much larger conversational dataset. I implemented embeddings, multi-head attention, feed-forward networks, decoding strategies, schedulers, and evaluation methods myself. What I learned is not just how Transformers work, but why building a fluent chatbot is much harder than the paper makes it look. This blog is not about theory or code; it’s about what actually happens when you try to train a Transformer with limited data, limited compute, and real-world constraints.
 
 
 ## Why I Decided to Train From Scratch
 
-There are thousands of tutorials showing how to fine-tune GPT-2 or load a pretrained model. I intentionally avoided that at the beginning.
-
-I wanted to understand how embeddings actually learn meaning, how token IDs connect directly to model weights, why models repeat themselves, and why loss goes down but outputs still feel wrong.
-
-To learn that, I needed to feel the pain of training, not just read about it.
+There are thousands of tutorials showing how to fine-tune GPT-2 or load a pretrained model, but I intentionally avoided that at the beginning. I wanted to understand how embeddings actually learn meaning, how token IDs connect directly to model weights, why models repeat themselves, and why loss goes down but outputs still feel wrong. To learn that, I needed to feel the pain of training, not just read about it.
 
 
 ## The Datasets: Scaling Changed Everything
@@ -617,146 +605,125 @@ To learn that, I needed to feel the pain of training, not just read about it.
 I didn’t start with a big dataset. I grew step by step, and that turned out to be one of the most important learning experiences.
 
 ### Dataset 1: Very Small (GitHub – ConvAI)
-
-My first dataset was very small. Conversations were limited, the vocabulary was tiny, and the model quickly overfitted. This stage was useful only to check whether training worked, whether the loss decreased, and whether the model generated anything.
-
-The answers were yes, but the outputs were extremely weak.
+My first dataset was very small. Conversations were limited, the vocabulary was tiny, and the model quickly overfitted. This stage was useful only to check whether training worked, whether the loss decreased, and whether the model generated anything. The answers were yes, but the outputs were extremely weak.
 
 ### Dataset 2: Medium Size (Kaggle – Chatbot Dataset)
-
-Next, I used a larger Kaggle dataset. I split it into 90 percent training and 10 percent testing. The vocabulary grew but was still manageable.
-
-Here I noticed better grammar and slightly longer responses, but still poor conversational flow.
-
-This was the stage where I realized:
-
-“The model is learning language structure, but not conversation.”
+Next, I used a larger Kaggle dataset. I split it into 90 percent training and 10 percent testing, and while the vocabulary grew, it was still manageable. Here I noticed better grammar and slightly longer responses, but still poor conversational flow. This was the stage where I realized: “The model is learning language structure, but not conversation.”
 
 ### Dataset 3: Large Dataset (Kaggle – DailyDialog)
+Finally, I moved to a much larger and cleaner dataset with separate train and validation sets and more natural conversations. This caused a huge jump. Vocabulary size went from around 1,900 tokens to about 25,000 tokens. That single change taught me something critical: tokenizer size is not a small detail. It completely reshapes the model. The embedding matrix, output layer, memory usage, and training stability all changed.
 
-Finally, I moved to a much larger and cleaner dataset with separate train and validation sets and more natural conversations.
+## The Actual Training Setup
 
-This caused a huge jump.
+For most experiments, I kept the architecture relatively small because I was training on the free Google Colab GPU. My main configuration was:
 
-Vocabulary size went from around 1,900 tokens to about 25,000 tokens.
+| Hyperparameter | Value |
+|---|---|
+| Batch size | 16 |
+| Learning rate | 7e-5 |
+| Maximum sequence length | 350 |
+| Embedding dimension (*d_model*) | 512 |
+| Encoder layers | 6 |
+| Decoder layers | 6 |
+| Attention heads | 12 |
+| Feed-forward dimension | 3072 |
+| Dropout | 0.1 |
+| Target epochs | 50 |
 
-That single change taught me something critical.
+This configuration resulted in approximately **≈158.7 million parameters**. For a personal project trained on free Google Colab GPUs, this felt surprisingly large, but at the same time, it is still tiny compared to modern large language models, which often contain billions of parameters. 
 
-Tokenizer size is not a small detail. It completely reshapes the model.
-
-The embedding matrix, output layer, memory usage, and training stability all changed.
+In practice, I never reached the full 50 epochs. Training one epoch often took somewhere between 30 and 50 minutes, depending on the dataset and Colab session. Because free Colab sessions disconnect and compute time is limited, the furthest I managed to train was around 21 epochs. This was my first lesson that machine learning experiments are often constrained less by ideas and more by available compute.
 
 
 ## The Reality of Training on Google Colab (Free GPU)
 
 ![Training Setup](/transformer1.png)
 
-I trained everything on Google Colab using the free GPU.
+I trained everything on Google Colab using the free GPU. This helped a lot compared to CPU, but it came with hard limits. Sessions disconnected after a few hours, and training often stopped in the middle of an epoch. I had to resume later, sometimes the next day. Because of this, I could not train for long continuous periods. I had to carefully save checkpoints, and hyperparameter tuning became slow and frustrating. This made me understand something important: most impressive language models are not hard because of code. They are hard because of time and compute.
 
-This helped a lot compared to CPU, but it came with hard limits. Sessions disconnected after a few hours. Training often stopped in the middle of an epoch. I had to resume later, sometimes the next day.
-
-Because of this, I could not train for long continuous periods. I had to carefully save checkpoints, and hyperparameter tuning became slow and frustrating.
-
-This made me understand something important.
-
-Most impressive language models are not hard because of code. They are hard because of time and compute.
-
-Also, even after training for weeks on my own model, I did not achieve even a bare minimum level of conversational quality. When I kept increasing dataset size, the model behavior kept shifting. At one point it improved grammar, then suddenly outputs became random again. It felt like constant ups and downs.
-
-But I do not regret it at all.
-
-It may not look fruitful from the outside because the model did not perform well, but for me it was extremely valuable. I experienced the tension of training, the uncertainty, the trial and error. I experimented, tuned hyperparameters, failed, and tried again.
-
-That hands-on experience mattered more than the final result.
+But I do not regret it at all. It may not look fruitful from the outside because the model did not perform well, but for me it was extremely valuable. I experienced the tension of training, the uncertainty, the trial and error. I experimented, tuned hyperparameters, failed, and tried again. That hands-on experience mattered more than the final result.
 
 
 ## Architecture Was Not the Hard Part
 
-Implementing embeddings, multi-head attention, feed-forward networks, and residual connections was honestly the easiest part once the theory was clear.
-
-What surprised me was this.
-
-Even with a correct implementation, the model did not become intelligent.
-
-It could form sentences and follow grammar patterns, but it could not hold meaningful conversations or respond logically most of the time.
+Implementing embeddings, multi-head attention, feed-forward networks, and residual connections was honestly the easiest part once the theory was clear. What surprised me was this: even with a correct implementation, the model did not become intelligent. It could form sentences and follow grammar patterns, but it could not hold meaningful conversations or respond logically most of the time.
 
 ![Model Architecture](/transformer2.png)
 
+
 ## Why Accuracy Failed as an Evaluation Metric
 
-At first, I evaluated my model using token-level accuracy. On paper, the numbers looked fine, but in reality, the outputs did not.
-
-Then I realized the problem.
-
-Language does not have just one correct answer. Accuracy rewards a single outcome and penalizes every other valid one.
-
-That realization pushed me toward perplexity instead.
-
-Perplexity helped me understand how uncertain the model was, whether it was learning smoother distributions, and whether training was actually improving language modeling.
-
-This was more than a metric change. It was a mindset shift.
+At first, I evaluated my model using token-level accuracy. On paper, the numbers looked fine, but in reality, the outputs did not. Then I realized the problem: language does not have just one correct answer. Accuracy rewards a single outcome and penalizes every other valid one. That realization pushed me toward perplexity instead. Perplexity helped me understand how uncertain the model was, whether it was learning smoother distributions, and whether training was actually improving language modeling. This was more than a metric change. It was a mindset shift.
 
 
 ## Greedy Decoding Almost Ruined My Model
 
-Initially, I used greedy decoding. At every step, the model picked the token with the highest probability.
+Initially, I used greedy decoding. At every step, the model picked the token with the highest probability. It sounded reasonable, but the results were terrible. The model kept repeating itself, reused the same tokens again and again, and produced boring responses. While digging into this, I learned about better decoding strategies like top-k sampling, top-p sampling, and temperature. 
 
-It sounded reasonable, but the results were terrible.
-
-The model kept repeating itself, reused the same tokens again and again, and produced boring responses.
-
-While digging into this, I learned about better decoding strategies like top-k sampling, top-p sampling, and temperature.
-
-I switched to top-k sampling with temperature.
-
-Instead of always picking the top token, the model selects from the top k tokens and samples one. Temperature controls how confident or random the selection is.
-
-This simple change made a huge difference.
-
-The model reduced repetition, improved grammar, and produced responses that felt more natural.
-
-A bad decoding strategy can make a decent model look terrible.
+I switched to top-k sampling with temperature. Instead of always picking the top token, the model selects from the top k tokens and samples one, while temperature controls how confident or random the selection is. This simple change made a huge difference. The model reduced repetition, improved grammar, and produced responses that felt more natural. For reference, the underlying model weights never changed; only the generation strategy changed. That surprised me because the improvement was immediately visible despite no additional training. It was my first realization that model quality and perceived model quality are not always the same thing.
 
 
 ## Tokenizer and Model: You Can’t Separate Them
 
-At first, I thought the tokenizer was just a utility that converts text into token IDs.
+At first, I thought the tokenizer was just a utility that converts text into token IDs. That assumption was wrong. The tokenizer directly shapes how the model learns, as token IDs are tied to embeddings and the output layer, and the model adjusts its weights based on this representation. Because of this, a model only works properly with the same tokenizer it was trained on. Changing the tokenizer breaks everything the model has learned. 
 
-That assumption was wrong.
+When the vocabulary expanded from roughly 1.9K tokens to 25K tokens, the embedding matrix and output layer changed completely. The model was not relearning language itself, but it was learning a new tokenization scheme and a new mapping between tokens and embeddings. That distinction sounds small, but in practice, it meant training dynamics changed significantly.
 
-The tokenizer directly shapes how the model learns. Token IDs are tied to embeddings and the output layer. The model adjusts its weights based on this representation.
+## What "Attention Is All You Need" Actually Solved
 
-Because of this, a model only works properly with the same tokenizer it was trained on. Changing the tokenizer breaks everything the model has learned.
+One realization I had while doing this project was that the famous paper solved an architectural problem, not the entire language modeling problem. The Transformer architecture made training more efficient and scalable than earlier sequence models. What it did not solve were problems such as:
 
-This became very clear when my vocabulary jumped from 1.9K to 25K. The model did not just need more data. It had to relearn how language itself was represented.
+- data collection  
+- compute requirements  
+- evaluation  
+- alignment  
+- decoding  
+- instruction following  
+
+Those challenges still exist today.
 
 
-## Why “Attention Is All You Need” Is Misleading
+## Why the Chatbot Still Wasn't Good
 
-The paper is brilliant, but the way people interpret it can be misleading.
+This was probably the most frustrating part of the entire project. Even when training loss decreased and perplexity improved, the model still struggled to hold meaningful conversations. Here are a few real examples from the model:
 
-What the title hides is everything around the model.
+### Example 1
+\`\`\`python
+Input: "Excuse me . I bought the CD here two days ago . It's scratched , and doesn't play properly ."
+Expected: "I'm sorry about that , sir . I'll get you another one ."
+Predicted: "I won't b e lie v e it ."
+\`\`\`
 
-Data scale, training instability, evaluation complexity, decoding strategies, and system-level challenges.
+### Example 2
+\`\`\`python
+Input: "There's no limit to how often you can use your bus pass ."
+Expected: "Really ?"
+Predicted: "Than k s , but I ca n I ' t thin k s o . I ' ll st b e lie v e y ou ca n d o w e ca n b e e a n d o n h er ."
+\`\`\`
 
-A more honest version would be:
+### Example 3
+\`\`\`python
+Input: "Yes , we are on the same plane ."
+Expected: "But I am a transfer passenger . I have a connecting flight to Miami ."
+Predicted: "Th at s ou n g o o o n e ."
+\`\`\`
 
-“Attention is all you need, if you already have massive data and compute.”
+Looking back, there were several likely reasons for this struggle. 
+
+**1. The Model Was Simply Too Small**: Compared to modern language models, my Transformer was tiny. It could learn grammar patterns and common responses, but it did not have enough capacity to absorb the diversity of human conversation.
+
+**2. Limited Training Data**: Although the final dataset was much larger than where I started, it was still tiny compared to the datasets used to train modern language models. Large language models are exposed to billions of tokens, and my model was nowhere near that scale.
+
+**3. Limited Training Time**: The model may also have been undertrained. I planned for 50 epochs but stopped around 21.
+
+**4. Exposure Bias**: During training, the model always sees the correct previous token, but during generation, it must rely on its own predictions. A small mistake early in a response can compound into a completely different sentence later. I saw this happen constantly: the first few words would look reasonable, and then the response would drift into nonsense.
+
+**5. No Instruction Tuning**: One thing I did not appreciate at the beginning was how important instruction tuning is. A language model can learn language patterns without learning how to behave as a helpful assistant. Training on conversations alone does not automatically produce ChatGPT-like behavior. That additional alignment stage is a major part of why modern assistants feel coherent. This was the moment I realized that building a language model and building a useful chatbot are not the same problem.
 
 
 ## What This Journey Changed for Me
 
-Before this project, I thought:
-
-“If I understand CNNs and Transformers, I understand deep learning.”
-
-Now I see how incomplete that mindset was.
-
-What I’ve learned instead is simple.
-
-The more you learn, the more you realize how much you don’t know.
-
-Training a Transformer did not help me build a perfect chatbot, but it gave me real understanding. That is far more valuable.
+Before this project, I thought: “If I understand CNNs and Transformers, I understand deep learning.” Now I see how incomplete that mindset was. What I’ve learned instead is simple: the more you learn, the more you realize how much you don’t know. Training a Transformer did not help me build a perfect chatbot, but it gave me real understanding, and that is far more valuable.
 
 
 ## Resources
@@ -768,21 +735,9 @@ Training a Transformer did not help me build a perfect chatbot, but it gave me r
 
 ## Final Thought
 
-I started this project thinking that learning Transformers would be similar to learning CNNs. Since attention is the core idea behind modern language models, I believed it would be a straightforward next step.
+I started this project thinking that learning Transformers would be similar to learning CNNs. Since attention is the core idea behind modern language models, I believed it would be a straightforward next step. I was wrong. Understanding the theory was only the beginning; the real challenge started when I tried to build and evaluate my own model.
 
-I was wrong.
-
-Understanding the theory was only the beginning. The real challenge started when I tried to build and evaluate my own model. Even making a chatbot that could handle basic conversations was difficult.
-
-Reducing loss was not enough. Good data, time, compute, and patience mattered just as much.
-
-I faced many problems during this journey, but they did not discourage me. They made me more curious.
-
-This project was not about building something perfect.
-
-It was about understanding why building something like ChatGPT is so difficult.
-
-And that alone made the journey worth it.
+I faced many problems during this journey, but they did not discourage me. They made me more curious. This project was not about building something perfect. It was about understanding why building something like ChatGPT is so difficult, and that alone made the journey worth it.
 
 `
 }

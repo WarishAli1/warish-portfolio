@@ -6,6 +6,7 @@ import { oneDark, vs } from "react-syntax-highlighter/dist/esm/styles/prism";
 import blogs from "../data/blogs";
 import { ArrowLeft } from "lucide-react";
 import { Children, useEffect, useMemo, useState } from "react";
+import remarkGfm from "remark-gfm";
 
 function getNodeText(children) {
   return Children.toArray(children)
@@ -330,6 +331,7 @@ export default function BlogDetail() {
         }`}
       >
         <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
           components={{
             ...headingComponents,
             p: ({ ...props }) => (
@@ -343,6 +345,43 @@ export default function BlogDetail() {
             ),
             li: ({ ...props }) => (
               <li className="leading-relaxed" {...props} />
+            ),
+            table: ({ ...props }) => (
+              <div className="overflow-x-auto my-10">
+                <table
+                  className="w-full border-collapse text-sm"
+                  {...props}
+                />
+              </div>
+            ),
+            thead: ({ ...props }) => (
+              <thead
+                className={`border-b ${
+                  isDarkMode ? "border-gray-700" : "border-gray-300"
+                }`}
+                {...props}
+              />
+            ),
+            tbody: ({ ...props }) => <tbody {...props} />,
+            tr: ({ ...props }) => (
+              <tr
+                className={`border-b ${
+                  isDarkMode ? "border-gray-700" : "border-gray-300"
+                } last:border-none`}
+                {...props}
+              />
+            ),
+            th: ({ ...props }) => (
+              <th
+                className="pb-3 pt-0 first:text-left last:text-right font-semibold"
+                {...props}
+              />
+            ),
+            td: ({ ...props }) => (
+              <td
+                className="py-3 first:text-left last:text-right"
+                {...props}
+              />
             ),
             a: ({ ...props }) => (
               <a
