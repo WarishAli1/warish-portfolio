@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 import blogs from "../data/blogs";
+import { getReadTime } from "../utils/readTime";
 
 export default function Blog() {
   const { isDarkMode } = useTheme();
@@ -30,7 +31,9 @@ export default function Blog() {
           {blogs
           .slice()
           .sort((a, b) => new Date(b.date) - new Date(a.date))
-          .map((blog, index) => (
+          .map((blog, index) => {
+            const readTime = getReadTime(blog.content);
+            return (
             <motion.div
               key={blog.id}
               whileHover={{ x: 6 }}
@@ -64,11 +67,13 @@ export default function Blog() {
                         • {new Date(blog.date).toLocaleDateString()}
                       </span>
                     )}
+                    <span>• {readTime} min read</span>
                   </div>
                 </div>
               </Link>
             </motion.div>
-          ))}
+          );
+          })}
         </div>
       </section>
     </main>

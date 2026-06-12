@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark, vs } from "react-syntax-highlighter/dist/esm/styles/prism";
 import blogs from "../data/blogs";
+import { getReadTime } from "../utils/readTime";
 import { ArrowLeft } from "lucide-react";
 import { Children, useEffect, useMemo, useState } from "react";
 import remarkGfm from "remark-gfm";
@@ -88,6 +89,7 @@ export default function BlogDetail() {
   const { isDarkMode } = useTheme();
   const { id } = useParams();
   const blog = blogs.find((b) => b.id === id);
+  const readTime = useMemo(() => blog?.content ? getReadTime(blog.content) : 0, [blog]);
   const headings = useMemo(
     () => getMarkdownHeadings(blog?.content || ""),
     [blog?.content]
@@ -315,12 +317,14 @@ export default function BlogDetail() {
           {blog.title}
         </h1>
 
-        <p className="text-sm text-gray-500 mb-12">
+        <p className="text-sm text-gray-500 mb-12 flex items-center gap-2">
           {new Date(blog.date).toLocaleDateString("en-US", {
             month: "long",
             day: "numeric",
             year: "numeric",
           })}
+          <span className="opacity-50">•</span>
+          <span>{readTime} min read</span>
         </p>
       </header>
 
