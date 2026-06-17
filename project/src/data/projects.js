@@ -111,6 +111,39 @@ const projects = [
   demoLink: "https://study-guide-system.vercel.app/",
   githubLink: "https://github.com/WarishAli1/study_guide_system",
 },
+{
+    id: "Applicant Tracking System",
+    title: "Applicant Tracking System",
+    description:
+      "A complete recruitment web app with deterministic ATS scoring, multi-format resume processing, and dynamic pipeline management.",
+    longDescription:
+      "The Applicant Tracking System is a full-stack recruitment platform built using Streamlit that manages the entire hiring lifecycle for both companies and candidates. For companies, it provides an interactive dashboard featuring recruitment analytics, an adjustable hiring pipeline, and automated rankings that score applicants using a deterministic algorithm. For candidates, it offers a clean interface to look up listings, apply via resume uploads, and monitor application progress. The platform's standout feature is its advanced resume processing and scoring engine: it extracts text from PDF, DOCX, and plain text (utilizing OCR fallback for scanned files), maps content to a strict JSON schema via the Groq API, and evaluates candidates based on hard skill matching, embedding-based semantic similarity, and experience fit while applying specialized domain-mismatch penalties.",
+    image: "/ats1.png",
+    images: ["/ats1.png" , "/ats2.png" , "/ats3.png" , "/ats4.png"],
+    technologies: [
+      "Python",
+      "Streamlit",
+      "Plotly",
+      "sentence-transformers",
+      "scikit-learn",
+      "PyMuPDF",
+      "pytesseract",
+      "python-docx"
+    ],
+    features: [
+      "Company dashboard with recruitment stat cards, pipeline breakdown charts, and active feeds",
+      "Configurable applicant pipeline mapping and structured candidate list filtering",
+      "Deterministic ATS scoring incorporating exact skill matching, semantic similarity, and experience fit",
+      "Multi-format resume text extraction with PyMuPDF and Tesseract OCR for scanned documents",
+      "AI-driven parsing that restructures unstructured resumes into validated JSON schemas",
+      "Candidate job browsing, application submittal, and real-time feedback tracking profiles",
+      "Atomic file-system database updates using a temporary-file-and-replace safety pattern"
+    ],
+    challenges:
+      "Handling unreliable structures across multiple document types with OCR fallback, executing a complex deterministic scoring math engine locally, and mitigating concurrent write limitations inherent to a lightweight flat JSON storage architecture.",
+    demoLink: "https://applicantrackingsystem.streamlit.app/",
+    githubLink: "https://github.com/WarishAli1/applicant-tracking-system",
+  },
 ];
 
 export default projects;
