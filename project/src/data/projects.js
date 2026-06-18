@@ -91,6 +91,8 @@ const projects = [
   "Tailwind CSS",
   "FastAPI",
   "PyTorch",
+  "scikit-learn",
+  "sentence-transformers",
   "Natural Language Processing (NLP)",
   "Retrieval-Augmented Generation (RAG)",
   "Google OAuth",
