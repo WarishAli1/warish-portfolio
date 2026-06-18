@@ -1,27 +1,27 @@
 const projects = [
-  {
-    id: "Library Management System",
-    title: "Library Management System",
-    description:
-      "A simple web app to efficiently manage library books with basic CRUD operations and search functionality.",
-    longDescription:
-      "The Library Management System is a user-friendly web application designed to simplify the management of books in a library. Users can add, edit, delete, and search for books quickly. The system displays the records in a sortable table for better organization and easy access. While it is simple, it demonstrates the implementation of CRUD operations, search and sort functionality, and responsive UI design, making it a practical project to showcase foundational web development skills.",
-    image: "/LibMngmt1.png",
-    images: ["/LibMngmt1.png", "/LibMngmt2.png"],
-    technologies: ["HTML5", "CSS3", "JavaScript"],
-    features: [
-      "Add new books with complete details",
-      "Edit and update existing book records",
-      "Delete outdated or unnecessary books",
-      "Search books by name for quick access",
-      "Sort books by different parameters in the table",
-      "Clean and responsive UI design for desktops and tablets",
-    ],
-    challenges:
-      "Designing a responsive and user-friendly interface while maintaining clear and efficient CRUD operations.",
-    demoLink: "https://dsa-lib-sys.vercel.app/",
-    githubLink: "https://github.com/WarishAli1/DSA-LibSys",
-  },
+  // {
+  //   id: "Library Management System",
+  //   title: "Library Management System",
+  //   description:
+  //     "A simple web app to efficiently manage library books with basic CRUD operations and search functionality.",
+  //   longDescription:
+  //     "The Library Management System is a user-friendly web application designed to simplify the management of books in a library. Users can add, edit, delete, and search for books quickly. The system displays the records in a sortable table for better organization and easy access. While it is simple, it demonstrates the implementation of CRUD operations, search and sort functionality, and responsive UI design, making it a practical project to showcase foundational web development skills.",
+  //   image: "/LibMngmt1.png",
+  //   images: ["/LibMngmt1.png", "/LibMngmt2.png"],
+  //   technologies: ["HTML5", "CSS3", "JavaScript"],
+  //   features: [
+  //     "Add new books with complete details",
+  //     "Edit and update existing book records",
+  //     "Delete outdated or unnecessary books",
+  //     "Search books by name for quick access",
+  //     "Sort books by different parameters in the table",
+  //     "Clean and responsive UI design for desktops and tablets",
+  //   ],
+  //   challenges:
+  //     "Designing a responsive and user-friendly interface while maintaining clear and efficient CRUD operations.",
+  //   demoLink: "https://dsa-lib-sys.vercel.app/",
+  //   githubLink: "https://github.com/WarishAli1/DSA-LibSys",
+  // },
   {
     id: "Student CRM System",
     title: "Student CRM System",
