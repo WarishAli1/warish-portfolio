@@ -17,18 +17,10 @@ const Education = () => {
           transition={{ duration: 0.6 }}
           className="mb-20"
         >
-          <h1
-            className={`text-4xl sm:text-5xl font-semibold mb-4 ${
-              isDarkMode ? "text-white" : "text-gray-900"
-            }`}
-          >
-            Education
+          <h1 className="font-display italic text-6xl sm:text-7xl leading-[0.95] tracking-tight mb-5">
+            Education<span className="not-italic text-accent">.</span>
           </h1>
-          <p
-            className={`max-w-xl ${
-              isDarkMode ? "text-gray-400" : "text-gray-600"
-            }`}
-          >
+          <p className={`max-w-xl text-sm sm:text-base ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
             Academic journey and formal learning timeline.
           </p>
         </motion.div>
@@ -105,7 +97,7 @@ const Education = () => {
           </motion.div>
         </div>
       </section>
-     <div className="relative inset-0 pointer-events-none flex items-end">
+    <div className="relative inset-0 pointer-events-none flex items-end">
       <div className="w-full px-6 pb-4">
         <span
           className={`font-black select-none ${

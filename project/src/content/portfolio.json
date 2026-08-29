@@ -1,0 +1,313 @@
+{
+  "profile": {
+    "name": "Warish Ali",
+    "role": "AI/ML & Software Developer",
+    "tagline": "Engineering student focused on AI/ML and software development.",
+    "summary": "Undergraduate Computer Engineering student at Advance College of Engineering and Management (ACEM), Kathmandu. Works as a Full-Stack Java Developer with experience in Java, Vue.js, backend systems, APIs, and databases. Currently exploring Machine Learning and expanding understanding of how intelligent systems learn from data. Naturally curious about how systems work end to end, from underlying logic to the complete solutions people interact with.",
+    "location": "Kathmandu, Nepal",
+    "email": "warishali.contact@gmail.com",
+    "phone": "+977-9867779824",
+    "socials": {
+      "github": "https://github.com/warishali1",
+      "linkedin": "https://linkedin.com/in/warish-ali-885923363",
+      "twitter": "https://x.com/myself_warish"
+    },
+    "interests_outside_tech": "Writing poems and songs, and singing.",
+    "resume": "/resume.pdf"
+  },
+  "education": [
+    {
+      "period": "2023 — Present",
+      "degree": "Bachelor in Computer Engineering",
+      "institution": "Advanced College of Engineering and Management (ACEM)",
+      "location": "Kathmandu, Nepal",
+      "status": "In progress, final year"
+    }
+  ],
+  "experience": [
+    {
+      "role": "Full-Stack Java Developer",
+      "context": "Internship / project work at Raise Tech Pvt. Ltd.",
+      "description": "Worked on the Student CRM System, a web application for abroad-study consultancies to manage and track student visa progress from application through offer letter to final visa approval. Inherited a base frontend/backend structure from a senior developer and implemented most of the core functionality: student data management, progress tracking, and authentication logic, including researching and integrating an OTP-based login and password reset system.",
+      "technologies": [
+        "Vue.js",
+        "PrimeVue",
+        "Java",
+        "Spring Boot",
+        "MySQL"
+      ]
+    }
+  ],
+  "skills": {
+    "core": [
+      "Python",
+      "Java",
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Next.js",
+      "FastAPI",
+      "Spring Boot",
+      "Vue.js",
+      "Tailwind CSS",
+      "LangGraph",
+      "PyTorch"
+    ],
+    "familiar": [
+      "Node.js",
+      "MySQL",
+      "Neo4j",
+      "ChromaDB",
+      "Docker",
+      "Streamlit",
+      "OpenCV",
+      "scikit-learn",
+      "Plotly",
+      "Playwright"
+    ],
+    "categories": {
+      "ai_ml": [
+        "Python",
+        "PyTorch",
+        "LangGraph",
+        "RAG",
+        "Sentence Transformers",
+        "scikit-learn",
+        "NLP",
+        "OCR",
+        "Large Language Models (LLM)",
+        "Groq",
+        "OpenAI API",
+        "Computer Vision"
+      ],
+      "backend": [
+        "FastAPI",
+        "Spring Boot",
+        "Java",
+        "Node.js",
+        "Python"
+      ],
+      "frontend": [
+        "React",
+        "Next.js",
+        "TypeScript",
+        "Vue.js",
+        "Tailwind CSS",
+        "PrimeVue"
+      ],
+      "data_infra": [
+        "Neo4j",
+        "ChromaDB",
+        "MySQL"
+      ]
+    }
+  },
+  "research": {
+    "focus": "Causal explainable AI (causal XAI) for suspicious activity detection in smart surveillance systems — using a ResNet50-based CNN combined with XAI and causal analysis to make surveillance flagging decisions transparent and trustworthy instead of a black box.",
+    "context": "Final-year BCT research direction, alongside applied ML work in agentic systems and RAG."
+  },
+  "projects": [
+    {
+      "id": "Sykra Research",
+      "title": "Sykra Research",
+      "status": "ongoing",
+      "category": "ai_ml",
+      "summary": "An agentic AI research platform built on LangGraph that researches literature, grounds answers in user documents, and turns findings into reports and an explorable knowledge graph.",
+      "description": "Sykra Research is a full-stack agentic research platform built around a multi-stage LangGraph pipeline instead of a single LLM call. A query moves through coordinated stages: understanding the question, refining it, planning, retrieving sources, ranking them, summarizing, validating, and citing, with shared state carried across the whole workflow. It supports three research modes. Literature mode pulls from external academic sources through arXiv and OpenAlex. Uploaded mode answers strictly from documents the user provides, so the model doesn't wander off and hallucinate. Blend mode combines both. Each of these can also run in normal or researched depth, so a user can pair any evidence source with a quick answer or a more detailed, well-structured one. Results can be explored as an interactive knowledge graph connecting papers, concepts, and methods, with path tracing, temporal filtering, and graph analytics, and exported as a standard or academic-style PDF report. On the engineering side it runs parallel retrieval across search providers, caches queries and embeddings, falls back to OCR for scanned documents, and races multiple LLM providers concurrently so a slow provider doesn't stall the whole request. Sykra Studio, an AI-assisted workspace for building research diagrams and figures, is the newest part of the system and still early. The rest is under active development too.",
+      "technologies": [
+        "Python",
+        "LangGraph",
+        "FastAPI",
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "Neo4j",
+        "ChromaDB",
+        "Sentence Transformers",
+        "RAG",
+        "Groq",
+        "arXiv API",
+        "OpenAlex API",
+        "PyMuPDF",
+        "pdfplumber",
+        "Tesseract OCR",
+        "Matplotlib",
+        "Seaborn",
+        "ReportLab",
+        "Playwright"
+      ],
+      "features": [
+        "Multi-stage LangGraph pipeline: planning, retrieval, ranking, synthesis, validation, citation",
+        "Three research modes (Literature, Uploaded documents, Blend), each with normal or researched depth",
+        "Interactive knowledge graph linking papers, concepts, and methods, with path tracing and analytics",
+        "Research reports exported as standard or academic-style PDFs",
+        "Parallel retrieval with query and embedding caching, plus multi-provider LLM failover",
+        "Sykra Studio (in development): an AI-assisted workspace for research diagrams and visuals"
+      ],
+      "challenges": "Designing a stateful multi-node agent workflow that stays reliable across every stage, keeping structured output consistent when racing multiple LLM providers so a slow or failing one doesn't break the pipeline and keeping graph extraction accurate and consistent while it runs as its own async process off the same source data.",
+      "links": {
+        "github": "https://github.com/WarishAli1/sykra-research",
+        "demo": null
+      }
+    },
+    {
+      "id": "AI-Powered Exam Guide System",
+      "title": "Exam Guide System",
+      "status": "completed",
+      "category": "ai_ml",
+      "summary": "An intelligent study platform that analyzes study materials to highlight important topics, generate quizzes, and provide answers from user-uploaded content.",
+      "description": "The AI-Powered Exam Guide System is designed to help students prepare efficiently for exams by focusing only on what matters most. Instead of manually going through lengthy notes and past papers, users can upload their study materials, and the system automatically analyzes them to identify high-priority chapters, key topics, and frequently asked questions.\n\nThe platform generates structured study guides with topic importance rankings, helping students prioritize their time effectively. It also includes a quiz generation feature that creates questions directly from the uploaded materials, along with an AI-powered answering system that ensures responses are grounded in the user's own content.\n\nAdditionally, the system provides insights such as repeated questions, marks distribution, and estimated study time, making exam preparation more strategic and data-driven. This project demonstrates the integration of AI concepts like NLP, document processing, and retrieval-based question answering into a real-world educational application.",
+      "technologies": [
+        "TypeScript",
+        "Python",
+        "Next.js",
+        "React",
+        "Tailwind CSS",
+        "FastAPI",
+        "Large Language Models (LLM)",
+        "OpenAI API",
+        "Optical Character Recognition (OCR)",
+        "PyTorch",
+        "scikit-learn",
+        "sentence-transformers",
+        "Natural Language Processing (NLP)",
+        "Retrieval-Augmented Generation (RAG)",
+        "Google OAuth",
+        "JWT Authentication"
+      ],
+      "features": [
+        "Upload notes, syllabus, and past exam papers",
+        "Automatic chapter importance ranking based on analysis",
+        "Key topic extraction for focused studying",
+        "Frequently asked question detection with frequency tracking",
+        "AI-generated quizzes from uploaded materials",
+        "Answer generation strictly based on user's own documents (RAG-based)",
+        "Insights like marks distribution and estimated study time",
+        "Clean dashboard UI for structured exam preparation"
+      ],
+      "challenges": "Designing an effective pipeline to analyze multiple study materials, implementing retrieval-based answer generation to avoid hallucination, and balancing accuracy with performance for real-time quiz and answer generation.",
+      "links": {
+        "github": "https://github.com/WarishAli1/study_guide_system",
+        "demo": "https://study-guide-system.vercel.app/"
+      }
+    },
+    {
+      "id": "Student CRM System",
+      "title": "Student CRM System",
+      "status": "completed",
+      "category": "frontend",
+      "summary": "A CRM web application developed under Raise Tech Pvt. Ltd. to manage and track student visa processes efficiently.",
+      "description": "The Student CRM System is a full-stack web application developed during my internship at Raise Tech Pvt. Ltd. It helps abroad study consultancies manage and track students' visa progress—from initial application to offer letter and final visa approval. The project was initially set up by the senior, who provided a basic frontend and backend structure. Building upon that foundation, I implemented the majority of the system’s core functionalities, including student data management, progress tracking, and authentication logic. I also researched and integrated an OTP-based login and password reset system, improving both security and usability. This project represents real-world experience working in a company environment, following guidance while independently developing and enhancing key modules.",
+      "technologies": [
+        "Vue.js",
+        "PrimeVue",
+        "Java",
+        "Spring Boot",
+        "MySQL"
+      ],
+      "features": [
+        "Student record management with add, edit, and delete options",
+        "Stage tracking for offer letters, visa approvals, and enrollments",
+        "Dashboard with live graphs and analytics for student progress",
+        "OTP-based login and password reset system",
+        "Modern, responsive UI with smooth transitions",
+        "Role-based access for different consultancy members"
+      ],
+      "challenges": "Collaborating on an existing project setup while implementing new modules, integrating secure OTP authentication, and maintaining data consistency between Vue frontend and Spring Boot backend.",
+      "links": {
+        "github": "https://github.com/WarishAli1",
+        "demo": null
+      }
+    },
+    {
+      "id": "Applicant Tracking System",
+      "title": "Applicant Tracking System",
+      "status": "completed",
+      "category": "ai_ml",
+      "summary": "A complete recruitment web app with deterministic ATS scoring, multi-format resume processing, and dynamic pipeline management.",
+      "description": "The Applicant Tracking System is a full-stack recruitment platform built using Streamlit that manages the entire hiring lifecycle for both companies and candidates. For companies, it provides an interactive dashboard featuring recruitment analytics, an adjustable hiring pipeline, and automated rankings that score applicants using a deterministic algorithm. For candidates, it offers a clean interface to look up listings, apply via resume uploads, and monitor application progress. The platform's standout feature is its advanced resume processing and scoring engine: it extracts text from PDF, DOCX, and plain text (using OCR fallback for scanned files), maps content to a strict JSON schema via the Groq API, and evaluates candidates based on hard skill matching, embedding-based semantic similarity, and experience fit while applying specialized domain-mismatch penalties.",
+      "technologies": [
+        "Python",
+        "Streamlit",
+        "Plotly",
+        "Large Language Models (LLM)",
+        "OpenAI API",
+        "Optical Character Recognition (OCR)",
+        "Natural Language Processing (NLP)",
+        "sentence-transformers",
+        "scikit-learn",
+        "PyMuPDF",
+        "python-docx"
+      ],
+      "features": [
+        "Company dashboard with recruitment stat cards, pipeline breakdown charts, and active feeds",
+        "Configurable applicant pipeline mapping and structured candidate list filtering",
+        "Deterministic ATS scoring incorporating exact skill matching, semantic similarity, and experience fit",
+        "Multi-format resume text extraction with PyMuPDF and Tesseract OCR for scanned documents",
+        "AI-driven parsing that restructures unstructured resumes into validated JSON schemas",
+        "Candidate job browsing, application submittal, and real-time feedback tracking profiles",
+        "Atomic file-system database updates using a temporary-file-and-replace safety pattern"
+      ],
+      "challenges": "Handling unreliable structures across multiple document types with OCR fallback, executing a complex deterministic scoring math engine locally, and mitigating concurrent write limitations inherent to a lightweight flat JSON storage architecture.",
+      "links": {
+        "github": "https://github.com/WarishAli1/applicant-tracking-system",
+        "demo": "https://applicantrackingsystem.streamlit.app/"
+      }
+    },
+    {
+      "id": "Face Recognition App",
+      "title": "Face Recognition App",
+      "status": "completed",
+      "category": "ai_ml",
+      "summary": "A real-time face recognition system using pre-trained models for fast and accurate detection.",
+      "description": "This Face Recognition App demonstrates real-time face detection and recognition using Python, Streamlit, and PyTorch. Users can add a person's name and photo, and the system will detect and recognize the face with high accuracy in under a second. It leverages pre-trained InceptionResnetV1 and MTCNN models for efficient feature extraction and detection, making it practical for learning purposes. All images and embeddings are stored in Google Drive, enabling persistence across sessions. The project highlights practical usage of computer vision, CNNs, and transfer learning without heavy training requirements.",
+      "technologies": [
+        "Python",
+        "Streamlit",
+        "PyTorch",
+        "facenet-pytorch",
+        "OpenCV"
+      ],
+      "features": [
+        "Add new users with their name and photo",
+        "Accurate and fast real-time face recognition (<1s per frame)",
+        "Supports multiple faces in a single frame",
+        "Detects and recognizes faces using pre-trained models for efficiency",
+        "Stores user images and embeddings in Google Drive for persistence",
+        "Demonstrates practical implementation of CNNs and transfer learning"
+      ],
+      "challenges": "Integrating pre-trained models with Streamlit for real-time recognition while managing data storage in Google Drive.",
+      "links": {
+        "github": "https://github.com/WarishAli1/face-recognition-project",
+        "demo": "https://face-recognition-project-warish.streamlit.app/"
+      }
+    }
+  ],
+  "blog": [
+    {
+      "id": "ml-classification",
+      "title": "Exploring ML: How I Learned Neural Network Classification",
+      "date": "2025-10-31",
+      "mainCategory": "Machine Learning",
+      "subCategory": "Classification",
+      "summary": "See how neural networks transform raw data into accurate classifications."
+    },
+    {
+      "id": "cnn-fashionmnist",
+      "title": "How I Learned Computer Vision by Building a CNN From Scratch",
+      "date": "2025-11-17",
+      "mainCategory": "Machine Learning",
+      "subCategory": "Computer Vision",
+      "summary": "See how machines learn to “see” the world."
+    },
+    {
+      "id": "transformer-from-scratch",
+      "title": "Building a Transformer Is Easier Than Building a Chatbot",
+      "date": "2026-03-18",
+      "mainCategory": "Machine Learning",
+      "subCategory": "Natural Language Processing",
+      "summary": "What two months of training a Transformer from scratch taught me about building language models."
+    }
+  ]
+}

@@ -70,20 +70,12 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <h1
-            className={`text-4xl sm:text-5xl font-semibold mb-4 ${
-              isDarkMode ? "text-white" : "text-gray-900"
-            }`}
-          >
-            Contact
+          <h1 className="font-display italic text-6xl sm:text-7xl leading-[0.95] tracking-tight mb-5">
+            Contact<span className="not-italic text-accent">.</span>
           </h1>
-          <p
-            className={`max-w-xl ${
-              isDarkMode ? "text-gray-400" : "text-gray-600"
-            }`}
-          >
-            Have a question, idea, or collaboration in mind?  
-            Send a message or reach out through my socials.
+          <p className={`max-w-xl text-sm sm:text-base ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
+            Have a question, idea, or collaboration in mind? Send a message or
+            reach out through my socials.
           </p>
         </motion.div>
 

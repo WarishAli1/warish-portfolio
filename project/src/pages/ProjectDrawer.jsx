@@ -9,11 +9,9 @@ const ProjectDrawer = ({ project, onClose }) => {
 
   return (
     <>
-      {/* Drawer */}
       <AnimatePresence>
         {project && (
           <>
-            {/* Drawer overlay */}
             <motion.div
               onClick={onClose}
               initial={{ opacity: 0 }}
@@ -22,18 +20,18 @@ const ProjectDrawer = ({ project, onClose }) => {
               className="fixed inset-0 bg-black/60 z-40"
             />
 
-            {/* Drawer panel */}
             <motion.aside
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25 }}
-              className={`fixed top-0 right-0 h-full w-full md:w-[520px] z-50 overflow-y-auto ${
-                isDarkMode ? "bg-[#0c0c14] text-gray-200" : "bg-white text-gray-900"
+              className={`fixed top-0 right-0 h-full w-full md:w-[520px] z-50 overflow-y-auto grid-bg ${
+                isDarkMode
+                  ? "dark-grid bg-[#0c0c14] text-gray-200"
+                  : "light-grid bg-white text-gray-900"
               }`}
             >
               <div className="p-6 space-y-6">
-                {/* Header */}
                 <div className="flex justify-between items-start">
                   <h2 className="text-2xl font-bold">{project.title}</h2>
                   <button onClick={onClose}>
@@ -41,10 +39,8 @@ const ProjectDrawer = ({ project, onClose }) => {
                   </button>
                 </div>
 
-                {/* Images */}
                 {project.images?.length > 0 && (
                   <div className="space-y-3">
-                    {/* Main Image */}
                     <div
                       className="w-full aspect-video overflow-hidden rounded-lg border border-black/10 dark:border-white/10 cursor-pointer"
                       onClick={() => setLightboxImage(project.images[0])}
@@ -56,7 +52,6 @@ const ProjectDrawer = ({ project, onClose }) => {
                       />
                     </div>
 
-                    {/* Thumbnails */}
                     {project.images.length > 1 && (
                       <div className="flex gap-3 overflow-x-auto pb-2">
                         {project.images.slice(1).map((img, i) => (
@@ -77,12 +72,10 @@ const ProjectDrawer = ({ project, onClose }) => {
                   </div>
                 )}
 
-                {/* Description */}
                 <p className="text-sm leading-relaxed opacity-90">
                   {project.longDescription || project.description}
                 </p>
 
-                {/* Features */}
                 {project.features && (
                   <div>
                     <h3 className="font-semibold mb-2">Features</h3>
@@ -94,7 +87,6 @@ const ProjectDrawer = ({ project, onClose }) => {
                   </div>
                 )}
 
-                {/* Tech Stack */}
                 <div>
                   <h3 className="font-semibold mb-2">Tech Stack</h3>
                   <div className="flex flex-wrap gap-2">
@@ -109,7 +101,21 @@ const ProjectDrawer = ({ project, onClose }) => {
                   </div>
                 </div>
 
-                {/* Links */}
+                {project.challenges && (
+                  <div>
+                    <h3 className="font-semibold mb-2">Challenges</h3>
+                    <div
+                      className={`rounded-lg border-l-2 pl-4 pr-4 py-4 text-sm leading-relaxed ${
+                        isDarkMode
+                          ? "border-amber-400/40 bg-amber-400/[0.06] text-gray-300"
+                          : "border-amber-600/30 bg-amber-600/[0.05] text-gray-700"
+                      }`}
+                    >
+                      {project.challenges}
+                    </div>
+                  </div>
+                )}
+
                 <div className="flex gap-4 pt-4">
                   {project.githubLink && (
                     <a
@@ -138,11 +144,9 @@ const ProjectDrawer = ({ project, onClose }) => {
         )}
       </AnimatePresence>
 
-      {/* === LIGHTBOX === */}
 <AnimatePresence>
   {lightboxImage && (
     <>
-      {/* Dark background */}
       <motion.div
         onClick={() => setLightboxImage(null)}
         initial={{ opacity: 0 }}
@@ -151,9 +155,7 @@ const ProjectDrawer = ({ project, onClose }) => {
         className="fixed inset-0 bg-black/90 z-[100]"
       />
 
-      {/* Centered container */}
       <div className="fixed inset-0 z-[101] flex items-center justify-center p-6">
-        {/* Close button */}
         <button
           onClick={() => setLightboxImage(null)}
           className="absolute top-6 right-6 text-white text-3xl hover:text-fuchsia-400 z-[102]"
@@ -161,7 +163,6 @@ const ProjectDrawer = ({ project, onClose }) => {
           <FiX />
         </button>
 
-        {/* Prev button */}
         {project.images.length > 1 && (
           <button
             onClick={() => {
@@ -178,7 +179,6 @@ const ProjectDrawer = ({ project, onClose }) => {
           </button>
         )}
 
-        {/* Next button */}
         {project.images.length > 1 && (
           <button
             onClick={() => {
@@ -195,7 +195,6 @@ const ProjectDrawer = ({ project, onClose }) => {
           </button>
         )}
 
-        {/* Image */}
         <motion.img
           key={lightboxImage}
           src={lightboxImage}

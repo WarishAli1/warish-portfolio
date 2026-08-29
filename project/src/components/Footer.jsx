@@ -16,15 +16,7 @@ const Footer = () => {
       <div className="relative container-custom flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
         <p className={`text-center md:text-left ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
           &copy; {currentYear}{" "}
-          <span
-            className={`font-semibold ${
-              isDarkMode
-                ? "drop-shadow-[0_0_10px_rgba(0,0,255,0.5)]"
-                : "text-black"
-            }`}
-          >
-            Warish Ali
-          </span>
+          <span className="font-semibold text-accent">Warish Ali</span>
           . All rights reserved.
         </p>
 

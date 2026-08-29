@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { FiSun, FiMoon, FiMenu, FiX } from "react-icons/fi";
 import { useTheme } from "../context/ThemeContext";
+import { PortfolioChatToggle } from "../components/PortfolioChat";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -9,9 +10,7 @@ const Header = () => {
 
   const navClass = ({ isActive }) =>
     `text-sm transition ${
-      isActive
-        ? "font-semibold underline"
-        : "hover:underline"
+      isActive ? "font-semibold text-accent" : "opacity-80 hover:opacity-100 hover:underline"
     }`;
 
   return (
@@ -28,7 +27,7 @@ const Header = () => {
         </Link>
 
         <nav className="hidden md:flex gap-6">
-          {["/", "/about", "/education", "/projects", "/blogs", "/contact"].map((p, i) => (
+          {["/", "/about", "/skills", "/education" , "/projects", "/blogs", "/contact"].map((p, i) => (
             <NavLink key={i} to={p} className={navClass}>
               {p === "/" ? "Home" : p.slice(1)}
             </NavLink>
@@ -36,6 +35,7 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center gap-3">
+          <PortfolioChatToggle className="theme-toggle" />
           <button onClick={toggleTheme} className="theme-toggle">
             {isDarkMode ? <FiSun /> : <FiMoon />}
           </button>
@@ -51,7 +51,7 @@ const Header = () => {
       isDarkMode ? "bg-ink border-white/10" : "bg-paper border-black/10"
     } border-t`}
   >
-    {["/", "/about", "/education", "/projects", "/blogs", "/contact"].map(
+    {["/", "/about", "/skills", "/education", "/projects", "/blogs", "/contact"].map(
       (p, i) => (
         <NavLink
           key={i}

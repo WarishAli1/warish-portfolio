@@ -271,7 +271,6 @@ export default function BlogDetail() {
         })}
       </nav>
 
-      {/* Header */}
       <header className="max-w-3xl mx-auto pt-28 px-6">
         <nav
           className={`mb-8 flex flex-wrap items-center gap-2 text-sm font-medium ${
@@ -309,11 +308,7 @@ export default function BlogDetail() {
           )}
         </nav>
 
-        <h1
-          className={`text-4xl sm:text-5xl font-semibold leading-tight mb-4 ${
-            isDarkMode ? "text-white" : "text-gray-900"
-          }`}
-        >
+        <h1 className="font-display italic text-4xl sm:text-5xl leading-[1.05] tracking-tight mb-4">
           {blog.title}
         </h1>
 
@@ -328,7 +323,6 @@ export default function BlogDetail() {
         </p>
       </header>
 
-      {/* Content */}
       <article
         className={`max-w-3xl mx-auto px-6 pb-14 text-base sm:text-lg leading-loose ${
           isDarkMode ? "text-gray-300" : "text-gray-800"

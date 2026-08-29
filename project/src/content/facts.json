@@ -1,0 +1,63 @@
+{
+  "profile": {
+    "name": "Warish Ali",
+    "role": "AI/ML & Software Developer",
+    "tagline": "Engineering student focused on AI/ML and software development.",
+    "summary": "Undergraduate Computer Engineering student at Advance College of Engineering and Management (ACEM), Kathmandu. Works as a Full-Stack Java Developer with experience in Java, Vue.js, backend systems, APIs, and databases. Currently exploring Machine Learning and expanding understanding of how intelligent systems learn from data. Naturally curious about how systems work end to end, from underlying logic to the complete solutions people interact with.",
+    "location": "Kathmandu, Nepal",
+    "email": "warishali.contact@gmail.com",
+    "phone": "+977-9867779824",
+    "socials": {
+      "github": "https://github.com/warishali1",
+      "linkedin": "https://linkedin.com/in/warish-ali-885923363",
+      "twitter": "https://x.com/myself_warish"
+    },
+    "interests_outside_tech": "Writing poems and songs, and singing.",
+    "resume": "/resume.pdf"
+  },
+
+  "education": [
+    {
+      "period": "2023 — Present",
+      "degree": "Bachelor in Computer Engineering",
+      "institution": "Advanced College of Engineering and Management (ACEM)",
+      "location": "Kathmandu, Nepal",
+      "status": "In progress, final year"
+    }
+  ],
+
+  "experience": [
+    {
+      "role": "Full-Stack Java Developer",
+      "context": "Internship / project work at Raise Tech Pvt. Ltd.",
+      "description": "Worked on the Student CRM System, a web application for abroad-study consultancies to manage and track student visa progress from application through offer letter to final visa approval. Inherited a base frontend/backend structure from a senior developer and implemented most of the core functionality: student data management, progress tracking, and authentication logic, including researching and integrating an OTP-based login and password reset system.",
+      "technologies": ["Vue.js", "PrimeVue", "Java", "Spring Boot", "MySQL"]
+    }
+  ],
+
+  "skills": {
+    "core": [
+      "Python", "Java", "JavaScript", "TypeScript", "React", "Next.js",
+      "FastAPI", "Spring Boot", "Vue.js", "Tailwind CSS", "LangGraph",
+      "LangChain", "PyTorch"
+    ],
+    "familiar": [
+      "Node.js", "MySQL", "Neo4j", "ChromaDB", "Docker", "Streamlit",
+      "OpenCV", "scikit-learn", "Plotly", "Playwright"
+    ],
+    "categories": {
+      "ai_ml": ["Python", "PyTorch", "LangGraph", "LangChain", "RAG", "Sentence Transformers", "scikit-learn", "NLP", "OCR", "Large Language Models (LLM)", "Groq", "OpenAI API", "Computer Vision"],
+      "backend": ["FastAPI", "Spring Boot", "Java", "Node.js", "Python"],
+      "frontend": ["React", "Next.js", "TypeScript", "Vue.js", "Tailwind CSS", "PrimeVue"],
+      "data_infra": ["Neo4j", "ChromaDB", "MySQL"]
+    }
+  },
+
+  "research": {
+    "title": "Evaluating the Effectiveness of Causal XAI for Suspicious Activity Detection in Smart Surveillance Systems",
+    "summary": "A research-oriented framework that improves the transparency, reliability, and trustworthiness of suspicious activity detection in surveillance video. Conventional deep learning surveillance systems classify suspicious activity accurately but operate as black boxes, offering little insight into why a clip was flagged. This project integrates Explainable AI (XAI) and Causal AI with a deep learning detection model to address that gap.",
+    "approach": "A custom dataset was built by extracting and manually selecting frames representing suspicious activities (fighting, robbery, stealing, explosion, shooting) alongside normal activity. A ResNet50-based CNN learns visual features and classifies the activity. XAI techniques highlight which visual regions and features drove the prediction, while causal analysis investigates the underlying cause-and-effect factors behind the detected activity — combining predictive modeling, visual explanation, and causal reasoning for more trustworthy interpretations.",
+    "keywords": ["Causal AI", "Causal Inference", "Computer Vision", "Deep Learning", "Explainable AI (XAI)", "Interpretability", "ResNet50", "Suspicious Activity Detection"],
+    "context": "Final-year BCT research, alongside applied engineering work in agentic systems and RAG (Sykra Research)."
+    }
+}
