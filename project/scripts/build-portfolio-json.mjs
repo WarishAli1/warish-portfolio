@@ -4,10 +4,10 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
-const PROJECTS_PATH = path.join(ROOT, "../src/data/projects.js");
-const BLOGS_PATH = path.join(ROOT, "../src/data/blogs.js");
-const FACTS_PATH = path.join(ROOT, "../content/facts.json");
-const OUT_PATH = path.join(ROOT, "../content/portfolio.json");
+const PROJECTS_PATH = path.join(ROOT, "src/data/projects.js");
+const BLOGS_PATH = path.join(ROOT, "src/data/blogs.js");
+const FACTS_PATH = path.join(ROOT, "src/content/facts.json");
+const OUT_PATH = path.join(ROOT, "src/content/portfolio.json");
 
 const CATEGORY_RULES = [
   { category: "ai_ml", keywords: ["pytorch", "langgraph", "langchain", "rag", "llm", "nlp", "ocr", "sentence-transformers", "scikit-learn", "openai", "groq", "tensorflow", "opencv", "facenet"] },

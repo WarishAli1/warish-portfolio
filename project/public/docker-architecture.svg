@@ -1,0 +1,116 @@
+<svg viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d">
+  <title id="t">Sykra Research Docker architecture</title>
+  <desc id="d">Docker Compose runs a Next.js frontend, a FastAPI backend, and four supporting services: PostgreSQL, Neo4j, Redis and ClamAV. The backend uses volumes for the vector database and model cache. PostgreSQL, Neo4j and ClamAV each have their own data volumes.</desc>
+
+  <style>
+    text { font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif; }
+    .title   { font-size: 17px; font-weight: 700; }
+    .sub     { font-size: 13px; font-weight: 500; fill: #7a8aa0; }
+    .label   { font-size: 12px; font-weight: 500; fill: #7a8aa0; }
+    .frame-label { font-size: 13px; font-weight: 700; fill: #7a8aa0; letter-spacing: 0.04em; }
+    .vol-text { font-size: 11.5px; font-weight: 600; fill: #7a8aa0; font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; }
+
+    .t-fe { fill: #3b82f6; }
+    .t-be { fill: #f59e0b; }
+    .t-pg { fill: #06b6d4; }
+    .t-db { fill: #10b981; }
+    .t-rd { fill: #ef4444; }
+    .t-av { fill: #8b5cf6; }
+
+    .arrow { stroke: #7a8aa0; stroke-width: 2; fill: none; }
+    .vline { stroke: #7a8aa0; stroke-width: 1.4; stroke-dasharray: 4 4; fill: none; opacity: 0.8; }
+    .frame { fill: none; stroke: #7a8aa0; stroke-width: 1.5; stroke-dasharray: 7 6; opacity: 0.7; }
+
+    .fe  { fill: rgba(59, 130, 246, 0.14);  stroke: #3b82f6; stroke-width: 2; }
+    .be  { fill: rgba(245, 158, 11, 0.14);  stroke: #f59e0b; stroke-width: 2; }
+    .pg  { fill: rgba(6, 182, 212, 0.14);   stroke: #06b6d4; stroke-width: 2; }
+    .db  { fill: rgba(16, 185, 129, 0.14);  stroke: #10b981; stroke-width: 2; }
+    .rd  { fill: rgba(239, 68, 68, 0.14);   stroke: #ef4444; stroke-width: 2; }
+    .av  { fill: rgba(139, 92, 246, 0.14);  stroke: #8b5cf6; stroke-width: 2; }
+    .vol { fill: rgba(148, 163, 184, 0.12); stroke: #7a8aa0; stroke-width: 1.5; }
+  </style>
+
+  <defs>
+    <marker id="head" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1.5 L8.5 5 L1 8.5" fill="none" stroke="#7a8aa0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Docker Compose frame -->
+  <rect class="frame" x="20" y="20" width="860" height="580" rx="18"/>
+  <text class="frame-label" x="42" y="50">DOCKER COMPOSE  ·  docker compose up</text>
+
+  <!-- Frontend -->
+  <rect class="fe" x="45" y="250" width="160" height="100" rx="12"/>
+  <text class="title t-fe" x="125" y="290" text-anchor="middle">Frontend</text>
+  <text class="sub" x="125" y="312" text-anchor="middle">Next.js</text>
+  <text class="label" x="125" y="334" text-anchor="middle">port 3000</text>
+
+  <!-- Backend -->
+  <rect class="be" x="285" y="250" width="170" height="100" rx="12"/>
+  <text class="title t-be" x="370" y="290" text-anchor="middle">Backend</text>
+  <text class="sub" x="370" y="312" text-anchor="middle">FastAPI</text>
+  <text class="label" x="370" y="334" text-anchor="middle">port 8000</text>
+
+  <!-- PostgreSQL -->
+  <rect class="pg" x="580" y="60" width="170" height="80" rx="12"/>
+  <text class="title t-pg" x="665" y="90" text-anchor="middle">PostgreSQL</text>
+  <text class="sub" x="665" y="110" text-anchor="middle">Relational database</text>
+  <text class="label" x="665" y="128" text-anchor="middle">port 5432</text>
+
+  <!-- Neo4j -->
+  <rect class="db" x="580" y="170" width="170" height="80" rx="12"/>
+  <text class="title t-db" x="665" y="200" text-anchor="middle">Neo4j</text>
+  <text class="sub" x="665" y="220" text-anchor="middle">Graph database</text>
+  <text class="label" x="665" y="238" text-anchor="middle">ports 7474 · 7687</text>
+
+  <!-- Redis -->
+  <rect class="rd" x="580" y="280" width="170" height="80" rx="12"/>
+  <text class="title t-rd" x="665" y="310" text-anchor="middle">Redis</text>
+  <text class="sub" x="665" y="330" text-anchor="middle">Cache / queue</text>
+  <text class="label" x="665" y="348" text-anchor="middle">internal · 6379</text>
+
+  <!-- ClamAV -->
+  <rect class="av" x="580" y="390" width="170" height="80" rx="12"/>
+  <text class="title t-av" x="665" y="420" text-anchor="middle">ClamAV</text>
+  <text class="sub" x="665" y="440" text-anchor="middle">Upload virus scanning</text>
+  <text class="label" x="665" y="458" text-anchor="middle">internal · 3310</text>
+
+  <!-- Arrows: frontend -> backend -->
+  <line class="arrow" x1="207" y1="300" x2="283" y2="300" marker-end="url(#head)"/>
+
+  <!-- Arrows: backend -> services -->
+  <path class="arrow" d="M 457 300 H 517 V 100 H 578" marker-end="url(#head)"/>
+  <path class="arrow" d="M 457 300 H 517 V 210 H 578" marker-end="url(#head)"/>
+  <path class="arrow" d="M 457 300 H 517 V 320 H 578" marker-end="url(#head)"/>
+  <path class="arrow" d="M 457 300 H 517 V 430 H 578" marker-end="url(#head)"/>
+
+  <!-- Volumes: backend -->
+  <rect class="vol" x="250" y="420" width="100" height="40" rx="8"/>
+  <text class="vol-text" x="300" y="444" text-anchor="middle">chroma_data</text>
+  <rect class="vol" x="360" y="420" width="100" height="40" rx="8"/>
+  <text class="vol-text" x="410" y="444" text-anchor="middle">hf_cache</text>
+  <path class="vline" d="M 300 420 L 330 352"/>
+  <path class="vline" d="M 410 420 L 400 352"/>
+
+  <!-- Volumes: services (right column) -->
+  <rect class="vol" x="775" y="82" width="95" height="36" rx="8"/>
+  <text class="vol-text" x="822" y="104" text-anchor="middle">postgres_data</text>
+  <path class="vline" d="M 750 100 H 775"/>
+
+  <rect class="vol" x="775" y="177" width="95" height="30" rx="8"/>
+  <text class="vol-text" x="822" y="196" text-anchor="middle">neo4j_data</text>
+  <rect class="vol" x="775" y="213" width="95" height="30" rx="8"/>
+  <text class="vol-text" x="822" y="232" text-anchor="middle">neo4j_logs</text>
+  <path class="vline" d="M 750 192 H 775"/>
+  <path class="vline" d="M 750 228 H 775"/>
+
+  <rect class="vol" x="775" y="412" width="95" height="36" rx="8"/>
+  <text class="vol-text" x="822" y="434" text-anchor="middle">clamav_data</text>
+  <path class="vline" d="M 750 430 H 775"/>
+
+  <!-- Notes -->
+  <text class="label" x="450" y="520" text-anchor="middle">Bind mounts on backend: ./backend/uploads  ·  ./backend/exports</text>
+  <text class="label" x="450" y="548" text-anchor="middle">Startup order: PostgreSQL + Neo4j healthy  →  backend healthy  →  frontend</text>
+  <text class="label" x="450" y="572" text-anchor="middle">Volumes keep data alive when containers are deleted or rebuilt</text>
+</svg>

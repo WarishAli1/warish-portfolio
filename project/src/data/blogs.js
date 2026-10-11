@@ -342,9 +342,9 @@ Before building the CNN, it is important to understand input features, channels,
 
 For example, after batching, our data shape will be:
 
-\`\`\`
+\`
 [32, 1, 28, 28]
-\`\`\`
+\`
 
 - **32** → Batch size (32 images per batch)
 - **1** → Number of color channels (grayscale)
@@ -738,6 +738,136 @@ Before this project, I thought: “If I understand CNNs and Transformers, I unde
 I started this project thinking that learning Transformers would be similar to learning CNNs. Since attention is the core idea behind modern language models, I believed it would be a straightforward next step. I was wrong. Understanding the theory was only the beginning; the real challenge started when I tried to build and evaluate my own model.
 
 I faced many problems during this journey, but they did not discourage me. They made me more curious. This project was not about building something perfect. It was about understanding why building something like ChatGPT is so difficult, and that alone made the journey worth it.
+
+`
+},
+{
+  id: "docker-in-sykra",
+  title: "Containerizing Sykra with Docker Compose: Design Decisions and Pitfalls",
+  date: "2026-10-11",
+  mainCategory: "DevOps",
+  subCategory: "Docker",
+  images: ["/docker-architecture.svg"],
+  description: "From juggling terminals by hand to one command: how Docker changed the way I run Sykra, and what six containers taught me about data, startup order, and security.",
+  content: `
+
+## Introduction
+
+Before Docker, starting my project meant opening one terminal for the backend, another for the frontend, and making sure Neo4j was running too. It wasn't hard, just a few commands each time, but it was several separate things to start, in the right order, every single time. Once I noticed how much of that lived only in my head, I wanted it written down somewhere a machine could run it.
+
+The project is **Sykra Research**, an agent-based system that helps with research. Its Docker Compose setup started with three services: Neo4j, the FastAPI backend, and the Next.js frontend. It has since grown to six, as I added PostgreSQL for durable relational data, ClamAV for optional malware scanning, and Redis for distributed rate limiting. That growth is a big part of why containerizing early paid off.
+
+## Why I Picked It Up
+
+The first reason was that I wanted to learn Docker. I had read about it for a long time and never used it in something real, and I knew reading alone wouldn't teach me much. So I containerized my own project.
+
+The second reason was the future. Right now I'm the only developer on Sykra. But if I ever bring someone in, or try to deploy it, I don't want their first day to be "install these five things and hope your versions match mine." Starting early, while the project was small, was easier than retrofitting it later.
+
+## What It Looks Like Now
+
+![How Sykra's services and volumes fit together in Docker Compose](/docker-architecture.svg)
+
+One \`docker-compose.yml\` describes the whole system: the six services, their dependencies, and where their data lives. Once Docker is running and the required variables are set in \`.env\`, one command brings it all up.
+
+\`\`\`yaml
+services:
+  postgres:   # users, sessions, chats, library records
+    image: postgres:16-alpine
+    volumes: [postgres_data:/var/lib/postgresql/data]
+
+  neo4j:      # knowledge graph
+    image: neo4j:5
+    volumes: [neo4j_data:/data, neo4j_logs:/logs]
+
+  redis:      # rate limiting, internal only
+    image: redis:7-alpine
+    expose: ["6379"]
+
+  clamav:     # scans uploaded files, internal only
+    image: clamav/clamav:stable
+    expose: ["3310"]
+    volumes: [clamav_data:/var/lib/clamav]
+
+  backend:
+    build: ./backend
+    depends_on:
+      postgres: { condition: service_healthy }
+      neo4j:    { condition: service_healthy }
+    volumes:
+      - ./backend/uploads:/app/uploads
+      - ./backend/exports:/app/exports
+      - chroma_data:/app/app/db/vector_db
+      - hf_cache:/app/huggingface_cache
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      backend: { condition: service_healthy }
+\`\`\`
+
+*(Trimmed for readability. Ports, env vars, and healthchecks are mostly left out here.)*
+
+## Why Six Containers
+
+It looks like a lot for one project, but each piece has a different job.
+
+- **Neo4j** stores relationships: how papers, concepts, and entities connect. A graph is the natural shape for that.
+- **PostgreSQL** stores the durable relational data: users, authentication sessions, chats, messages, research sessions, uploaded-file metadata, and library records. This is the data the app can't afford to lose, and relational tables and transactions are the right tool for it.
+- **Chroma** stores vector embeddings for semantic search. It isn't its own container: it runs embedded inside the backend, with its data kept on a volume.
+- **Redis** keeps short-lived rate-limit counters for the authentication and upload endpoints, shared across backend instances. In development Sykra can fall back to an in-memory limiter, but production requires Redis. It is only reachable from other containers.
+- **ClamAV** is the malware scanner I wired into the upload flow. A research tool that accepts user uploads should not trust them, so this is the part I'm most glad I added. It sits behind a \`CLAMAV_ENABLED\` flag, so I can switch it off in development, where it is slow to start and heavy on memory.
+
+Docker made it cheap to try each of these stores. Running three different databases natively on my laptop would have put me off; in Compose, each one is a few lines. That lowers the cost of setting them up, though not the work of operating them well.
+
+## Volumes and Bind Mounts
+
+This was my first real "aha." Containers are disposable. If you delete one, everything inside it disappears with it. That's fine for code, but not for a graph database or a vector store full of embeddings.
+
+**Named volumes** are storage Docker manages outside the container, so data survives when the container is destroyed and rebuilt. I use them for Postgres, Neo4j's data and logs, ClamAV's virus definitions, the Chroma vector database, and the Hugging Face model cache, so models aren't re-downloaded on every rebuild.
+
+**Bind mounts** are different: they map a folder from my machine into the container. I use them for \`uploads\` and \`exports\`, because I want to open those files directly from my own disk. Named volumes are for data Docker should own; bind mounts are for files I want to see and touch.
+
+## Startup Order
+
+The backend can't work without Postgres and Neo4j, and the frontend needs the backend. Listing them in the compose file doesn't guarantee they're *ready* in that order, only that they've *started*. For those three dependencies I added healthchecks and \`condition: service_healthy\`, so the backend waits for Postgres and Neo4j to pass their checks, and the frontend waits for the backend. That took me from "it sometimes works" to a startup that behaves the same way almost every time. A healthcheck only tells Compose the service passed its test at startup, though; it isn't a guarantee the service never fails later.
+
+## Ports, Secrets and What Not to Expose
+
+Compose has two ways to open a port, and the difference matters. \`ports\` publishes a container port to my host machine. \`expose\` only makes it reachable by other containers on the Compose network.
+
+The backend, frontend, Neo4j, and Postgres publish ports because I need to reach them while developing. Redis and ClamAV only use \`expose\`, because nothing outside the stack has any reason to talk to them. Publishing fewer ports means a smaller attack surface, and that is a habit worth building before deploying anything.
+
+Secrets follow a similar idea. The Postgres password is written as \`\${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}\`, so Compose refuses to start if it's missing, instead of quietly running with a blank password. It annoyed me at first (see below) and now I prefer it.
+
+## Multi-Stage Builds
+
+My frontend Dockerfile has separate stages for installing dependencies, building, and running. The final image only carries what's needed to run the app, not the whole build toolchain. A single-stage build of the same app comes out to roughly 1.8 GB, while the multi-stage version is about 294 MB. It's a small thing, but it changed how I think about what should and shouldn't ship inside an image.
+
+## Where It Got Messy
+
+Most of my problems weren't dramatic. They came from having to unlearn how I used to run software.
+
+**Starting too early.** My first attempt to build and run the stack failed because the Docker daemon wasn't running. I had been treating \`docker\` like an ordinary command-line tool, when it's a client talking to a background service that has to be started first.
+
+**A missing variable that blocked everything.** Compose warned that \`POSTGRES_PASSWORD\` wasn't set and was defaulting to a blank string, then failed with an error saying the required variable had no value. What surprised me was that I couldn't even bring the stack down. Compose resolves the whole file before running any command, so one missing required value blocks \`up\`, \`down\`, everything. I fixed it by adding the value to the \`.env\` file next to \`docker-compose.yml\`, which is where Compose looks for variable substitution. Now when something behaves oddly, my first question is "where is this value actually read?"
+
+**Debugging code that wasn't running.** I was editing the landing page, kept refreshing, and saw nothing change. For a moment I assumed my code was wrong, until I realized I wasn't running a local dev server anymore. In my setup the frontend code is baked into the image, so my edits didn't show up until I rebuilt and recreated the container. (A bind mount plus a dev server with hot reload would avoid that, but I haven't set that up.) Now I rebuild after changes, and when something looks wrong I check which image is running and read the logs before suspecting my own code.
+
+**Running out of disk.** While building images and running the stack, my Mac ran out of storage, which had never happened to me before. Images, build layers, and volumes take real space, and I had never looked at it. When I rebuilt after a month away, the build took well over half an hour, with the base images, system packages, Python dependencies, and npm packages all downloading again. I didn't dig into exactly why the cache was gone. Either way, containers have a cost I had been ignoring, and \`docker system df\` is now part of how I check on a project.
+
+## What I've Learned
+
+The biggest shift wasn't a command. It was a change in how I think: my environment is now something I describe instead of something I set up. If my laptop broke tomorrow, I could clone the repo and have the whole system running again without remembering what I had installed.
+
+I also got more careful about decisions I used to ignore: where data lives, what an image really needs, which ports are exposed to the outside, and what happens when a service starts before its dependency is ready.
+
+## What I Haven't Done Yet
+
+I've used Docker on a single machine in development. I haven't deployed these containers to production, set up CI/CD around them, or worked with orchestration tools like Kubernetes. Several choices here, like \`SECURE_COOKIES: "false"\` and published database ports, are development settings that would need to change first. Those are next, and containerizing Sykra early was partly to make that step easier.
+
+## Conclusion
+
+Learning Docker on a real project taught me things a tutorial wouldn't have: which data has to survive, why startup order matters, and why some ports should never leave the network. It made Sykra easier to run today, and it will make it easier to share, deploy, or hand to someone else later.
 
 `
 }

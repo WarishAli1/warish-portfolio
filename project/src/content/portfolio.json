@@ -41,27 +41,32 @@
   "skills": {
     "core": [
       "Python",
-      "Java",
+      "PyTorch",
+      "scikit-learn",
+      "Large Language Models (LLM)",
+      "RAG",
+      "Embeddings",
+      "Hugging Face Transformers",
+      "Computer Vision",
+      "LangGraph",
+      "FastAPI"
+    ],
+    "familiar": [
       "JavaScript",
       "TypeScript",
       "React",
       "Next.js",
-      "FastAPI",
-      "Spring Boot",
+      "Java",
       "Vue.js",
+      "Spring Boot",
       "Tailwind CSS",
-      "LangGraph",
-      "PyTorch"
-    ],
-    "familiar": [
-      "Node.js",
       "MySQL",
+      "Docker",
+      "Node.js",
       "Neo4j",
       "ChromaDB",
-      "Docker",
       "Streamlit",
       "OpenCV",
-      "scikit-learn",
       "Plotly",
       "Playwright"
     ],
@@ -69,10 +74,13 @@
       "ai_ml": [
         "Python",
         "PyTorch",
-        "LangGraph",
-        "RAG",
-        "Sentence Transformers",
         "scikit-learn",
+        "LangGraph",
+        "LangChain",
+        "RAG",
+        "Embeddings",
+        "Sentence Transformers",
+        "Hugging Face Transformers",
         "NLP",
         "OCR",
         "Large Language Models (LLM)",
@@ -85,7 +93,8 @@
         "Spring Boot",
         "Java",
         "Node.js",
-        "Python"
+        "Python",
+        "Docker"
       ],
       "frontend": [
         "React",
@@ -103,8 +112,20 @@
     }
   },
   "research": {
-    "focus": "Causal explainable AI (causal XAI) for suspicious activity detection in smart surveillance systems — using a ResNet50-based CNN combined with XAI and causal analysis to make surveillance flagging decisions transparent and trustworthy instead of a black box.",
-    "context": "Final-year BCT research direction, alongside applied ML work in agentic systems and RAG."
+    "title": "Evaluating the Effectiveness of Causal XAI for Suspicious Activity Detection in Smart Surveillance Systems",
+    "summary": "A research-oriented framework that improves the transparency, reliability, and trustworthiness of suspicious activity detection in surveillance video. Conventional deep learning surveillance systems classify suspicious activity accurately but operate as black boxes, offering little insight into why a clip was flagged. This project integrates Explainable AI (XAI) and Causal AI with a deep learning detection model to address that gap.",
+    "approach": "A custom dataset was built by extracting and manually selecting frames representing suspicious activities (fighting, robbery, stealing, explosion, shooting) alongside normal activity. A ResNet50-based CNN learns visual features and classifies the activity. XAI techniques highlight which visual regions and features drove the prediction, while causal analysis investigates the underlying cause-and-effect factors behind the detected activity — combining predictive modeling, visual explanation, and causal reasoning for more trustworthy interpretations.",
+    "keywords": [
+      "Causal AI",
+      "Causal Inference",
+      "Computer Vision",
+      "Deep Learning",
+      "Explainable AI (XAI)",
+      "Interpretability",
+      "ResNet50",
+      "Suspicious Activity Detection"
+    ],
+    "context": "Final-year BCT research, alongside applied engineering work in agentic systems and RAG (Sykra Research)."
   },
   "projects": [
     {
@@ -308,6 +329,14 @@
       "mainCategory": "Machine Learning",
       "subCategory": "Natural Language Processing",
       "summary": "What two months of training a Transformer from scratch taught me about building language models."
+    },
+    {
+      "id": "docker-in-sykra",
+      "title": "Containerizing Sykra with Docker Compose: Design Decisions and Pitfalls",
+      "date": "2026-10-11",
+      "mainCategory": "DevOps",
+      "subCategory": "Docker",
+      "summary": "From juggling terminals by hand to one command: how Docker changed the way I run Sykra, and what six containers taught me about data, startup order, and security."
     }
   ]
 }

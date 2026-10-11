@@ -8,6 +8,7 @@ import { getReadTime } from "../utils/readTime";
 import { ArrowLeft } from "lucide-react";
 import { Children, useEffect, useMemo, useState } from "react";
 import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 
 function getNodeText(children) {
   return Children.toArray(children)
@@ -324,16 +325,27 @@ export default function BlogDetail() {
       </header>
 
       <article
-        className={`max-w-3xl mx-auto px-6 pb-14 text-base sm:text-lg leading-loose ${
+        className={`prose prose-lg dark:prose-invert prose-pre:my-0 prose-pre:bg-transparent prose-pre:p-0 [&_pre::before]:content-none [&_pre::after]:content-none [&_pre_code::before]:content-none [&_pre_code::after]:content-none max-w-3xl mx-auto px-6 pb-14 leading-loose ${
           isDarkMode ? "text-gray-300" : "text-gray-800"
         }`}
       >
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
+          rehypePlugins={[rehypeRaw]}
           components={{
             ...headingComponents,
             p: ({ ...props }) => (
               <p className="mb-6" {...props} />
+            ),
+            mark: ({ ...props }) => (
+              <mark
+                className={`rounded px-1 py-0.5 ${
+                  isDarkMode
+                    ? "bg-amber-400/20 text-amber-200"
+                    : "bg-amber-200 text-amber-950"
+                }`}
+                {...props}
+              />
             ),
             ul: ({ ...props }) => (
               <ul className="list-disc pl-6 my-6 space-y-3" {...props} />
@@ -393,24 +405,32 @@ export default function BlogDetail() {
                 rel="noopener noreferrer"
               />
             ),
-            code({ inline, className, children }) {
+            code({ className, children }) {
               const match = /language-(\w+)/.exec(className || "");
-              return !inline ? (
+              const codeText = String(children);
+              const isInline = !match && !codeText.includes("\n");
+
+              return !isInline ? (
                 <div className="my-10">
                   <SyntaxHighlighter
                     style={isDarkMode ? oneDark : vs}
                     language={match ? match[1] : "text"}
                     className="rounded-xl text-sm"
+                    customStyle={{
+                      margin: 0,
+                      borderRadius: "0.75rem",
+                      background: isDarkMode ? "#282c34" : "#f5f5f5",
+                    }}
                   >
-                    {String(children).replace(/\n$/, "")}
+                    {codeText.replace(/^\n|\n$/g, "")}
                   </SyntaxHighlighter>
                 </div>
               ) : (
                 <code
-                  className={`px-1.5 py-0.5 rounded text-sm ${
+                  className={`px-1.5 py-0.5 rounded text-sm before:content-none after:content-none ${
                     isDarkMode
-                      ? "bg-gray-800 text-gray-200"
-                      : "bg-gray-200 text-gray-800"
+                      ? "!bg-gray-700 !text-gray-100 ring-1 ring-white/10"
+                      : "!bg-gray-200 !text-gray-900 ring-1 ring-black/10"
                   }`}
                 >
                   {children}
