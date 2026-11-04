@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useSpring,
+} from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
 import projects from "../data/projects";
 import ProjectDrawer from "./ProjectDrawer";
@@ -7,9 +12,34 @@ import ProjectDrawer from "./ProjectDrawer";
 const Projects = () => {
   const { isDarkMode } = useTheme();
   const [activeProject, setActiveProject] = useState(null);
+  const [hovered, setHovered] = useState(null); // last hovered project
+  const [visible, setVisible] = useState(false); // is preview shown
 
   const border = isDarkMode ? "border-white/10" : "border-black/10";
   const muted = isDarkMode ? "text-gray-400" : "text-gray-600";
+
+  // cursor-follow motion values (spring = smooth lag)
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const sx = useSpring(x, { stiffness: 260, damping: 28, mass: 0.6 });
+  const sy = useSpring(y, { stiffness: 260, damping: 28, mass: 0.6 });
+
+  const move = (e) => {
+    x.set(e.clientX + 28);
+    y.set(e.clientY - 90);
+  };
+
+  const enterRow = (e, p) => {
+    if (!visible) {
+      // snap to cursor on first entry so it doesn't fly in from (0,0)
+      x.set(e.clientX + 28);
+      y.set(e.clientY - 90);
+      sx.jump?.(e.clientX + 28);
+      sy.jump?.(e.clientY - 90);
+    }
+    setHovered(p);
+    setVisible(true);
+  };
 
   return (
     <main
@@ -34,7 +64,11 @@ const Projects = () => {
           </p>
         </motion.div>
 
-        <div className={`border-t ${border}`}>
+        <div
+          className={`border-t ${border}`}
+          onMouseMove={move}
+          onMouseLeave={() => setVisible(false)}
+        >
           {projects.map((p, i) => (
             <motion.article
               key={p.id}
@@ -42,8 +76,11 @@ const Projects = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.4 }}
+              onMouseEnter={(e) => enterRow(e, p)}
               onClick={() => setActiveProject(p)}
-              className={`index-row group relative hover:z-10 grid grid-cols-[auto_1fr_auto] gap-x-5 sm:gap-x-10 items-center py-7 sm:py-8 border-b ${border} cursor-pointer`}
+              className={`index-row group relative grid grid-cols-[auto_1fr_auto] gap-x-5 sm:gap-x-10 items-center py-7 sm:py-8 border-b ${border} cursor-pointer transition-opacity duration-300 ${
+                visible && hovered?.id !== p.id ? "sm:opacity-40" : ""
+              }`}
             >
               <span className="index-num font-display text-4xl sm:text-6xl leading-none select-none">
                 {String(i + 1).padStart(2, "0")}
@@ -82,11 +119,7 @@ const Projects = () => {
                   </div>
                 )}
 
-                <div
-                  className={`grid transition-all duration-300 ease-out
-                    grid-rows-[0fr] opacity-0
-                    group-hover:grid-rows-[1fr] group-hover:opacity-100`}
-                >
+                <div className="grid transition-all duration-300 ease-out grid-rows-[0fr] opacity-0 group-hover:grid-rows-[1fr] group-hover:opacity-100">
                   <div className="overflow-hidden">
                     <p className={`pt-2 text-sm leading-relaxed ${muted}`}>
                       {p.description}
@@ -95,48 +128,72 @@ const Projects = () => {
                 </div>
               </div>
 
-              <span className="relative block shrink-0 rotate-[-2.5deg] transition-transform duration-500 group-hover:rotate-0 group-hover:scale-[1.12] group-hover:-translate-y-1.5">
-                <span
-                  aria-hidden="true"
-                  className={`absolute -bottom-2 -right-2 sm:-bottom-2.5 sm:-right-2.5 h-full w-full rounded-sm border ${
-                    isDarkMode ? "border-white/25" : "border-black/25"
-                  }`}
-                />
-                <img
-                  src={p.images?.[0]}
-                  alt={`${p.title} preview`}
-                  loading="lazy"
-                  className={`relative h-16 w-24 sm:h-24 sm:w-36 rounded-sm border object-cover grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:shadow-[0_18px_30px_-12px_rgba(0,0,0,0.4)] ${
-                    isDarkMode
-                      ? "border-white/15 contrast-125 brightness-110"
-                      : "border-black/10 contrast-110"
-                  }`}
-                />
-              </span>
+              {/* small thumbnail only on touch/mobile, where there's no cursor */}
+              <img
+                src={p.images?.[0]}
+                alt=""
+                loading="lazy"
+                className={`sm:hidden h-14 w-20 rounded-sm border object-cover ${
+                  isDarkMode ? "border-white/15" : "border-black/10"
+                }`}
+              />
             </motion.article>
           ))}
         </div>
       </section>
-      <div className="relative inset-0 pointer-events-none flex items-end">
-      <div className="w-full px-6 pb-4">
-        <span
-          className={`font-black select-none ${
-            isDarkMode ? "text-gray-200" : "text-ink"
+
+      {/* Floating cursor-following preview (desktop only) */}
+      <motion.div
+        aria-hidden="true"
+        style={{ x: sx, y: sy }}
+        animate={{ opacity: visible ? 1 : 0, scale: visible ? 1 : 0.85 }}
+        transition={{ duration: 0.25 }}
+        className="hidden sm:block fixed top-0 left-0 z-50 pointer-events-none"
+      >
+        <div
+          className={`relative h-44 w-72 overflow-hidden rounded-md border shadow-[0_24px_50px_-12px_rgba(0,0,0,0.55)] ${
+            isDarkMode
+              ? "border-white/20 bg-neutral-900"
+              : "border-black/15 bg-white"
           }`}
-          style={{
-            fontSize: window.innerWidth < 768 ? "60px" : "120px",
-            lineHeight: "1",
-            whiteSpace: "nowrap",
-            opacity: 0.08,
-            display: "block",
-            textAlign: "left",
-            transform: "translateX(-3%)"
-          }}
         >
-          PROJECTS.
-        </span>
+          <AnimatePresence initial={false}>
+            {hovered && (
+              <motion.img
+                key={hovered.id}
+                src={hovered.images?.[0]}
+                alt=""
+                initial={{ opacity: 0, scale: 1.12 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35 }}
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+            )}
+          </AnimatePresence>
+        </div>
+      </motion.div>
+
+      <div className="relative inset-0 pointer-events-none flex items-end">
+        <div className="w-full px-6 pb-4">
+          <span
+            className={`font-black select-none ${
+              isDarkMode ? "text-gray-200" : "text-ink"
+            }`}
+            style={{
+              fontSize: window.innerWidth < 768 ? "60px" : "120px",
+              lineHeight: "1",
+              whiteSpace: "nowrap",
+              opacity: 0.08,
+              display: "block",
+              textAlign: "left",
+              transform: "translateX(-3%)",
+            }}
+          >
+            PROJECTS.
+          </span>
+        </div>
       </div>
-    </div>
 
       <ProjectDrawer
         project={activeProject}

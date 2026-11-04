@@ -55,7 +55,7 @@ const Home = () => {
               transition={{ duration: 0.6, delay: 0.45 }}
               className={`mt-8 font-mono text-xs uppercase tracking-[0.25em] md:text-sm ${muted}`}
             >
-              AI/ML &amp; Software Developer
+              AI/ML &amp; Software Engineer
             </motion.p>
 
             <motion.p

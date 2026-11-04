@@ -176,7 +176,7 @@ export default function About() {
 
               <h2 className="text-2xl font-bold">Warish Ali</h2>
               <p className="uppercase tracking-wide text-sm text-muted mt-1">
-                AI/ML & Software Developer
+                AI/ML & Software Engineer
               </p>
 
               <p className="mt-3 text-sm text-muted">

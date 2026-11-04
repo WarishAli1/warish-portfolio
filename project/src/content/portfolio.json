@@ -1,12 +1,13 @@
 {
   "profile": {
     "name": "Warish Ali",
-    "role": "AI/ML & Software Developer",
+    "role": "AI/ML & Software Engineer",
     "tagline": "Engineering student focused on AI/ML and software development.",
     "summary": "Undergraduate Computer Engineering student at Advance College of Engineering and Management (ACEM), Kathmandu. Works as a Full-Stack Java Developer with experience in Java, Vue.js, backend systems, APIs, and databases. Currently exploring Machine Learning and expanding understanding of how intelligent systems learn from data. Naturally curious about how systems work end to end, from underlying logic to the complete solutions people interact with.",
     "location": "Kathmandu, Nepal",
     "email": "warishali.contact@gmail.com",
     "phone": "+977-9867779824",
+    "birthDate": "2004-01-19",
     "socials": {
       "github": "https://github.com/warishali1",
       "linkedin": "https://linkedin.com/in/warish-ali-885923363",
@@ -29,86 +30,26 @@
       "role": "Full-Stack Java Developer",
       "context": "Internship / project work at Raise Tech Pvt. Ltd.",
       "description": "Worked on the Student CRM System, a web application for abroad-study consultancies to manage and track student visa progress from application through offer letter to final visa approval. Inherited a base frontend/backend structure from a senior developer and implemented most of the core functionality: student data management, progress tracking, and authentication logic, including researching and integrating an OTP-based login and password reset system.",
-      "technologies": [
-        "Vue.js",
-        "PrimeVue",
-        "Java",
-        "Spring Boot",
-        "MySQL"
-      ]
+      "technologies": ["Vue.js", "PrimeVue", "Java", "Spring Boot", "MySQL"]
     }
   ],
   "skills": {
     "core": [
-      "Python",
-      "PyTorch",
-      "scikit-learn",
-      "Large Language Models (LLM)",
-      "RAG",
-      "Embeddings",
-      "Hugging Face Transformers",
-      "Computer Vision",
-      "LangGraph",
-      "FastAPI"
+      "Python", "PyTorch", "scikit-learn", "Large Language Models (LLM)",
+      "RAG", "Embeddings", "Hugging Face Transformers", "Computer Vision",
+      "LangGraph", "FastAPI"
     ],
     "familiar": [
-      "JavaScript",
-      "TypeScript",
-      "React",
-      "Next.js",
-      "Java",
-      "Vue.js",
-      "Spring Boot",
-      "Tailwind CSS",
-      "MySQL",
-      "Docker",
-      "Node.js",
-      "Neo4j",
-      "ChromaDB",
-      "Streamlit",
-      "OpenCV",
-      "Plotly",
-      "Playwright"
+      "JavaScript", "TypeScript", "React", "Next.js", "Java", "Vue.js",
+      "Spring Boot", "Tailwind CSS", "MySQL", "Docker", "Node.js",
+      "Neo4j", "ChromaDB", "Streamlit", "OpenCV", "Plotly", "Playwright",
+      "PostgreSQL", "Tiptap", "React Flow", "Server-Sent Events (SSE)"
     ],
     "categories": {
-      "ai_ml": [
-        "Python",
-        "PyTorch",
-        "scikit-learn",
-        "LangGraph",
-        "LangChain",
-        "RAG",
-        "Embeddings",
-        "Sentence Transformers",
-        "Hugging Face Transformers",
-        "NLP",
-        "OCR",
-        "Large Language Models (LLM)",
-        "Groq",
-        "OpenAI API",
-        "Computer Vision"
-      ],
-      "backend": [
-        "FastAPI",
-        "Spring Boot",
-        "Java",
-        "Node.js",
-        "Python",
-        "Docker"
-      ],
-      "frontend": [
-        "React",
-        "Next.js",
-        "TypeScript",
-        "Vue.js",
-        "Tailwind CSS",
-        "PrimeVue"
-      ],
-      "data_infra": [
-        "Neo4j",
-        "ChromaDB",
-        "MySQL"
-      ]
+      "ai_ml": ["Python", "PyTorch", "scikit-learn", "LangGraph", "LangChain", "RAG", "Embeddings", "Sentence Transformers", "Hugging Face Transformers", "NLP", "OCR", "Large Language Models (LLM)", "Groq", "OpenAI API", "Computer Vision", "Explainable AI (XAI)", "Video Anomaly Detection", "Multi-agent Systems"],
+      "backend": ["FastAPI", "Spring Boot", "Java", "Node.js", "Python", "Docker", "Server-Sent Events (SSE)", "REST APIs"],
+      "frontend": ["React", "Next.js", "TypeScript", "Vue.js", "Tailwind CSS", "PrimeVue", "Tiptap", "React Flow"],
+      "data_infra": ["Neo4j", "ChromaDB", "MySQL", "PostgreSQL"]
     }
   },
   "research": {
@@ -133,38 +74,29 @@
       "title": "Sykra Research",
       "status": "ongoing",
       "category": "ai_ml",
-      "summary": "An agentic AI research platform built on LangGraph that researches literature, grounds answers in user documents, and turns findings into reports and an explorable knowledge graph.",
-      "description": "Sykra Research is a full-stack agentic research platform built around a multi-stage LangGraph pipeline instead of a single LLM call. A query moves through coordinated stages: understanding the question, refining it, planning, retrieving sources, ranking them, summarizing, validating, and citing, with shared state carried across the whole workflow. It supports three research modes. Literature mode pulls from external academic sources through arXiv and OpenAlex. Uploaded mode answers strictly from documents the user provides, so the model doesn't wander off and hallucinate. Blend mode combines both. Each of these can also run in normal or researched depth, so a user can pair any evidence source with a quick answer or a more detailed, well-structured one. Results can be explored as an interactive knowledge graph connecting papers, concepts, and methods, with path tracing, temporal filtering, and graph analytics, and exported as a standard or academic-style PDF report. On the engineering side it runs parallel retrieval across search providers, caches queries and embeddings, falls back to OCR for scanned documents, and races multiple LLM providers concurrently so a slow provider doesn't stall the whole request. Sykra Studio, an AI-assisted workspace for building research diagrams and figures, is the newest part of the system and still early. The rest is under active development too.",
+      "summary": "An AI research workspace that grounds answers in papers and your own documents, generates citation-backed reports you can edit by chat, and turns findings into interactive knowledge graphs and technical diagrams.",
+      "description": "Sykra Research is an agentic Intelligent Research Management System (IRMS) built on a multi-stage LangGraph pipeline. It helps users explore topics and discover academic literature, grounding answers in papers and your own documents with full citations and references. Reports are generated live in a dedicated Research Paper Editor, where you can watch them take shape and edit them manually or with AI. An interactive knowledge graph shows how papers, concepts, and sources connect, while Sykra Studio offers a diagram canvas for charts and diagrams, editable by hand or with AI. Together they give researchers one workspace to discover, write, visualize, and present their work.",
       "technologies": [
-        "Python",
-        "LangGraph",
-        "FastAPI",
         "Next.js",
-        "React",
         "TypeScript",
-        "Tailwind CSS",
+        "FastAPI",
+        "LangGraph",
         "Neo4j",
         "ChromaDB",
-        "Sentence Transformers",
-        "RAG",
-        "Groq",
-        "arXiv API",
-        "OpenAlex API",
-        "PyMuPDF",
-        "pdfplumber",
-        "Tesseract OCR",
-        "Matplotlib",
-        "Seaborn",
-        "ReportLab",
-        "Playwright"
+        "Tiptap",
+        "React Flow",
+        "OpenAlex",
+        "arXiv",
+        "Europe PMC",
+        "Groq"
       ],
       "features": [
         "Multi-stage LangGraph pipeline: planning, retrieval, ranking, synthesis, validation, citation",
         "Three research modes (Literature, Uploaded documents, Blend), each with normal or researched depth",
+        "Literature search across OpenAlex, arXiv, and Europe PMC, with full citations and references",
+        "Live report generation in a Research Paper Editor, editable manually or with AI",
         "Interactive knowledge graph linking papers, concepts, and methods, with path tracing and analytics",
-        "Research reports exported as standard or academic-style PDFs",
-        "Parallel retrieval with query and embedding caching, plus multi-provider LLM failover",
-        "Sykra Studio (in development): an AI-assisted workspace for research diagrams and visuals"
+        "Sykra Studio: a drag-and-drop diagram canvas, editable by hand or with AI"
       ],
       "challenges": "Designing a stateful multi-node agent workflow that stays reliable across every stage, keeping structured output consistent when racing multiple LLM providers so a slow or failing one doesn't break the pipeline and keeping graph extraction accurate and consistent while it runs as its own async process off the same source data.",
       "links": {

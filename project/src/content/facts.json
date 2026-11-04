@@ -1,12 +1,13 @@
 {
   "profile": {
     "name": "Warish Ali",
-    "role": "AI/ML & Software Developer",
+    "role": "AI/ML & Software Engineer",
     "tagline": "Engineering student focused on AI/ML and software development.",
     "summary": "Undergraduate Computer Engineering student at Advance College of Engineering and Management (ACEM), Kathmandu. Works as a Full-Stack Java Developer with experience in Java, Vue.js, backend systems, APIs, and databases. Currently exploring Machine Learning and expanding understanding of how intelligent systems learn from data. Naturally curious about how systems work end to end, from underlying logic to the complete solutions people interact with.",
     "location": "Kathmandu, Nepal",
     "email": "warishali.contact@gmail.com",
     "phone": "+977-9867779824",
+    "birthDate": "2004-01-19",
     "socials": {
       "github": "https://github.com/warishali1",
       "linkedin": "https://linkedin.com/in/warish-ali-885923363",
@@ -44,13 +45,14 @@
     "familiar": [
       "JavaScript", "TypeScript", "React", "Next.js", "Java", "Vue.js",
       "Spring Boot", "Tailwind CSS", "MySQL", "Docker", "Node.js",
-      "Neo4j", "ChromaDB", "Streamlit", "OpenCV", "Plotly", "Playwright"
+      "Neo4j", "ChromaDB", "Streamlit", "OpenCV", "Plotly", "Playwright",
+      "PostgreSQL", "Tiptap", "React Flow", "Server-Sent Events (SSE)"
     ],
     "categories": {
-      "ai_ml": ["Python", "PyTorch", "scikit-learn", "LangGraph", "LangChain", "RAG", "Embeddings", "Sentence Transformers", "Hugging Face Transformers", "NLP", "OCR", "Large Language Models (LLM)", "Groq", "OpenAI API", "Computer Vision"],
-      "backend": ["FastAPI", "Spring Boot", "Java", "Node.js", "Python", "Docker"],
-      "frontend": ["React", "Next.js", "TypeScript", "Vue.js", "Tailwind CSS", "PrimeVue"],
-      "data_infra": ["Neo4j", "ChromaDB", "MySQL"]
+      "ai_ml": ["Python", "PyTorch", "scikit-learn", "LangGraph", "LangChain", "RAG", "Embeddings", "Sentence Transformers", "Hugging Face Transformers", "NLP", "OCR", "Large Language Models (LLM)", "Groq", "OpenAI API", "Computer Vision","Explainable AI (XAI)", "Video Anomaly Detection", "Multi-agent Systems"],
+      "backend": ["FastAPI", "Spring Boot", "Java", "Node.js", "Python", "Docker", "Server-Sent Events (SSE)", "REST APIs"],
+      "frontend": ["React", "Next.js", "TypeScript", "Vue.js", "Tailwind CSS", "PrimeVue", "Tiptap", "React Flow"],
+      "data_infra": ["Neo4j", "ChromaDB", "MySQL", "PostgreSQL"]
     }
   },
 
