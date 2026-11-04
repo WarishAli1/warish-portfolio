@@ -22,7 +22,6 @@ export default function Blog() {
   const countOf = (c) =>
     c === "All" ? blogs.length : blogs.filter((b) => b.mainCategory === c).length;
 
-  // filtered + sorted, then grouped by year
   const groups = useMemo(() => {
     const list = blogs
       .filter((b) => filter === "All" || b.mainCategory === filter)
@@ -136,12 +135,14 @@ export default function Blog() {
                     >
                       {/* dot */}
                       <span
-                        className={`absolute -left-[5px] top-[0.55rem] h-2.5 w-2.5 rounded-full transition-all duration-300 group-hover:scale-150 group-hover:bg-accent ${
+                        className={`absolute -left-[5px] top-[0.55rem] h-2.5 w-2.5 rounded-full transition-transform duration-300 group-hover:scale-150 ${
                           isLatest
-                            ? "bg-accent shadow-[0_0_0_4px_rgba(180,120,40,0.18)]"
+                            ? isDarkMode
+                              ? "bg-white ring-4 ring-amber-400/30"
+                              : "bg-gray-900 ring-4 ring-amber-500/30"
                             : isDarkMode
-                            ? "bg-white/40"
-                            : "bg-black/35"
+                            ? "bg-white"
+                            : "bg-gray-900"
                         }`}
                       />
 

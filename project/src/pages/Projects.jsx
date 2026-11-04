@@ -12,13 +12,12 @@ import ProjectDrawer from "./ProjectDrawer";
 const Projects = () => {
   const { isDarkMode } = useTheme();
   const [activeProject, setActiveProject] = useState(null);
-  const [hovered, setHovered] = useState(null); // last hovered project
-  const [visible, setVisible] = useState(false); // is preview shown
+  const [hovered, setHovered] = useState(null);
+  const [visible, setVisible] = useState(false);
 
   const border = isDarkMode ? "border-white/10" : "border-black/10";
   const muted = isDarkMode ? "text-gray-400" : "text-gray-600";
 
-  // cursor-follow motion values (spring = smooth lag)
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const sx = useSpring(x, { stiffness: 260, damping: 28, mass: 0.6 });
@@ -31,7 +30,6 @@ const Projects = () => {
 
   const enterRow = (e, p) => {
     if (!visible) {
-      // snap to cursor on first entry so it doesn't fly in from (0,0)
       x.set(e.clientX + 28);
       y.set(e.clientY - 90);
       sx.jump?.(e.clientX + 28);
