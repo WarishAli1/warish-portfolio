@@ -7,15 +7,12 @@ function normalize(value) {
 function calculateAge(birthDate) {
   const dob = new Date(birthDate);
   if (Number.isNaN(dob.getTime())) return undefined;
-
   const now = new Date();
   let age = now.getFullYear() - dob.getFullYear();
   const monthDiff = now.getMonth() - dob.getMonth();
-
   if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < dob.getDate())) {
     age -= 1;
   }
-
   return age;
 }
 
@@ -45,16 +42,24 @@ function blogText(post) {
   ].join(" ");
 }
 
+function certificateText(cert) {
+  return [
+    cert.id,
+    cert.name,
+    cert.issuer,
+    cert.type,
+    cert.description,
+    ...(cert.skills || []),
+  ].join(" ");
+}
+
 function findItem(collection, args, textFn) {
   const term = normalize(args.id || args.title || args.query);
   if (!term) return null;
-
   const exact = collection.find(
     (item) => normalize(item.id) === term || normalize(item.title) === term
   );
-
   if (exact) return exact;
-
   return (
     collection.find((item) => normalize(textFn(item)).includes(term)) || null
   );
@@ -62,16 +67,37 @@ function findItem(collection, args, textFn) {
 
 export function getProfile() {
   const profile = { ...portfolio.profile };
-
   if (profile.birthDate) {
     profile.age = calculateAge(profile.birthDate);
   }
-
   return profile;
 }
 
 export function getEducation() {
   return portfolio.education;
+}
+
+export function getDegreeProjects() {
+  const list = portfolio.education || [];
+  const entry = list.find((e) => e.projects) || list[0];
+  if (!entry) return null;
+  return {
+    degree: entry.degree,
+    institution: entry.institution,
+    period: entry.period,
+    status: entry.status,
+    expectedCompletion: entry.expectedCompletion || null,
+    projects: entry.projects || null,
+  };
+}
+
+export function getCertificates({ query } = {}) {
+  let certs = portfolio.certificates || [];
+  if (query) {
+    const q = normalize(query);
+    certs = certs.filter((c) => normalize(certificateText(c)).includes(q));
+  }
+  return certs;
 }
 
 export function getExperience() {
@@ -88,16 +114,13 @@ export function getResearch() {
 
 export function getProjects({ category, query } = {}) {
   let results = portfolio.projects;
-
   if (category) {
     results = results.filter((p) => p.category === category);
   }
-
   if (query) {
     const q = normalize(query);
     results = results.filter((p) => normalize(projectText(p)).includes(q));
   }
-
   return results.map(
     ({ id, title, status, category, summary, technologies, links }) => ({
       id,
@@ -114,37 +137,30 @@ export function getProjects({ category, query } = {}) {
 export function getProject(argsOrId) {
   const args =
     typeof argsOrId === "string" ? { id: argsOrId } : argsOrId || {};
-
   return findItem(portfolio.projects, args, projectText);
 }
 
 export function getBlogPosts({ query } = {}) {
   let posts = portfolio.blog;
-
   if (query) {
     const q = normalize(query);
     posts = posts.filter((b) => normalize(blogText(b)).includes(q));
   }
-
   return posts;
 }
 
 export function getBlogPost(argsOrId) {
   const args =
     typeof argsOrId === "string" ? { id: argsOrId } : argsOrId || {};
-
   return findItem(portfolio.blog, args, blogText);
 }
 
 export function getDetails({ type, id, title, query } = {}) {
   const term = normalize(id || title || query);
   if (!term) return null;
-
   const wanted = normalize(type).replace(/[^a-z]/g, "");
-
   const wantsProject =
     !wanted || wanted === "project" || wanted === "projects";
-
   const wantsBlog =
     !wanted ||
     wanted === "blog" ||
@@ -159,37 +175,28 @@ export function getDetails({ type, id, title, query } = {}) {
   if (project && post) {
     const projectExact =
       normalize(project.id) === term || normalize(project.title) === term;
-
     const postExact =
       normalize(post.id) === term || normalize(post.title) === term;
-
     if (postExact && !projectExact) {
       return { resultType: "blog", ...post };
     }
-
     if (projectExact && !postExact) {
       return { resultType: "project", ...project };
     }
-
-    // Default priority: project, because follow-ups often refer to projects.
     return { resultType: "project", ...project };
   }
-
   if (project) {
     return { resultType: "project", ...project };
   }
-
   if (post) {
     return { resultType: "blog", ...post };
   }
-
   return null;
 }
 
 export function resolveMentionedEntity(text) {
   const haystack = normalize(text);
   if (!haystack) return null;
-
   const candidates = [
     ...(portfolio.projects || []).map((p) => ({
       type: "project",
@@ -206,9 +213,7 @@ export function resolveMentionedEntity(text) {
   const match = candidates.find((candidate) =>
     haystack.includes(normalize(candidate.title))
   );
-
   if (!match) return null;
-
   return getDetails({ type: match.type, title: match.title });
 }
 
@@ -219,20 +224,41 @@ export const tools = [
       name: "get_profile",
       description:
         "Get Warish's profile: name, role, summary, location, contact, socials, resume link, birth date, and computed age if available.",
-      parameters: {
-        type: "object",
-        properties: {},
-      },
+      parameters: { type: "object", properties: {} },
     },
   },
   {
     type: "function",
     function: {
       name: "get_education",
-      description: "Get Warish's education history.",
+      description:
+        "Get Warish's education history, including the current degree and its minor/major project entries.",
+      parameters: { type: "object", properties: {} },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_degree_projects",
+      description:
+        "Get the minor and major projects of Warish's current Bachelor in Computer Engineering degree. Use for any question about his minor project, major project, final-year project, or degree/academic projects. Minor = Exam Guide System (completed). Major = in progress, not yet published.",
+      parameters: { type: "object", properties: {} },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_certificates",
+      description:
+        "Get Warish's certificates and certifications (e.g. AWS badges), including name, issuer, issue date, skills, and Credly verification links. Use for any question about certificates, certifications, badges, or credentials.",
       parameters: {
         type: "object",
-        properties: {},
+        properties: {
+          query: {
+            type: "string",
+            description: "Optional free-text filter, e.g. 'AWS' or 'machine learning'.",
+          },
+        },
       },
     },
   },
@@ -241,10 +267,7 @@ export const tools = [
     function: {
       name: "get_experience",
       description: "Get Warish's work/internship experience.",
-      parameters: {
-        type: "object",
-        properties: {},
-      },
+      parameters: { type: "object", properties: {} },
     },
   },
   {
@@ -253,21 +276,16 @@ export const tools = [
       name: "get_skills",
       description:
         "Get Warish's technical skills, grouped by core vs. familiar and by category (ai_ml, backend, frontend, data_infra).",
-      parameters: {
-        type: "object",
-        properties: {},
-      },
+      parameters: { type: "object", properties: {} },
     },
   },
   {
     type: "function",
     function: {
       name: "get_research",
-      description: "Get Warish's academic research focus and context.",
-      parameters: {
-        type: "object",
-        properties: {},
-      },
+      description:
+        "Get Warish's academic research focus and context, including his final-year BCT research.",
+      parameters: { type: "object", properties: {} },
     },
   },
   {
@@ -300,18 +318,9 @@ export const tools = [
       parameters: {
         type: "object",
         properties: {
-          id: {
-            type: "string",
-            description: "Project id if known.",
-          },
-          title: {
-            type: "string",
-            description: "Project title, e.g. 'Sykra Research'.",
-          },
-          query: {
-            type: "string",
-            description: "Free-text project name if id/title is not known.",
-          },
+          id: { type: "string", description: "Project id if known." },
+          title: { type: "string", description: "Project title, e.g. 'Sykra Research'." },
+          query: { type: "string", description: "Free-text project name if id/title is not known." },
         },
       },
     },
@@ -325,10 +334,7 @@ export const tools = [
       parameters: {
         type: "object",
         properties: {
-          query: {
-            type: "string",
-            description: "Free-text filter, e.g. 'transformer'.",
-          },
+          query: { type: "string", description: "Free-text filter, e.g. 'transformer'." },
         },
       },
     },
@@ -342,18 +348,9 @@ export const tools = [
       parameters: {
         type: "object",
         properties: {
-          id: {
-            type: "string",
-            description: "Blog post id if known.",
-          },
-          title: {
-            type: "string",
-            description: "Blog post title if known.",
-          },
-          query: {
-            type: "string",
-            description: "Free-text blog post title/topic.",
-          },
+          id: { type: "string", description: "Blog post id if known." },
+          title: { type: "string", description: "Blog post title if known." },
+          query: { type: "string", description: "Free-text blog post title/topic." },
         },
       },
     },
@@ -367,23 +364,10 @@ export const tools = [
       parameters: {
         type: "object",
         properties: {
-          type: {
-            type: "string",
-            description: "Optional: 'project' or 'blog'.",
-          },
-          id: {
-            type: "string",
-            description: "Optional id if known.",
-          },
-          title: {
-            type: "string",
-            description: "Optional title if known.",
-          },
-          query: {
-            type: "string",
-            description:
-              "Best free-text title/name, e.g. 'Sykra Research'.",
-          },
+          type: { type: "string", description: "Optional: 'project' or 'blog'." },
+          id: { type: "string", description: "Optional id if known." },
+          title: { type: "string", description: "Optional title if known." },
+          query: { type: "string", description: "Best free-text title/name, e.g. 'Sykra Research'." },
         },
       },
     },
@@ -393,6 +377,8 @@ export const tools = [
 const handlers = {
   get_profile: () => getProfile(),
   get_education: () => getEducation(),
+  get_degree_projects: () => getDegreeProjects(),
+  get_certificates: (args) => getCertificates(args || {}),
   get_experience: () => getExperience(),
   get_skills: () => getSkills(),
   get_research: () => getResearch(),
@@ -405,10 +391,8 @@ const handlers = {
 
 export function callTool(name, args) {
   const handler = handlers[name];
-
   if (!handler) {
     return { error: `Unknown tool: ${name}` };
   }
-
   return handler(args);
 }

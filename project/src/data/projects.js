@@ -9,7 +9,7 @@ const projects = [
       "Sykra Research is an agentic Intelligent Research Management System (IRMS) built on a multi-stage LangGraph pipeline. It helps users explore topics and discover academic literature, grounding answers in papers and your own documents with full citations and references. Reports are generated live in a dedicated Research Paper Editor, where you can watch them take shape and edit them manually or with AI. An interactive knowledge graph shows how papers, concepts, and sources connect, while Sykra Studio offers a diagram canvas for charts and diagrams, editable by hand or with AI. Together they give researchers one workspace to discover, write, visualize, and present their work.",
     image: "/sykra0.png",
     images: ["/sykra0.png", "/sykra1.png", "/sykra2.png", "/sykra3.png", "/sykra4.png", "/sykra5.png", "/sykra6.png"],
-    technologies: ["Next.js", "TypeScript", "FastAPI", "LangGraph", "Neo4j", "ChromaDB", "Tiptap", "React Flow", "OpenAlex", "arXiv", "Europe PMC", "Groq"],
+    technologies: ["Next.js", "TypeScript", "Python", "FastAPI", "LangGraph", "LangChain", "Groq", "PostgreSQL", "Neo4j", "ChromaDB", "Sentence Transformers", "React Flow", "Tiptap", "Google OAuth 2.0", "Docker Compose"],
     features: [
       "Multi-stage LangGraph pipeline: planning, retrieval, ranking, synthesis, validation, citation",
       "Three research modes (Literature, Uploaded documents, Blend), each with normal or researched depth",

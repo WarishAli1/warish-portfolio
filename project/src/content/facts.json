@@ -16,17 +16,53 @@
     "interests_outside_tech": "Writing poems and songs, and singing.",
     "resume": "/resume.pdf"
   },
-
   "education": [
     {
       "period": "2023 — Present",
       "degree": "Bachelor in Computer Engineering",
       "institution": "Advanced College of Engineering and Management (ACEM)",
       "location": "Kathmandu, Nepal",
-      "status": "In progress, final year"
+      "status": "In progress, final year",
+      "expectedCompletion": "2027",
+      "projects": {
+        "minor": {
+          "title": "Exam Guide System",
+          "projectId": "AI-Powered Exam Guide System",
+          "status": "completed",
+          "summary": "An AI-powered study platform that analyzes uploaded notes, syllabus and past papers to rank important topics, generate quizzes, and answer questions grounded strictly in the user's own materials using RAG."
+        },
+        "major": {
+          "title": "Final-year major project",
+          "status": "in progress",
+          "summary": "The final-year major project is currently in progress and has not been published on the portfolio yet. Details will be added once it is ready."
+        }
+      }
     }
   ],
-
+  "certificates": [
+    {
+      "id": "aws-simulearn-machine-learning",
+      "name": "AWS SimuLearn — Machine Learning",
+      "issuer": "Amazon Web Services Training and Certification",
+      "issued": "2026-11-12",
+      "type": "Training Badge",
+      "description": "Demonstrates solution-building knowledge with AWS Machine Learning services and hands-on experience with AWS ML/AI services, earned by completing the SimuLearn Machine Learning learning plan.",
+      "skills": ["Machine Learning", "AWS ML/AI services", "Data Engineering", "Solutions Architect"],
+      "verifyUrl": "https://www.credly.com/badges/7aa67a46-2a50-4ade-8883-e1276d2832c1/public_url",
+      "image": "/certificates/aws-machine-learning.png"
+    },
+    {
+      "id": "aws-partner-containers-essentials",
+      "name": "AWS Partner: Containers Essentials",
+      "issuer": "Amazon Web Services Training and Certification",
+      "issued": "2026-11-13",
+      "type": "Foundational",
+      "description": "Foundational knowledge of container adoption trends and AWS container services (Amazon ECS, Amazon EKS, AWS Fargate), and how containers support AI/ML workloads across migration and modernization.",
+      "skills": ["Amazon ECS", "Amazon EKS", "AWS Fargate", "Containers", "AI/ML workloads"],
+      "verifyUrl": "https://www.credly.com/badges/0e2f361a-cf41-4f6c-b60a-bb8a8cc12052/public_url",
+      "image": "/certificates/aws-containers-essentials.png"
+    }
+  ],
   "experience": [
     {
       "role": "Full-Stack Java Developer",
@@ -35,7 +71,6 @@
       "technologies": ["Vue.js", "PrimeVue", "Java", "Spring Boot", "MySQL"]
     }
   ],
-
   "skills": {
     "core": [
       "Python", "PyTorch", "scikit-learn", "Large Language Models (LLM)",
@@ -49,18 +84,17 @@
       "PostgreSQL", "Tiptap", "React Flow", "Server-Sent Events (SSE)"
     ],
     "categories": {
-      "ai_ml": ["Python", "PyTorch", "scikit-learn", "LangGraph", "LangChain", "RAG", "Embeddings", "Sentence Transformers", "Hugging Face Transformers", "NLP", "OCR", "Large Language Models (LLM)", "Groq", "OpenAI API", "Computer Vision","Explainable AI (XAI)", "Video Anomaly Detection", "Multi-agent Systems"],
+      "ai_ml": ["Python", "PyTorch", "scikit-learn", "LangGraph", "LangChain", "RAG", "Embeddings", "Sentence Transformers", "Hugging Face Transformers", "NLP", "OCR", "Large Language Models (LLM)", "Groq", "OpenAI API", "Computer Vision", "Explainable AI (XAI)", "Video Anomaly Detection", "Multi-agent Systems"],
       "backend": ["FastAPI", "Spring Boot", "Java", "Node.js", "Python", "Docker", "Server-Sent Events (SSE)", "REST APIs"],
       "frontend": ["React", "Next.js", "TypeScript", "Vue.js", "Tailwind CSS", "PrimeVue", "Tiptap", "React Flow"],
       "data_infra": ["Neo4j", "ChromaDB", "MySQL", "PostgreSQL"]
     }
   },
-
   "research": {
     "title": "Evaluating the Effectiveness of Causal XAI for Suspicious Activity Detection in Smart Surveillance Systems",
     "summary": "A research-oriented framework that improves the transparency, reliability, and trustworthiness of suspicious activity detection in surveillance video. Conventional deep learning surveillance systems classify suspicious activity accurately but operate as black boxes, offering little insight into why a clip was flagged. This project integrates Explainable AI (XAI) and Causal AI with a deep learning detection model to address that gap.",
     "approach": "A custom dataset was built by extracting and manually selecting frames representing suspicious activities (fighting, robbery, stealing, explosion, shooting) alongside normal activity. A ResNet50-based CNN learns visual features and classifies the activity. XAI techniques highlight which visual regions and features drove the prediction, while causal analysis investigates the underlying cause-and-effect factors behind the detected activity — combining predictive modeling, visual explanation, and causal reasoning for more trustworthy interpretations.",
     "keywords": ["Causal AI", "Causal Inference", "Computer Vision", "Deep Learning", "Explainable AI (XAI)", "Interpretability", "ResNet50", "Suspicious Activity Detection"],
     "context": "Final-year BCT research, alongside applied engineering work in agentic systems and RAG (Sykra Research)."
-    }
+  }
 }

@@ -184,7 +184,7 @@ export default function About() {
               </p>
 
               <a
-                href="/resume.pdf"
+                href="/warish_ali_resume.pdf"
                 download="Warish_Ali_Resume.pdf"
                 className="mt-8 inline-flex items-center gap-2 px-6 py-3 border border-black dark:border-white rounded-md font-medium transition hover:-translate-y-0.5"
               >

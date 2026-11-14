@@ -4,10 +4,11 @@ import { FiMessageSquare, FiX, FiSend } from "react-icons/fi";
 import { useTheme } from "../context/ThemeContext";
 
 const SUGGESTIONS = [
-  "What projects has Warish built with RAG?",
+  "What certificates does Warish have?",
+  "What are his minor and major degree projects?",
   "What's Sykra Research?",
-  "What's his tech stack?",
 ];
+
 const ChatOpenContext = createContext(null);
 
 function renderInline(text) {
@@ -16,7 +17,6 @@ function renderInline(text) {
   let lastIndex = 0;
   let match;
   let key = 0;
-
   while ((match = pattern.exec(text)) !== null) {
     if (match.index > lastIndex) {
       nodes.push(text.slice(lastIndex, match.index));
@@ -75,28 +75,23 @@ export default function PortfolioChat({ hideLauncher = false }) {
   const send = async (text) => {
     const content = (text ?? input).trim();
     if (!content || loading) return;
-
     const next = [...messages, { role: "user", content }];
     setMessages(next);
     setInput("");
     setError("");
     setLoading(true);
-
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: next }),
       });
-
       const data = await res.json();
-
       if (!res.ok) {
         setError(data.error || "Something went wrong.");
         setLoading(false);
         return;
       }
-
       setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
     } catch {
       setError("Couldn't reach the server. Try again.");
@@ -124,7 +119,6 @@ export default function PortfolioChat({ hideLauncher = false }) {
         </motion.button>
       )}
 
-      {/* Panel */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -133,9 +127,7 @@ export default function PortfolioChat({ hideLauncher = false }) {
             exit={{ opacity: 0, y: 16, scale: 0.98 }}
             transition={{ duration: 0.2 }}
             className={`fixed bottom-24 right-6 z-40 flex h-[480px] w-[92vw] max-w-sm flex-col overflow-hidden rounded-lg border shadow-2xl ${
-              isDarkMode
-                ? "border-white/10 bg-[#0a0d12]"
-                : "border-black/10 bg-[#fbfbfa]"
+              isDarkMode ? "border-white/10 bg-[#0a0d12]" : "border-black/10 bg-[#fbfbfa]"
             }`}
           >
             <div
@@ -165,7 +157,7 @@ export default function PortfolioChat({ hideLauncher = false }) {
               {messages.length === 0 && (
                 <div className="space-y-3">
                   <p className={isDarkMode ? "text-gray-500" : "text-gray-500"}>
-                    Ask me about Warish's projects, skills, or background.
+                    Ask me about Warish's projects, skills, certificates, or background.
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {SUGGESTIONS.map((s) => (
@@ -184,7 +176,6 @@ export default function PortfolioChat({ hideLauncher = false }) {
                   </div>
                 </div>
               )}
-
               {messages.map((m, i) => (
                 <div key={i} className={m.role === "user" ? "text-right" : "text-left"}>
                   <span
@@ -205,18 +196,15 @@ export default function PortfolioChat({ hideLauncher = false }) {
                   </span>
                 </div>
               ))}
-
               {loading && (
                 <div className={isDarkMode ? "text-gray-500" : "text-gray-400"}>
                   <span className={isDarkMode ? "text-emerald-400/70" : "text-emerald-600/70"}>{"> "}</span>
                   thinking…
                 </div>
               )}
-
               {error && <div className="text-xs text-red-500">{error}</div>}
             </div>
 
-            {/* input */}
             <form
               onSubmit={(e) => {
                 e.preventDefault();
