@@ -35,6 +35,13 @@ const certificates = [
     image: "/aws-containers-essentials.png",
     link: "https://www.credly.com/badges/0e2f361a-cf41-4f6c-b60a-bb8a8cc12052/public_url",
   },
+  {
+    name: "AWS SimuLearn: Generative AI Architect",
+    issuer: "Amazon Web Services",
+    date: "Nov 16, 2026",
+    image: "/aws-ai-architect.png",
+    link: "https://www.credly.com/badges/e658c330-73b9-44b3-831d-faef4d7f6226/public_url",
+  },
 ];
 
 const findProject = (id) => projects.find((p) => p.id.trim() === id);

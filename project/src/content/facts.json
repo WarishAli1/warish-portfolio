@@ -61,6 +61,17 @@
       "skills": ["Amazon ECS", "Amazon EKS", "AWS Fargate", "Containers", "AI/ML workloads"],
       "verifyUrl": "https://www.credly.com/badges/0e2f361a-cf41-4f6c-b60a-bb8a8cc12052/public_url",
       "image": "/certificates/aws-containers-essentials.png"
+    },
+    {
+      "id": "aws-simulearn-generative-ai-architect",
+      "name": "AWS SimuLearn: Generative AI Architect",
+      "issuer": "Amazon Web Services Training and Certification",
+      "issued": "2026-11-16",
+      "type": "Training Badge",
+      "description": "Demonstrates solution-building knowledge with AWS generative AI services and hands-on experience designing generative AI workloads, earned by completing the SimuLearn Generative AI Architect learning plan.",
+      "skills": ["Generative AI", "Amazon Bedrock", "Amazon SageMaker AI", "AWS Lambda", "Solutions Architect"],
+      "verifyUrl": "https://www.credly.com/badges/e658c330-73b9-44b3-831d-faef4d7f6226/public_url",
+      "image": "/certificates/aws-ai-architect.png"
     }
   ],
   "experience": [
@@ -81,14 +92,90 @@
       "JavaScript", "TypeScript", "React", "Next.js", "Java", "Vue.js",
       "Spring Boot", "Tailwind CSS", "MySQL", "Docker", "Node.js",
       "Neo4j", "ChromaDB", "Streamlit", "OpenCV", "Plotly", "Playwright",
-      "PostgreSQL", "Tiptap", "React Flow", "Server-Sent Events (SSE)"
+      "PostgreSQL", "Tiptap", "React Flow", "Server-Sent Events (SSE)",
+      "Amazon SageMaker AI", "Amazon Bedrock", "AWS Lambda", "Amazon S3",
+      "Amazon EC2", "Amazon ECS", "Amazon EKS", "AWS Fargate"
     ],
     "categories": {
-      "ai_ml": ["Python", "PyTorch", "scikit-learn", "LangGraph", "LangChain", "RAG", "Embeddings", "Sentence Transformers", "Hugging Face Transformers", "NLP", "OCR", "Large Language Models (LLM)", "Groq", "OpenAI API", "Computer Vision", "Explainable AI (XAI)", "Video Anomaly Detection", "Multi-agent Systems"],
-      "backend": ["FastAPI", "Spring Boot", "Java", "Node.js", "Python", "Docker", "Server-Sent Events (SSE)", "REST APIs"],
+      "ai_ml": ["Python", "PyTorch", "scikit-learn", "LangGraph", "LangChain", "RAG", "Embeddings", "Sentence Transformers", "Hugging Face Transformers", "NLP", "OCR", "Large Language Models (LLM)", "Groq", "OpenAI API", "Computer Vision", "Explainable AI (XAI)", "Video Anomaly Detection", "Multi-agent Systems", "Amazon SageMaker AI", "Amazon Bedrock"],
+      "backend": ["FastAPI", "Spring Boot", "Java", "Node.js", "Python", "Docker", "Server-Sent Events (SSE)", "REST APIs", "AWS Lambda"],
       "frontend": ["React", "Next.js", "TypeScript", "Vue.js", "Tailwind CSS", "PrimeVue", "Tiptap", "React Flow"],
-      "data_infra": ["Neo4j", "ChromaDB", "MySQL", "PostgreSQL"]
-    }
+      "data_infra": ["Neo4j", "ChromaDB", "MySQL", "PostgreSQL", "Amazon S3"],
+      "cloud": ["Amazon SageMaker AI", "Amazon Bedrock", "AWS Lambda", "Amazon S3", "Amazon EC2", "Amazon ECS", "Amazon EKS", "AWS Fargate"]
+    },
+    "skill_sources": [
+      {
+        "skill": "AWS",
+        "aliases": ["Amazon Web Services", "AWS cloud"],
+        "level": "course",
+        "origin": "Three Amazon Web Services Training and Certification badges completed in November 2026, built around hands-on SimuLearn labs.",
+        "certificateIds": [
+          "aws-simulearn-machine-learning",
+          "aws-partner-containers-essentials",
+          "aws-simulearn-generative-ai-architect"
+        ],
+        "note": "No portfolio project is deployed on AWS yet. Sykra Research runs locally on Docker Compose, and the live demos are hosted on Vercel and Streamlit Cloud. AWS experience is lab-level, not production.",
+        "next": "Planned: move the Sykra FastAPI backend to ECS Fargate, which would turn this into project-level experience.",
+        "services": [
+          {
+            "name": "Amazon SageMaker AI",
+            "aliases": ["SageMaker", "SageMaker AI"],
+            "depth": "lab",
+            "usedFor": "Model training, experimentation, deployment and ML workflows.",
+            "certificateIds": ["aws-simulearn-machine-learning", "aws-simulearn-generative-ai-architect"]
+          },
+          {
+            "name": "Amazon Bedrock",
+            "aliases": ["Bedrock"],
+            "depth": "lab",
+            "usedFor": "Foundation models and building generative AI applications.",
+            "certificateIds": ["aws-simulearn-generative-ai-architect"]
+          },
+          {
+            "name": "AWS Lambda",
+            "aliases": ["Lambda", "serverless functions"],
+            "depth": "lab",
+            "usedFor": "Serverless execution and backend integration for AI applications.",
+            "certificateIds": ["aws-simulearn-machine-learning", "aws-simulearn-generative-ai-architect"]
+          },
+          {
+            "name": "Amazon S3",
+            "aliases": ["S3", "S3 bucket"],
+            "depth": "lab",
+            "usedFor": "Dataset storage, model artifacts and application file storage.",
+            "certificateIds": ["aws-simulearn-machine-learning", "aws-simulearn-generative-ai-architect"]
+          },
+          {
+            "name": "Amazon EC2",
+            "aliases": ["EC2"],
+            "depth": "lab",
+            "usedFor": "Cloud compute and hosting workloads.",
+            "certificateIds": ["aws-simulearn-machine-learning", "aws-simulearn-generative-ai-architect"]
+          },
+          {
+            "name": "Amazon ECS",
+            "aliases": ["ECS"],
+            "depth": "foundational",
+            "usedFor": "Container orchestration and deployment.",
+            "certificateIds": ["aws-partner-containers-essentials"]
+          },
+          {
+            "name": "Amazon EKS",
+            "aliases": ["EKS", "Kubernetes on AWS"],
+            "depth": "foundational",
+            "usedFor": "Managed Kubernetes, covered at foundational level in the containers badge.",
+            "certificateIds": ["aws-partner-containers-essentials"]
+          },
+          {
+            "name": "AWS Fargate",
+            "aliases": ["Fargate"],
+            "depth": "foundational",
+            "usedFor": "Serverless container runtime for ECS and EKS workloads.",
+            "certificateIds": ["aws-partner-containers-essentials"]
+          }
+        ]
+      }
+    ]
   },
   "research": {
     "title": "Evaluating the Effectiveness of Causal XAI for Suspicious Activity Detection in Smart Surveillance Systems",

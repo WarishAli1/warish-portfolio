@@ -65,6 +65,124 @@ function findItem(collection, args, textFn) {
   );
 }
 
+
+const LEVEL_LABELS = {
+  project: "used in a project",
+  work: "used at work",
+  course: "coursework / certification",
+  writing: "written about",
+  listed: "listed as a skill, no project evidence",
+  unknown: "not recorded",
+};
+
+function escapeRe(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function skillMatch(haystack, needle) {
+  const h = normalize(haystack);
+  const n = normalize(needle);
+  if (!h || !n) return false;
+  if (h === n) return true;
+  return new RegExp(`(^|[^a-z0-9])${escapeRe(n)}([^a-z0-9]|$)`).test(h);
+}
+
+function anyMatch(values, terms) {
+  return (values || []).some((v) => terms.some((t) => skillMatch(v, t)));
+}
+
+function findSkillRecord(term) {
+  const groups = portfolio.skills?.skill_sources || [];
+  for (const group of groups) {
+    for (const service of group.services || []) {
+      const names = [service.name, ...(service.aliases || [])];
+      if (names.some((n) => skillMatch(n, term) || skillMatch(term, n))) {
+        return { group, service };
+      }
+    }
+    const names = [group.skill, ...(group.aliases || [])];
+    if (names.some((n) => skillMatch(n, term) || skillMatch(term, n))) {
+      return { group, service: null };
+    }
+  }
+  return null;
+}
+
+function collectUsage(terms) {
+  const projects = [];
+  for (const p of portfolio.projects || []) {
+    const inStack = anyMatch(p.technologies, terms);
+    const inText = terms.some((t) => skillMatch(projectText(p), t));
+    if (inStack || inText) {
+      projects.push({
+        id: p.id,
+        title: p.title,
+        status: p.status,
+        evidence: inStack ? "listed in the tech stack" : "mentioned in the write-up",
+      });
+    }
+  }
+
+  const experience = (portfolio.experience || [])
+    .filter(
+      (e) =>
+        anyMatch(e.technologies, terms) ||
+        terms.some((t) => skillMatch(e.description, t))
+    )
+    .map((e) => ({ role: e.role, context: e.context }));
+
+  const certificates = (portfolio.certificates || [])
+    .filter(
+      (c) =>
+        anyMatch(c.skills, terms) ||
+        terms.some((t) => skillMatch(certificateText(c), t))
+    )
+    .map((c) => ({
+      id: c.id,
+      name: c.name,
+      issued: c.issued,
+      verifyUrl: c.verifyUrl,
+    }));
+
+  const posts = (portfolio.blog || [])
+    .filter((b) => terms.some((t) => skillMatch(blogText(b), t)))
+    .map((b) => ({ id: b.id, title: b.title }));
+
+  return { projects, experience, certificates, posts };
+}
+
+function listedInSkills(terms) {
+  const skills = portfolio.skills || {};
+  const tiers = ["core", "familiar"].filter((tier) =>
+    anyMatch(skills[tier], terms)
+  );
+  const categories = Object.entries(skills.categories || {})
+    .filter(([, values]) => anyMatch(values, terms))
+    .map(([key]) => key);
+  return {
+    tiers,
+    categories,
+    listed: tiers.length > 0 || categories.length > 0,
+  };
+}
+
+function certificatesByIds(ids) {
+  return (ids || [])
+    .map((id) =>
+      (portfolio.certificates || []).find(
+        (c) => normalize(c.id) === normalize(id)
+      )
+    )
+    .filter(Boolean)
+    .map((c) => ({
+      id: c.id,
+      name: c.name,
+      issued: c.issued,
+      verifyUrl: c.verifyUrl,
+    }));
+}
+
+
 export function getProfile() {
   const profile = { ...portfolio.profile };
   if (profile.birthDate) {
@@ -105,7 +223,76 @@ export function getExperience() {
 }
 
 export function getSkills() {
-  return portfolio.skills;
+  const { core, familiar, categories } = portfolio.skills || {};
+  return { core, familiar, categories };
+}
+
+export function getSkillSource(argsOrSkill) {
+  const args =
+    typeof argsOrSkill === "string" ? { skill: argsOrSkill } : argsOrSkill || {};
+  const raw = args.skill || args.query || args.name;
+  const term = normalize(raw);
+  if (!term) return null;
+
+  const record = findSkillRecord(term);
+  const group = record?.group || null;
+  const service = record?.service || null;
+  const name = service?.name || group?.skill || String(raw).trim();
+
+  const terms = [name, term];
+  if (service) terms.push(...(service.aliases || []));
+  if (group && !service) terms.push(...(group.aliases || []));
+  const uniqueTerms = [...new Set(terms)];
+
+  const usage = collectUsage(uniqueTerms);
+  const listing = listedInSkills(uniqueTerms);
+
+  const linked = certificatesByIds(
+    service?.certificateIds || group?.certificateIds
+  );
+  const certificates = [
+    ...new Map([...usage.certificates, ...linked].map((c) => [c.id, c])).values(),
+  ];
+
+  const level =
+    group?.level ||
+    (usage.projects.length
+      ? "project"
+      : usage.experience.length
+      ? "work"
+      : certificates.length
+      ? "course"
+      : usage.posts.length
+      ? "writing"
+      : listing.listed
+      ? "listed"
+      : "unknown");
+
+  return {
+    skill: name,
+    parent: service ? group.skill : null,
+    found:
+      Boolean(record) ||
+      usage.projects.length > 0 ||
+      usage.experience.length > 0 ||
+      certificates.length > 0 ||
+      usage.posts.length > 0 ||
+      listing.listed,
+    level,
+    levelLabel: LEVEL_LABELS[level] || LEVEL_LABELS.unknown,
+    hasProject: usage.projects.length > 0,
+    listedIn: listing.tiers,
+    categories: listing.categories,
+    origin: group?.origin || null,
+    usedFor: service?.usedFor || null,
+    depth: service?.depth || null,
+    note: group?.note || null,
+    next: group?.next || null,
+    projects: usage.projects,
+    experience: usage.experience,
+    certificates,
+    posts: usage.posts,
+  };
 }
 
 export function getResearch() {
@@ -113,7 +300,7 @@ export function getResearch() {
 }
 
 export function getProjects({ category, query } = {}) {
-  let results = portfolio.projects;
+  let results = portfolio.projects || [];
   if (category) {
     results = results.filter((p) => p.category === category);
   }
@@ -135,13 +322,12 @@ export function getProjects({ category, query } = {}) {
 }
 
 export function getProject(argsOrId) {
-  const args =
-    typeof argsOrId === "string" ? { id: argsOrId } : argsOrId || {};
-  return findItem(portfolio.projects, args, projectText);
+  const args = typeof argsOrId === "string" ? { id: argsOrId } : argsOrId || {};
+  return findItem(portfolio.projects || [], args, projectText);
 }
 
 export function getBlogPosts({ query } = {}) {
-  let posts = portfolio.blog;
+  let posts = portfolio.blog || [];
   if (query) {
     const q = normalize(query);
     posts = posts.filter((b) => normalize(blogText(b)).includes(q));
@@ -150,17 +336,16 @@ export function getBlogPosts({ query } = {}) {
 }
 
 export function getBlogPost(argsOrId) {
-  const args =
-    typeof argsOrId === "string" ? { id: argsOrId } : argsOrId || {};
-  return findItem(portfolio.blog, args, blogText);
+  const args = typeof argsOrId === "string" ? { id: argsOrId } : argsOrId || {};
+  return findItem(portfolio.blog || [], args, blogText);
 }
 
 export function getDetails({ type, id, title, query } = {}) {
   const term = normalize(id || title || query);
   if (!term) return null;
+
   const wanted = normalize(type).replace(/[^a-z]/g, "");
-  const wantsProject =
-    !wanted || wanted === "project" || wanted === "projects";
+  const wantsProject = !wanted || wanted === "project" || wanted === "projects";
   const wantsBlog =
     !wanted ||
     wanted === "blog" ||
@@ -180,23 +365,17 @@ export function getDetails({ type, id, title, query } = {}) {
     if (postExact && !projectExact) {
       return { resultType: "blog", ...post };
     }
-    if (projectExact && !postExact) {
-      return { resultType: "project", ...project };
-    }
     return { resultType: "project", ...project };
   }
-  if (project) {
-    return { resultType: "project", ...project };
-  }
-  if (post) {
-    return { resultType: "blog", ...post };
-  }
+  if (project) return { resultType: "project", ...project };
+  if (post) return { resultType: "blog", ...post };
   return null;
 }
 
 export function resolveMentionedEntity(text) {
   const haystack = normalize(text);
   if (!haystack) return null;
+
   const candidates = [
     ...(portfolio.projects || []).map((p) => ({
       type: "project",
@@ -216,6 +395,7 @@ export function resolveMentionedEntity(text) {
   if (!match) return null;
   return getDetails({ type: match.type, title: match.title });
 }
+
 
 export const tools = [
   {
@@ -275,8 +455,27 @@ export const tools = [
     function: {
       name: "get_skills",
       description:
-        "Get Warish's technical skills, grouped by core vs. familiar and by category (ai_ml, backend, frontend, data_infra).",
+        "Get Warish's technical skills, grouped by core vs. familiar and by category (ai_ml, backend, frontend, data_infra, cloud). For where a skill came from or whether he built anything with it, use get_skill_source instead.",
       parameters: { type: "object", properties: {} },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_skill_source",
+      description:
+        "Explain where one of Warish's skills came from and whether he has built anything with it. Works for ANY skill, not just AWS. Returns the level (project / work / course / writing / listed), the projects and work experience using it, the certificates that taught it, and any blog posts about it. Use for 'where did he learn X', 'did he use X in a project', 'which project uses X', or 'is his AWS experience hands-on or production'.",
+      parameters: {
+        type: "object",
+        properties: {
+          skill: {
+            type: "string",
+            description:
+              "Skill or service name, e.g. 'Python', 'Java', 'AWS', 'Bedrock', 'SageMaker', 'LangGraph', 'Docker'.",
+          },
+        },
+        required: ["skill"],
+      },
     },
   },
   {
@@ -381,6 +580,7 @@ const handlers = {
   get_certificates: (args) => getCertificates(args || {}),
   get_experience: () => getExperience(),
   get_skills: () => getSkills(),
+  get_skill_source: (args) => getSkillSource(args || {}),
   get_research: () => getResearch(),
   get_projects: (args) => getProjects(args || {}),
   get_project: (args) => getProject(args || {}),
